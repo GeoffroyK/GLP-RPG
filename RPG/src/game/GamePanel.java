@@ -23,8 +23,8 @@ public class GamePanel extends JPanel implements Runnable {
 	private boolean running = false;
 	
 	public GamePanel(int width, int height) {
-		this.width = width;
-		this.height= height;
+		GamePanel.width = width;
+		GamePanel.height= height;
 		setPreferredSize(new Dimension(width,height));
 		setFocusable(true); // Allows JPanel to have inputs 
 		requestFocus();
