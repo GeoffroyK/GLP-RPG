@@ -5,11 +5,13 @@ import org.lwjgl.opengl.GL;
 
 public class Frame {
 	
-	private int height = 750;
-	private int width = 825 ;
-	private String title = "pute";
+	private int height = 720;
+	private int width = 1280 ;
+	private String title = "RPG";
 	private long window ;
 	private float x = 0 ;
+	private float y = 0 ;
+	int d = 0 ;
 	
 	private boolean running = false ;
 	
@@ -64,14 +66,35 @@ public class Frame {
 		glClear(GL_COLOR_BUFFER_BIT);
 		
 		if(glfwGetKey(window, GLFW_KEY_W) == GL_TRUE) {
+			y += 0.001f ;
+			d = 1 ;
+		}
+		if(glfwGetKey(window, GLFW_KEY_D)== GL_TRUE) {
 			x += 0.001f ;
+			d = 2 ;
+		}
+		if(glfwGetKey(window, GLFW_KEY_A) == GL_TRUE) {
+			x -= 0.001f ;
+			d = 3 ;
+		}
+		if(glfwGetKey(window, GLFW_KEY_S) == GL_TRUE) {
+			y -= 0.001f ;
+			d = 4 ;
+		}
+		if(glfwGetKey(window, GLFW_KEY_RIGHT) == GL_TRUE) {
+			glBegin(GL_QUADS);
+			glVertex2f(-0.01f, 0.01f);
+			glVertex2f(0.002f, 0.01f);
+			glVertex2f(0.002f, -0.01f);
+			glVertex2f(-0.01f, -0.01f);
+			glEnd();	
 		}
 		
 		glBegin(GL_QUADS);
-		glVertex2f(-0.5f+ x, 0.5f);
-		glVertex2f(0.5f+ x, 0.5f);
-		glVertex2f(0.5f+ x, -0.5f);
-		glVertex2f(-0.5f + x, -0.5f);
+		glVertex2f(-0.01f+ x, 0.01f + y);
+		glVertex2f(0.002f+ x, 0.01f + y);
+		glVertex2f(0.002f+ x, -0.01f + y);
+		glVertex2f(-0.01f + x, -0.01f +y);
 		glEnd();
 	}
 	
