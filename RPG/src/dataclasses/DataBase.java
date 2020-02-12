@@ -1,4 +1,4 @@
-package game;
+package dataclasses;
 
 import java.util.HashMap;
 
