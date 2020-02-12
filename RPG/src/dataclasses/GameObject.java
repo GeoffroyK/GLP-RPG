@@ -1,4 +1,4 @@
-package game;
+package dataclasses;
 
 public abstract class GameObject{
 

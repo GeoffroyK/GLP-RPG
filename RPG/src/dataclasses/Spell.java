@@ -1,4 +1,4 @@
-package game;
+package dataclasses;
 
 public class Spell extends GameObject{
 	
