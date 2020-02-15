@@ -1,23 +1,49 @@
 package dataclasses;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
+
+import loot.Consumable;
+import loot.Equipment;
 
 public class DataBase {
 	
 	private HashMap<String,Equipment>equipments;
 	private HashMap<String,Consumable>consumables;
 	private HashMap<String,Character>characters;
-	private HashMap<String,Tile>tiles;
-	private HashMap<String,Prop>props;
+	//private HashMap<String,Tile>tiles;
+	//private HashMap<String,Prop>props;
 	
 	private String[]csvGameObjectPaths = {"csvConsumable","csvEquipment","csvSpell","csvTile","csvProp","csvCharacter"}	;
 	
 	public DataBase() {
-		loadCsv();
 	}
 
-	private void loadCsv() {
+	private void loadCsvConsumable() throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(csvGameObjectPaths[0]));
+		br.readLine() ;
 		
+		String line ;
+		String []lootFields ;
+		int []statFields =  new int[3];
+		
+		Consumable newConsumable ;
+		
+		while((line = br.readLine()) != null) {
+			lootFields = line.split(";");
+			
+			double price = Double.parseDouble(lootFields[1]) ;
+			statFields[0] = Integer.parseInt(lootFields[4]);
+			statFields[1] = Integer.parseInt(lootFields[5]);
+			statFields[2] = Integer.parseInt(lootFields[6]);
+			
+			newConsumable = new Consumable(lootFields[0], price, lootFields[2], lootFields[3], statFields[0], statFields[1], statFields[2]);
+			
+			consumables.put(newConsumable.getId(), newConsumable);
+		}
 		
 	}
 

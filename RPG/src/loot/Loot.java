@@ -2,17 +2,22 @@ package loot;
 
 public abstract class Loot {
 	private String id;
-	private String price;
+	private double price;
 	private String textBox;
 	private String spritePath;
 	
-	public abstract Loot getById(String id);
+	public Loot(String id, double price, String textBox, String spritePath) {
+		this.id = id ;
+		this.price = price ;
+		this.textBox = textBox ;
+		this.spritePath = spritePath ;
+	}
 	
 	public String getId() {
 		return id;
 	}
 	
-	public String getPrice() {
+	public double getPrice() {
 		return price;
 	}
 	

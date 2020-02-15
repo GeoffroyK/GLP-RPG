@@ -6,8 +6,10 @@ public abstract class GameObject{
 	private String spritePath;
 	private boolean priority;
 	
-	public GameObject() {
-		
+	public GameObject(String id, String spritePath, boolean priority) {
+		this.id = id ;
+		this.spritePath = spritePath ;
+		this.priority = priority ;
 	}
 	
 	public String getId() {
