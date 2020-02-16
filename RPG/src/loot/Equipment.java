@@ -11,8 +11,8 @@ public class Equipment extends Loot {
 	private int intelligence;
 	private int critical;
 	
-	public Equipment(String id, double price, String textBox, String spritePath, int hpMax, int mpMax, int armor, int dodge, int strengh, int dexterity, int intelligence, int critical) {
-		super(id, price, textBox, spritePath) ;
+	public Equipment(String id, double price, String name, String textBox, String spritePath, int hpMax, int mpMax, int armor, int dodge, int strengh, int dexterity, int intelligence, int critical) {
+		super(id, price, name, textBox, spritePath) ;
 		this.hpMax = hpMax ;
 		this.mpMax = mpMax ;
 		this.armor = armor ;

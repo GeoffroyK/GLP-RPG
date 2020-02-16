@@ -28,12 +28,12 @@ public class DataBase {
 		}
 	}
 	
-	public static void main() {
+	public static void main(String[] args) {
 		new DataBase() ;
 	}
 
 	private void loadCsvConsumable() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader("C:/Users/Vortex/Documents/testConsumable.csv"));
+		BufferedReader br = new BufferedReader(new FileReader("C:/Users/Vortex/Documents/testO.csv"));
 		br.readLine() ;
 		
 		String line ;
@@ -46,17 +46,16 @@ public class DataBase {
 			lootFields = line.split(";");
 			
 			double price = Double.parseDouble(lootFields[1]) ;
-			statFields[0] = Integer.parseInt(lootFields[4]);
-			statFields[1] = Integer.parseInt(lootFields[5]);
-			statFields[2] = Integer.parseInt(lootFields[6]);
+			statFields[0] = Integer.parseInt(lootFields[5]);
+			statFields[1] = Integer.parseInt(lootFields[6]);
+			statFields[2] = Integer.parseInt(lootFields[7]);
 			
-			newConsumable = new Consumable(lootFields[0], price, lootFields[2], lootFields[3], statFields[0], statFields[1], statFields[2]);
-			
+			newConsumable = new Consumable(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2]);
+			System.out.println(newConsumable);
 			consumables.put(newConsumable.getId(), newConsumable);
 		}
 		
 		br.close();
-		
 	}
 
 	public HashMap<String, Equipment> getEquipments() {
