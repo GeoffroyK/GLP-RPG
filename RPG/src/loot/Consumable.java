@@ -12,4 +12,8 @@ public class Consumable extends Loot {
 		this.mp = mp;
 		this.vit = vit ;
 	}
+	
+	public String toString() {
+		System.out.println();
+	}
 }

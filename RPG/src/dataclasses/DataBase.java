@@ -20,10 +20,20 @@ public class DataBase {
 	private String[]csvGameObjectPaths = {"csvConsumable","csvEquipment","csvSpell","csvTile","csvProp","csvCharacter"}	;
 	
 	public DataBase() {
+		try {
+			loadCsvConsumable();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void main() {
+		new DataBase() ;
 	}
 
 	private void loadCsvConsumable() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(csvGameObjectPaths[0]));
+		BufferedReader br = new BufferedReader(new FileReader("C:/Users/Vortex/Documents/testConsumable.csv"));
 		br.readLine() ;
 		
 		String line ;
@@ -44,6 +54,8 @@ public class DataBase {
 			
 			consumables.put(newConsumable.getId(), newConsumable);
 		}
+		
+		br.close();
 		
 	}
 
