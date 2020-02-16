@@ -12,9 +12,9 @@ public class Inventory {
 	private Equipment pants ;
 	private Equipment arms ;
 	private Equipment weapon ;
-	private double size ;
+	private int size ;
 	
-	public Inventory(double size) {
+	public Inventory(int size) {
 		drops = new ArrayList<Loot>();
 		this.size = size ;
 	}

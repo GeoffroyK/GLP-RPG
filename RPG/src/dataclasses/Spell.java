@@ -14,7 +14,7 @@ public class Spell extends GameObject{
 	private int cooldown;
 	
 	public Spell() {
-		super();
+	  	super("dd", "d");
 		
 	}
 	public String getName() {

@@ -20,8 +20,11 @@ public class DataBase {
 	private String[]csvGameObjectPaths = {"csvConsumable","csvEquipment","csvSpell","csvTile","csvProp","csvCharacter"}	;
 	
 	public DataBase() {
+		equipments = new HashMap<String,Equipment>();
+		consumables = new HashMap<String,Consumable>();
 		try {
 			loadCsvConsumable();
+			loadCSVEquipments();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -38,7 +41,7 @@ public class DataBase {
 		
 		String line ;
 		String []lootFields ;
-		int []statFields =  new int[3];
+		int []statFields =  new int[4];
 		
 		Consumable newConsumable ;
 		
@@ -49,13 +52,39 @@ public class DataBase {
 			statFields[0] = Integer.parseInt(lootFields[5]);
 			statFields[1] = Integer.parseInt(lootFields[6]);
 			statFields[2] = Integer.parseInt(lootFields[7]);
+			statFields[3] = Integer.parseInt(lootFields[8]);
 			
-			newConsumable = new Consumable(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2]);
+			newConsumable = new Consumable(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2], statFields[3]);
 			System.out.println(newConsumable);
 			consumables.put(newConsumable.getId(), newConsumable);
 		}
 		
 		br.close();
+	}
+	
+	private void loadCSVEquipments() throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader("C:/Users/Vortex/Documents/TESTEQ.csv"));
+		br.readLine() ;
+		
+		String line ;
+		String []lootFields ;
+		int []statFields = new int[9] ;
+		
+		Equipment newEquipment ;
+		
+		while((line = br.readLine()) != null) {
+			lootFields = line.split(";") ;
+			
+			double price = Double.parseDouble(lootFields[1]) ;
+			
+			for(int i = 5 ; i < lootFields.length ; i++) {
+				statFields[i - 5] = Integer.parseInt(lootFields[i]);
+			}
+			
+			newEquipment = new Equipment(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2], statFields[3], statFields[4], statFields[5], statFields[6], statFields[7], statFields[9]);
+			System.out.println(newEquipment);
+			equipments.put(newEquipment.getId(), newEquipment) ;
+		}
 	}
 
 	public HashMap<String, Equipment> getEquipments() {
@@ -82,7 +111,7 @@ public class DataBase {
 		this.characters = characters;
 	}
 
-	public HashMap<String, Tile> getTiles() {
+/*-	public HashMap<String, Tile> getTiles() {
 		return tiles;
 	}
 
@@ -104,6 +133,6 @@ public class DataBase {
 
 	public void setCsvGameObjectPaths(String[] csvGameObjectPaths) {
 		this.csvGameObjectPaths = csvGameObjectPaths;
-	}
+	}*/
 	
 }

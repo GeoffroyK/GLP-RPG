@@ -19,7 +19,7 @@ public abstract class Character extends GameObject {
 	private int dodgeChange ;
 
 	public Character(String id, String spritePath, boolean priority) {
-		super(id, spritePath, priority);
+		super(id, spritePath);
 	}
 	
 

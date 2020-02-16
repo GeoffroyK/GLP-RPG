@@ -1,34 +1,29 @@
 package loot;
 
-public abstract class Loot {
-	private String id;
+import dataclasses.GameObject;
+import game.GameLauncher;
+
+public abstract class Loot extends GameObject {
+	
 	private double price;
 	private String name ;
 	private String textBox;
-	private String spritePath;
+	private int size ;
 	
-	public Loot(String id, double price, String name, String textBox, String spritePath) {
-		this.id = id ;
+	public Loot(String id, double price, String name, String textBox, String spritePath, int size) {
+		super(id, spritePath);
 		this.price = price ;
 		this.name = name ;
 		this.textBox = textBox ;
-		this.spritePath = spritePath ;
+		this.size = size ;
 	}
 	
 	public String toString() {
-		return "id : " + id + "nom : " + name + "\ntextBox : " + textBox + "\nprice : " + price + " spritePath : " + spritePath ;
+		return super.toString() + " nom : " + name + "\ntextBox : " + textBox + "\nprice : " + price ;
 	}
-	
-	public String getId() {
-		return id;
-	}
-	
+
 	public double getPrice() {
 		return price;
-	}
-	
-	public String getSpritePath() {
-		return spritePath;
 	}
 	
 	public String getTextBox() {

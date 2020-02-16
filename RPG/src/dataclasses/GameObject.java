@@ -4,12 +4,14 @@ public abstract class GameObject{
 
 	private String id;
 	private String spritePath;
-	private boolean priority;
 	
-	public GameObject(String id, String spritePath, boolean priority) {
+	public GameObject(String id, String spritePath) {
 		this.id = id ;
 		this.spritePath = spritePath ;
-		this.priority = priority ;
+	}
+	
+	public String toString() {
+		return "id : " + id + " spritePath : " + spritePath ;
 	}
 	
 	public String getId() {
@@ -24,12 +26,12 @@ public abstract class GameObject{
 	public void setSpritePath(String spritePath) {
 		this.spritePath = spritePath;
 	}
-	public boolean isPriority() {
+/*	public boolean isPriority() {
 		return priority;
 	}
 	public void setPriority(boolean priority) {
 		this.priority = priority;
-	}
+	}*/
 	
 	
 }
