@@ -1,4 +1,6 @@
-package dataclasses;
+package playable;
+
+import dataclasses.GameObject;
 
 public class Spell extends GameObject{
 	
@@ -11,8 +13,7 @@ public class Spell extends GameObject{
 	private float statScaling;
 	private int range;
 	private int duration;
-	private int cooldown;
-	
+	private int cooldown;	
 	public Spell() {
 		super();
 		
