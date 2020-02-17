@@ -21,13 +21,14 @@ public class DataBase {
 	private String[]csvGameObjectPaths = {"csvConsumable","csvEquipment","csvSpell","csvTile","csvProp","csvCharacter"}	;
 	
 	public DataBase() {
+		spells = new HashMap<String,Spell>();
 		try {
 			loadCsvSpell();
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		//System.out.println(this);
+		System.out.println(this);
 	}
 
 	public void loadCsvSpell() throws IOException {
