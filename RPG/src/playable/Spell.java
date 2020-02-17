@@ -7,17 +7,34 @@ public class Spell extends GameObject{
 	private String name;
 	private String effect;
 	private String type;
-	private double damage;
-	private double manaUsage;
-	private float lvlScaling;
-	private float statScaling;
+	private int damage;
+	private int manaUsage;
 	private int range;
 	private int duration;
 	private int cooldown;	
-	public Spell() {
-		super();
+	private float lvlScaling;
+	private float statScaling;
+
+	public Spell(String id, String name, String effect, String type, int dmg, int mana, int range, int duration, int cd, float lvlS, float statS) {
+		super(id);
+		this.name = name;
+		this.effect = effect;
+		this.type = type;
+		damage = dmg;
+		manaUsage = mana;
+		this.range = range;
+		this.duration = duration;
+		cooldown = cd;
+		lvlScaling = lvlS;
+		statScaling  = statS;
 		
 	}
+	
+	public String toString() {
+		return "-----------------------------------------------\n" + super.toString() + "\nname = " + name + "\neffect = " + effect + "\ntype = " + type + "\ndamage = " + damage + "\nmanaUsage = " + manaUsage + "\nrange = " + range + "\nduration = " + duration + "\ncooldown = " + cooldown + "\nlvlScaling = " + lvlScaling + "\nstatScaling = " + statScaling + "\n-----------------------------------------------\n";
+		
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -39,13 +56,13 @@ public class Spell extends GameObject{
 	public double getDamage() {
 		return damage;
 	}
-	public void setDamage(double damage) {
+	public void setDamage(int damage) {
 		this.damage = damage;
 	}
 	public double getManaUsage() {
 		return manaUsage;
 	}
-	public void setManaUsage(double manaUsage) {
+	public void setManaUsage(int manaUsage) {
 		this.manaUsage = manaUsage;
 	}
 	public float getLvlScaling() {
