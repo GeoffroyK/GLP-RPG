@@ -55,7 +55,7 @@ public class DataBase {
 			statFields[3] = Integer.parseInt(lootFields[8]);
 			
 			newConsumable = new Consumable(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2], statFields[3]);
-			System.out.println(newConsumable);
+			//System.out.println(newConsumable);
 			consumables.put(newConsumable.getId(), newConsumable);
 		}
 		
@@ -82,7 +82,7 @@ public class DataBase {
 			}
 			
 			newEquipment = new Equipment(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2], statFields[3], statFields[4], statFields[5], statFields[6], statFields[7], statFields[9]);
-			System.out.println(newEquipment);
+			//System.out.println(newEquipment);
 			equipments.put(newEquipment.getId(), newEquipment) ;
 		}
 	}
