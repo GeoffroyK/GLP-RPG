@@ -10,8 +10,9 @@ public class Equipment extends Loot {
 	private int dexterity;
 	private int intelligence;
 	private int critical;
+	private String type ;
 	
-	public Equipment(String id, double price, String name, String textBox, String spritePath, int hpMax, int mpMax, int armor, int dodge, int strengh, int dexterity, int intelligence, int critical, int size) {
+	public Equipment(String id, double price, String name, String textBox, String spritePath, int hpMax, int mpMax, int armor, int dodge, int strengh, int dexterity, int intelligence, int critical, int size, String type) {
 		super(id, price, name, textBox, spritePath, size) ;
 		this.hpMax = hpMax ;
 		this.mpMax = mpMax ;
@@ -21,6 +22,7 @@ public class Equipment extends Loot {
 		this.dexterity = dexterity ;
 		this.intelligence = intelligence ;
 		this.critical = critical ;
+		this.type = type ;
 	}
 	
 	public String toString(){
