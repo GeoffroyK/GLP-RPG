@@ -1,5 +1,7 @@
 package playable;
 
+import spell.Spell;
+
 public class Player extends Character {
 	private int experience;
 	private Spell[] spells;

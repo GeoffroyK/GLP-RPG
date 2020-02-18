@@ -6,17 +6,16 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-
+import playable.Character;
 import playable.Monster;
 import playable.Player;
-import playable.Spell;
+import spell.Spell;
 
 public class DataBase {
 
 //	private HashMap<String,Equipment>equipments;
 //	private HashMap<String,Consumable>consumables;
-	private HashMap<String, Player> players;
-	private HashMap<String, Monster> monsters;
+	private HashMap<String, Character> characters;
 //	private HashMap<String,Tile>tiles;
 //	private HashMap<String,Prop>props;
 	private HashMap<String, Spell> spells;
@@ -26,8 +25,7 @@ public class DataBase {
 
 	public DataBase() {
 		spells = new HashMap<String, Spell>();
-		players = new HashMap<String, Player>();
-		monsters = new HashMap<String, Monster>();
+		characters = new HashMap<String, Character>();
 		try {
 			loadCsvSpell();
 			loadCsvPlayer();
@@ -85,7 +83,7 @@ public class DataBase {
 					playerIntCSV[3], playerIntCSV[4], playerIntCSV[5], playerIntCSV[6], playerIntCSV[7],
 					playerIntCSV[8], playerIntCSV[9], playerIntCSV[10], playerIntCSV[11], playerIntCSV[12],
 					playerIntCSV[13]);
-			players.put(tmp.getId(), tmp);
+			characters.put(tmp.getId(), tmp);
 		}
 
 		br.close();
@@ -106,11 +104,11 @@ public class DataBase {
 			for (int i = 0; i < 14; i++) {
 				monsterIntCSV[i] = Integer.parseInt(monsterFields[i + 2]);
 			}
-			Monster tmp = new Monster(monsterFields[0], monsterFields[1], monsterIntCSV[0], monsterIntCSV[1], monsterIntCSV[2],
-					monsterIntCSV[3], monsterIntCSV[4], monsterIntCSV[5], monsterIntCSV[6], monsterIntCSV[7],
-					monsterIntCSV[8], monsterIntCSV[9], monsterIntCSV[10], monsterIntCSV[11], monsterIntCSV[12],
-					monsterIntCSV[13],monsterIntCSV[14]);
-			monsters.put(tmp.getId(), tmp);
+			Monster tmp = new Monster(monsterFields[0], monsterFields[1], monsterIntCSV[0], monsterIntCSV[1],
+					monsterIntCSV[2], monsterIntCSV[3], monsterIntCSV[4], monsterIntCSV[5], monsterIntCSV[6],
+					monsterIntCSV[7], monsterIntCSV[8], monsterIntCSV[9], monsterIntCSV[10], monsterIntCSV[11],
+					monsterIntCSV[12], monsterIntCSV[13], monsterIntCSV[14]);
+			characters.put(tmp.getId(), tmp);
 		}
 
 		br.close();
@@ -129,69 +127,16 @@ public class DataBase {
 		}
 		res += "--------------------------SPELL END-----------------------------\n";
 
-		res += "--------------------------PLAYER INIT---------------------------\n";
-		Collection<Player> valsPlayer = players.values();
-		Iterator<Player> itPlayer = valsPlayer.iterator();
-		while (itPlayer.hasNext()) {
-			Player player = itPlayer.next();
-			res += player.toString();
+		Collection<Character> valsCharacter = characters.values();
+		Iterator<Character> itCharacter = valsCharacter.iterator();
+		res += "--------------------------Character INIT----------------------------\n";
+		while (itCharacter.hasNext()) {
+			Character character = itCharacter.next();
+			res += character.toString();
 		}
-		res += "--------------------------PLAYER END-----------------------------\n";
-
-		res += "--------------------------MONSTER INIT---------------------------\n";
-		Collection<Monster> valsMonster = monsters.values();
-		Iterator<Monster> itMonster = valsMonster.iterator();
-		while (itMonster.hasNext()) {
-			Monster monster = itMonster.next();
-			res += monster.toString();
-		}
-		res += "--------------------------MONSTER END-----------------------------\n";
+		res += "--------------------------Character END-----------------------------\n";
 		return res;
 	}
-
-	public static void main(String[] args) {
-		new DataBase();
-	}
-
-//	public HashMap<String, Equipment> getEquipments() {
-//		return equipments;
-//	}
-//
-//	public void setEquipments(HashMap<String, Equipment> equipments) {
-//		this.equipments = equipments;
-//	}
-//
-//	public HashMap<String, Consumable> getConsumables() {
-//		return consumables;
-//	}
-//
-//	public void setConsumables(HashMap<String, Consumable> consumables) {
-//		this.consumables = consumables;
-//	}
-//
-//	public HashMap<String, Character> getCharacters() {
-//		return characters;
-//	}
-//
-//	public void setCharacters(HashMap<String, Character> characters) {
-//		this.characters = characters;
-//	}
-//
-//	public HashMap<String, Tile> getTiles() {
-//		return tiles;
-//	}
-//
-//	public void setTiles(HashMap<String, Tile> tiles) {
-//		this.tiles = tiles;
-//	}
-//
-//	public HashMap<String, Prop> getProps() {
-//		return props;
-//	}
-//
-//	public void setProps(HashMap<String, Prop> props) {
-//		this.props = props;
-//	}
 
 	public String[] getCsvGameObjectPaths() {
 		return csvGameObjectPaths;
@@ -199,6 +144,10 @@ public class DataBase {
 
 	public void setCsvGameObjectPaths(String[] csvGameObjectPaths) {
 		this.csvGameObjectPaths = csvGameObjectPaths;
+	}
+
+	public static void main(String[] args) {
+		new DataBase();
 	}
 
 }

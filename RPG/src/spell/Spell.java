@@ -1,4 +1,4 @@
-package playable;
+package spell;
 
 import dataclasses.GameObject;
 
