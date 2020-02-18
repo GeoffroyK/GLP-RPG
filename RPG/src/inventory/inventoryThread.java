@@ -3,7 +3,6 @@ package inventory;
 import java.util.ArrayList;
 
 import loot.*;
-import playable.Character;
 
 public class inventoryThread {
 	
@@ -28,7 +27,7 @@ public class inventoryThread {
 		
 	}*/
 	
-	public void equip(Equipment e, Character c) {
+	public void equip(Equipment e) {
 		
 		
 	}
