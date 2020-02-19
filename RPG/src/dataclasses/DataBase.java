@@ -24,16 +24,12 @@ public class DataBase {
 //	private HashMap<String,Tile>tiles;
 //	private HashMap<String,Prop>props;
 	private HashMap<String, Spell> spells;
+	private HashMap<String,Equipment>equipments;
+	private HashMap<String,Consumable>consumables;
 
 	private String[] csvGameObjectPaths = { "csvConsumable", "csvEquipment", ".\\CSV\\Spell.csv", "csvTile", "csvProp",
 			".\\CSV\\Player.csv", ".\\CSV\\Monster.csv" };
 
-
-	
-	private HashMap<String,Equipment>equipments;
-	private HashMap<String,Consumable>consumables;
-	//private HashMap<String,Tile>tiles;
-	//private HashMap<String,Prop>props;
 	
 	public DataBase() {
 
