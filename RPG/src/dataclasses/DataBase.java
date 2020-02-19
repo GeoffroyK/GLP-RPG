@@ -1,5 +1,9 @@
 package dataclasses;
 
+import java.awt.Canvas;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 
 import java.io.FileReader;
@@ -14,33 +18,33 @@ import playable.Character;
 import playable.Monster;
 import playable.Player;
 import spell.Spell;
-
+import spell.SpellInput;
+import spell.SpellTreatment;
 import loot.Consumable;
 import loot.Equipment;
+import loot.Loot;
 
-public class DataBase {
+public class DataBase extends Canvas {
 
+	private static final long serialVersionUID = 1L;
 	private HashMap<String, Character> characters;
-//	private HashMap<String,Tile>tiles;
-//	private HashMap<String,Prop>props;
 	private HashMap<String, Spell> spells;
+	private HashMap<String,Loot>loots;
 
-	private String[] csvGameObjectPaths = { "csvConsumable", "csvEquipment", ".\\CSV\\Spell.csv", "csvTile", "csvProp",
-			".\\CSV\\Player.csv", ".\\CSV\\Monster.csv" };
-
-
-	
-	private HashMap<String,Equipment>equipments;
-	private HashMap<String,Consumable>consumables;
-	//private HashMap<String,Tile>tiles;
-	//private HashMap<String,Prop>props;
+	private String[] csvGameObjectPaths = { "csvConsumable",
+			"csvEquipment",
+			".\\CSV\\Spell.csv",
+			"csvTile",
+			"csvProp",
+			".\\CSV\\Player.csv",
+			".\\CSV\\Monster.csv" };
+	private boolean running = false;
 	
 	public DataBase() {
 
 		spells = new HashMap<String, Spell>();
 		characters = new HashMap<String, Character>();
-		equipments = new HashMap<String,Equipment>();
-		consumables = new HashMap<String,Consumable>();
+		loots = new HashMap<String,Loot>();
 		
 		try {
 			loadCsvSpell();
@@ -51,14 +55,21 @@ public class DataBase {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		System.out.println(this);
-	}
-	
-	public static void main(String[] args) {
-		new DataBase() ;
-	}
+		
+		running = true;
+		while(running) {
+			Player ply = (Player) characters.get("pa2");
+//			this.addKeyListener(new SpellInput(this,ply));
+			new SpellInput(this,ply);
+			
 
+		}
+		
+		running = false; 
+		
+	
+	}
 
 	public void loadCsvSpell() throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(csvGameObjectPaths[2]));
@@ -108,7 +119,7 @@ public class DataBase {
 			
 			newConsumable = new Consumable(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2], statFields[3]);
 			System.out.println(newConsumable);
-			consumables.put(newConsumable.getId(), newConsumable);
+			loots.put(newConsumable.getId(), newConsumable);
 		}
 		
 		br.close();
@@ -135,7 +146,7 @@ public class DataBase {
 			
 			newEquipment = new Equipment(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2], statFields[3], statFields[4], statFields[5], statFields[6], statFields[7], statFields[8], lootFields[10]);
 			System.out.println(newEquipment);
-			equipments.put(newEquipment.getId(), newEquipment) ;
+			loots.put(newEquipment.getId(), newEquipment) ;
 		}
 	}
 
@@ -209,7 +220,62 @@ public class DataBase {
 			res += character.toString();
 		}
 		res += "--------------------------Character END-----------------------------\n";
+		
+		Collection<Loot> valsLoot = loots.values();
+		Iterator<Loot> itLoot = valsLoot.iterator();
+		res += "--------------------------equipment INIT----------------------------\n";
+		while (itLoot.hasNext()) {
+			Loot loot = itLoot.next();
+			res += loot.toString();
+		}
+		res += "--------------------------equipment END-----------------------------\n";
+		
+
+		
+		
 		return res;
+		
+		
+	}
+	
+	public HashMap<String, Spell> getSpells() {
+		return spells;
+	}
+
+	public void setSpells(HashMap<String, Spell> spells) {
+		this.spells = spells;
+	}
+
+	public HashMap<String, Loot> getLoots() {
+		return loots;
+	}
+
+	public void setLoots(HashMap<String, Loot> loots) {
+		this.loots = loots;
+	}
+
+	public String[] getCsvGameObjectPaths() {
+		return csvGameObjectPaths;
+	}
+
+	public void setCsvGameObjectPaths(String[] csvGameObjectPaths) {
+		this.csvGameObjectPaths = csvGameObjectPaths;
+	}
+
+	public boolean isRunning() {
+		return running;
+	}
+
+	public void setRunning(boolean running) {
+		this.running = running;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public static void main(String[] args) {
+		new DataBase() ;
 	}
 	
 	public HashMap<String, Character> getCharacters() {
@@ -218,5 +284,6 @@ public class DataBase {
 
 	public void setCharacters(HashMap<String, Character> characters) {
 		this.characters = characters;
-	}	
+	}
+
 }

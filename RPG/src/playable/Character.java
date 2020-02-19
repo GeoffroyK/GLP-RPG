@@ -1,6 +1,7 @@
 package playable;
 
 import dataclasses.*;
+import inventory.Inventory;
 
 public abstract class Character extends GameObject {
 
@@ -13,13 +14,15 @@ public abstract class Character extends GameObject {
 	private int defense;
 	private int attack;
 	private int range;
-	private int inventory;
+	private int inventoryStatus;
 	private int level;
 	private int attackSpeed;
 	private int criticalChance;
 	private int dodgeChance;
+	private int direction;
 	private int x;
 	private int y;
+	private Inventory inventory;
 	
 	public Character(String id, String type, int hp, int mp, int str, int dext, int intel, int def, int atk, int range,
 			int inventory, int level, int atkSpeed, int ctkChance, int dodgeChance) {
@@ -34,11 +37,20 @@ public abstract class Character extends GameObject {
 		attack = atk;
 		this.type = type;
 		this.range = range;
-		this.inventory = inventory;
+		this.inventoryStatus = inventory;
 		this.level = level;
 		this.attackSpeed = atkSpeed;
 		criticalChance = ctkChance;
 		this.dodgeChance = dodgeChance;
+	}
+	
+	public String toString() {
+		return "-----------------------------------------------\n" +super.toString()+ "\nclass = " + getType() + "\nhp = "
+				+ getLifePoint() + "\nmp = " + getManaPoint() + "\nStr = " + getStrength() + "\ndext = "
+				+ getDexterity() + "\nintel = " + getIntelligence() + "\ndef = " + getDefense() + "\natk = "
+				+ getAttack() + "\nrange = " + getRange() + "\ninventory = " + getInventoryStatus() + "\nlevel = "
+				+ getLevel() + "\natkSpeed = " + getAttackSpeed() + "\nctkChance = " + getCriticalChance()
+				+ "\ndodgeChance = " + getDodgeChance();
 	}
 
 	public int getLifePoint() {
@@ -113,12 +125,12 @@ public abstract class Character extends GameObject {
 		this.range = range;
 	}
 
-	public int getInventory() {
-		return inventory;
+	public int getInventoryStatus() {
+		return inventoryStatus;
 	}
 
-	public void setInventory(int inventory) {
-		this.inventory = inventory;
+	public void setInventoryStatus(int inventoryStatus) {
+		this.inventoryStatus = inventoryStatus;
 	}
 
 	public int getLevel() {

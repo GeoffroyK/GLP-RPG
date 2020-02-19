@@ -63,7 +63,7 @@ public class Spell extends GameObject {
 		this.type = type;
 	}
 
-	public double getDamage() {
+	public int getDamage() {
 		return damage;
 	}
 
@@ -71,7 +71,7 @@ public class Spell extends GameObject {
 		this.damage = damage;
 	}
 
-	public double getManaUsage() {
+	public int getManaUsage() {
 		return manaUsage;
 	}
 

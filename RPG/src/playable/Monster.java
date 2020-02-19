@@ -14,12 +14,7 @@ public class Monster extends Character {
 	}
 
 	public String toString() {
-		return "-----------------------------------------------\n" + super.toString() + "\nclass = " + getType()
-				+ "\nhp = " + getLifePoint() + "\nmp = " + getManaPoint() + "\nStr = " + getStrength() + "\ndext = "
-				+ getDexterity() + "\nintel = " + getIntelligence() + "\ndef = " + getDefense() + "\natk = "
-				+ getAttack() + "\nrange = " + getRange() + "\ninventory = " + getInventory() + "\nlevel = "
-				+ getLevel() + "\natkSpeed = " + getAttackSpeed() + "\nctkChance = " + getCriticalChance()
-				+ "\ndodgeChance = " + getDodgeChance() + "\nlootChance = " + lootChance + "\nlootPrice = "
+		return super.toString() + "\nlootChance = " + lootChance + "\nlootPrice = "
 				+ lootPrice + "\n-----------------------------------------------\n";
 
 	}

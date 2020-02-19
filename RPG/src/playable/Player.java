@@ -1,5 +1,6 @@
 package playable;
 
+import dataclasses.DataBase;
 import spell.Spell;
 
 public class Player extends Character {
@@ -11,15 +12,11 @@ public class Player extends Character {
 
 		super(id, type, hp, mp, str, dext, intel, def, atk, range, inventory, level, atkSpeed, ctkChance, dodgeChance);
 		experience = exp;
+		PlayerTreatment.initSpells(this);
 	}
 
 	public String toString() {
-		return "-----------------------------------------------\n" + super.toString() + "\nclass = " + getType() + "\nhp = "
-				+ getLifePoint() + "\nmp = " + getManaPoint() + "\nStr = " + getStrength() + "\ndext = "
-				+ getDexterity() + "\nintel = " + getIntelligence() + "\ndef = " + getDefense() + "\natk = "
-				+ getAttack() + "\nrange = " + getRange() + "\ninventory = " + getInventory() + "\nlevel = "
-				+ getLevel() + "\natkSpeed = " + getAttackSpeed() + "\nctkChance = " + getCriticalChance()
-				+ "\ndodgeChance = " + getDodgeChance() + "\nexp = " + experience
+		return  super.toString() + "\nexp = " + experience
 				+ "\n-----------------------------------------------\n";
 
 	}
