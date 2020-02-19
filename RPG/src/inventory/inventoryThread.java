@@ -10,7 +10,7 @@ public class inventoryThread {
 	
 	/*public static void main (String []args) {
 		inventoryThread t = new inventoryThread();
-		System.out.println(t.isConsumable("E#011"));
+		System.out.println(t.isConsumable("C#011"));
 	}*/
 	
 	public boolean isConsumable(Loot l) {
@@ -22,14 +22,25 @@ public class inventoryThread {
 		}
 	}
 	
-	/*public String showInv(ArrayList<Loot> a) {
-		String line ;
-		
-	}*/
+	public String showInv(ArrayList<Loot> a) {
+		String line = " " ;
+		for(Loot l : a) {
+			line += l.toString();
+		}
+		return line ;
+	}
 	
-	public void equip(Equipment e) {
-		
-		
+	public void selection (Loot l) {
+		if(isConsumable(l)) {
+			//use
+			//jeter
+			//stat
+		}
+		else {
+			//equip
+			//jeter
+			//stat
+		}
 	}
 
 }

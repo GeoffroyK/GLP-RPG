@@ -26,7 +26,8 @@ public class Equipment extends Loot {
 	}
 	
 	public String toString(){
-		return super.toString() + "\nStat / hp : " + hpMax + " / mp : " + mpMax + " / armor : " + armor + " / dodge : " + dodge + " / strengh : " + strengh + " / intelligence : " + intelligence + " / critical : " + critical +"\n";
+		return super.toString() + "\nStat / hp : " + hpMax + " / mp : " + mpMax + " / armor : " + armor + " / dodge : " + dodge + " / strengh : " + strengh 
+				+ " / dexterity : " + dexterity + " / intelligence : " + intelligence + " / critical : " + critical + " / type : " + type + "\n" ;
 	}
 	
 	/*String currentLine;
