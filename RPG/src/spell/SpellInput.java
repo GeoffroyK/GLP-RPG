@@ -20,19 +20,19 @@ public class SpellInput /*extends KeyAdapter*/ {
 		
 		while(running) {
 			String key = sc.nextLine();
-			if (key.equals("&")) {
+			if (key.equals("a")) {
 				SpellTreatment.spellUsed(ply,0);
 			}
-			if (key.equals("é")) {
+			if (key.equals("z")) {
 				SpellTreatment.spellUsed(ply,1);
 			}
-			if (key.equals('"')) {
+			if (key.equals("e")) {
 				SpellTreatment.spellUsed(ply,2);
 			}
-			if (key.equals("'")){
+			if (key.equals("r")){
 				SpellTreatment.spellUsed(ply,3);
 			}
-			if (key.equals("(")){
+			if (key.equals("t")){
 				SpellTreatment.spellUsed(ply,4);
 			}
 			if (key.equals(" ")){
