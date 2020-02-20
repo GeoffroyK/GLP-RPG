@@ -38,6 +38,9 @@ public class SpellInput /*extends KeyAdapter*/ {
 		if (key.equals(" ")){
 			SpellTreatment.spellUsed(db,ply,"6");
 		}
+		if (key.equals("q")){
+			db.setRunning(false);
+		}
 	}
 	
 //	public void keyPressed(KeyEvent e) {
