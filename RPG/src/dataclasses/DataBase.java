@@ -13,8 +13,6 @@ import playable.Monster;
 import playable.Player;
 import spell.Spell;
 import spell.SpellInput;
-import loot.Consumable;
-import loot.Equipment;
 import loot.Loot;
 
 public class DataBase extends Canvas {
@@ -22,46 +20,33 @@ public class DataBase extends Canvas {
 	private static final long serialVersionUID = 1L;
 	private HashMap<String, Character> characters;
 	private HashMap<String, Spell> spells;
-	private HashMap<String,Loot>loots;
+	private HashMap<String, Loot> loots;
 
-	private String[] csvGameObjectPaths = { "csvConsumable",
-			"csvEquipment",
-			".\\CSV\\Spell.csv",
-			"csvTile",
-			"csvProp",
-			".\\CSV\\Player.csv",
-			".\\CSV\\Monster.csv" };
+	private String[] csvGameObjectPaths = { "csvConsumable", "csvEquipment", ".\\CSV\\Spell.csv", "csvTile", "csvProp",
+			".\\CSV\\Player.csv", ".\\CSV\\Monster.csv" };
 	private boolean running = false;
-	
+
 	public DataBase() {
 
 		spells = new HashMap<String, Spell>();
 		characters = new HashMap<String, Character>();
-		loots = new HashMap<String,Loot>();
-		
+		loots = new HashMap<String, Loot>();
+
 		try {
 			loadCsvSpell();
 			loadCsvPlayer();
-			loadCsvMonster();
-			loadCsvConsumable();
-			loadCSVEquipments();
+			 loadCsvMonster();
+			// loadCsvConsumable();
+			// loadCSVEquipments();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		System.out.println(this);
-		
-		running = true;
-		while(running) {
-			Player ply = (Player) characters.get("pa2");
-//			this.addKeyListener(new SpellInput(this,ply));
-			new SpellInput(this,ply);
-			
 
-		}
-		
-		running = false; 
-		
-	
+		Player ply = (Player) characters.get("pa2");
+//		this.addKeyListener(new SpellInput(this,ply));
+		new SpellInput(ply);
+
 	}
 
 	public void loadCsvSpell() throws IOException {
@@ -90,60 +75,60 @@ public class DataBase extends Canvas {
 
 		br.close();
 	}
-	
-	private void loadCsvConsumable() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader("C:/Users/Vortex/Documents/testO.csv"));
-		br.readLine() ;
-		
-		String line ;
-		String []lootFields ;
-		int []statFields =  new int[4];
-		
-		Consumable newConsumable ;
-		
-		while((line = br.readLine()) != null) {
-			lootFields = line.split(";");
-			
-			double price = Double.parseDouble(lootFields[1]) ;
-			statFields[0] = Integer.parseInt(lootFields[5]);
-			statFields[1] = Integer.parseInt(lootFields[6]);
-			statFields[2] = Integer.parseInt(lootFields[7]);
-			statFields[3] = Integer.parseInt(lootFields[8]);
-			
-			newConsumable = new Consumable(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2], statFields[3]);
-			System.out.println(newConsumable);
-			loots.put(newConsumable.getId(), newConsumable);
-		}
-		
-		br.close();
-	}
-	
-	private void loadCSVEquipments() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader("C:/Users/Vortex/Documents/TESTEQ.csv"));
-		br.readLine() ;
-		
-		String line ;
-		String []lootFields ;
-		int []statFields = new int[9] ;
-		
-		Equipment newEquipment ;
-		
-		while((line = br.readLine()) != null) {
-			lootFields = line.split(";") ;
-			
-			double price = Double.parseDouble(lootFields[1]) ;
-			
-			for(int i = 0 ; i < statFields.length ; i++) {
-				statFields[i] = Integer.parseInt(lootFields[i + 5]);
-			}
-			
-			newEquipment = new Equipment(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2], statFields[3], statFields[4], statFields[5], statFields[6], statFields[7], statFields[8], lootFields[10]);
-			System.out.println(newEquipment);
-			loots.put(newEquipment.getId(), newEquipment) ;
-		}
-		
-		br.close();
-	}
+
+//	private void loadCsvConsumable() throws IOException {
+//		BufferedReader br = new BufferedReader(new FileReader("C:/Users/Vortex/Documents/testO.csv"));
+//		br.readLine() ;
+//		
+//		String line ;
+//		String []lootFields ;
+//		int []statFields =  new int[4];
+//		
+//		Consumable newConsumable ;
+//		
+//		while((line = br.readLine()) != null) {
+//			lootFields = line.split(";");
+//			
+//			double price = Double.parseDouble(lootFields[1]) ;
+//			statFields[0] = Integer.parseInt(lootFields[5]);
+//			statFields[1] = Integer.parseInt(lootFields[6]);
+//			statFields[2] = Integer.parseInt(lootFields[7]);
+//			statFields[3] = Integer.parseInt(lootFields[8]);
+//			
+//			newConsumable = new Consumable(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2], statFields[3]);
+//			System.out.println(newConsumable);
+//			loots.put(newConsumable.getId(), newConsumable);
+//		}
+//		
+//		br.close();
+//	}
+
+//	private void loadCSVEquipments() throws IOException {
+//		BufferedReader br = new BufferedReader(new FileReader("C:/Users/Vortex/Documents/TESTEQ.csv"));
+//		br.readLine() ;
+//		
+//		String line ;
+//		String []lootFields ;
+//		int []statFields = new int[9] ;
+//		
+//		Equipment newEquipment ;
+//		
+//		while((line = br.readLine()) != null) {
+//			lootFields = line.split(";") ;
+//			
+//			double price = Double.parseDouble(lootFields[1]) ;
+//			
+//			for(int i = 0 ; i < statFields.length ; i++) {
+//				statFields[i] = Integer.parseInt(lootFields[i + 5]);
+//			}
+//			
+//			newEquipment = new Equipment(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2], statFields[3], statFields[4], statFields[5], statFields[6], statFields[7], statFields[8], lootFields[10]);
+//			System.out.println(newEquipment);
+//			loots.put(newEquipment.getId(), newEquipment) ;
+//		}
+//		
+//		br.close();
+//	}
 
 	private void loadCsvPlayer() throws IOException {
 
@@ -153,17 +138,46 @@ public class DataBase extends Canvas {
 		String line;
 		String[] playerFields;
 		int[] playerIntCSV = new int[14];
+		Spell[] playerSpells = new Spell[6];
 
-		while ((line = br.readLine()) != null) {
+		while ((line = br.readLine()) != null) { // INIT ALL INTEGERS OF PLAYERS
 			playerFields = line.split(",");
 			for (int i = 0; i < 14; i++) {
 				playerIntCSV[i] = Integer.parseInt(playerFields[i + 2]);
 			}
+
+			switch (playerFields[1]) { // INIT PLAYER SPELLS DEPENDING ON PLAYER'S TYPE
+
+			case "Guerrier":
+				for (int i = 1; i <= 6; i++) {
+					String key = "sg" + i;
+					playerSpells[i - 1] = spells.get(key);
+				}
+				break;
+
+			case "Archer":
+				for (int i = 1; i <= 6; i++) {
+					String key = "sa" + i;
+					playerSpells[i - 1] = spells.get(key);
+				}
+				break;
+
+			case "Sorcier":
+				for (int i = 1; i <= 6; i++) {
+					String key = "ss" + i;
+					playerSpells[i - 1] = spells.get(key);
+				}
+				break;
+			}
+
 			Player tmp = new Player(playerFields[0], playerFields[1], playerIntCSV[0], playerIntCSV[1], playerIntCSV[2],
 					playerIntCSV[3], playerIntCSV[4], playerIntCSV[5], playerIntCSV[6], playerIntCSV[7],
 					playerIntCSV[8], playerIntCSV[9], playerIntCSV[10], playerIntCSV[11], playerIntCSV[12],
-					playerIntCSV[13]);
+					playerIntCSV[13], playerSpells[0], playerSpells[1], playerSpells[2], playerSpells[3],
+					playerSpells[4], playerSpells[5]);
+
 			characters.put(tmp.getId(), tmp);
+
 		}
 
 		br.close();
@@ -197,9 +211,10 @@ public class DataBase extends Canvas {
 
 	public String toString() {
 
+		String res = "";
+
 		Collection<Spell> valsSpell = spells.values();
 		Iterator<Spell> itSpell = valsSpell.iterator();
-		String res = "";
 		res += "--------------------------SPELL INIT----------------------------\n";
 		while (itSpell.hasNext()) {
 			Spell spell = itSpell.next();
@@ -215,7 +230,7 @@ public class DataBase extends Canvas {
 			res += character.toString();
 		}
 		res += "--------------------------Character END-----------------------------\n";
-		
+
 		Collection<Loot> valsLoot = loots.values();
 		Iterator<Loot> itLoot = valsLoot.iterator();
 		res += "--------------------------equipment INIT----------------------------\n";
@@ -224,15 +239,11 @@ public class DataBase extends Canvas {
 			res += loot.toString();
 		}
 		res += "--------------------------equipment END-----------------------------\n";
-		
 
-		
-		
 		return res;
-		
-		
+
 	}
-	
+
 	public HashMap<String, Spell> getSpells() {
 		return spells;
 	}
@@ -270,9 +281,9 @@ public class DataBase extends Canvas {
 	}
 
 	public static void main(String[] args) {
-		new DataBase() ;
+		new DataBase();
 	}
-	
+
 	public HashMap<String, Character> getCharacters() {
 		return characters;
 	}

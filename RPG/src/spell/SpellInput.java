@@ -2,46 +2,48 @@ package spell;
 
 import java.util.Scanner;
 
-import dataclasses.DataBase;
 import playable.Player;
 
 public class SpellInput /*extends KeyAdapter*/ {
 
-	private DataBase db;
+
 	private Player ply;
+	private boolean running = true;
 	
-	public SpellInput(DataBase db, Player ply) {
-		this.db = db;
+	public SpellInput(Player ply) {
 		this.ply = ply;
 		scannerPressed();
 	}
 
-	@SuppressWarnings("unlikely-arg-type")
 	private void scannerPressed() {
 		Scanner sc = new Scanner(System.in);
-		String key = sc.nextLine();
-		if (key.equals("&")) {
-			SpellTreatment.spellUsed(db,ply,"1");
+		
+		while(running) {
+			String key = sc.nextLine();
+			if (key.equals("&")) {
+				SpellTreatment.spellUsed(ply,0);
+			}
+			if (key.equals("é")) {
+				SpellTreatment.spellUsed(ply,1);
+			}
+			if (key.equals('"')) {
+				SpellTreatment.spellUsed(ply,2);
+			}
+			if (key.equals("'")){
+				SpellTreatment.spellUsed(ply,3);
+			}
+			if (key.equals("(")){
+				SpellTreatment.spellUsed(ply,4);
+			}
+			if (key.equals(" ")){
+				SpellTreatment.spellUsed(ply,5);
+			}
+			if (key.equals("q")){
+				sc.close();
+				running = false;
+			}
 		}
-		if (key.equals("é")) {
-			SpellTreatment.spellUsed(db,ply,"2");
-		}
-		if (key.equals('"')) {
-			SpellTreatment.spellUsed(db,ply,"3");
-		}
-		if (key.equals("'")){
-			SpellTreatment.spellUsed(db,ply,"4");
-		}
-		if (key.equals("(")){
-			SpellTreatment.spellUsed(db,ply,"5");
-		}
-		if (key.equals(" ")){
-			SpellTreatment.spellUsed(db,ply,"6");
-		}
-		if (key.equals("q")){
-			db.setRunning(false);
-		}
-		sc.close();
+		
 	}
 	
 //	public void keyPressed(KeyEvent e) {

@@ -14,9 +14,9 @@ public class Monster extends Character {
 	}
 
 	public String toString() {
-		return super.toString() + "\nlootChance = " + lootChance + "\nlootPrice = "
-				+ lootPrice + "\n-----------------------------------------------\n";
-
+//		return super.toString() + "\nlootChance = " + lootChance + "\nlootPrice = "
+//				+ lootPrice + "\n-----------------------------------------------\n";
+		return "";
 	}
 
 	public int getLootChance() {
