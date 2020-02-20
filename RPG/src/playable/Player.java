@@ -1,6 +1,5 @@
 package playable;
 
-import dataclasses.DataBase;
 import spell.Spell;
 
 public class Player extends Character {

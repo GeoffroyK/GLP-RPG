@@ -1,6 +1,5 @@
 package playable;
 
-import java.util.HashMap;
 
 import spell.Spell;
 

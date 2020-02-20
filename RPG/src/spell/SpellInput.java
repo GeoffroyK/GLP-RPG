@@ -41,6 +41,7 @@ public class SpellInput /*extends KeyAdapter*/ {
 		if (key.equals("q")){
 			db.setRunning(false);
 		}
+		sc.close();
 	}
 	
 //	public void keyPressed(KeyEvent e) {

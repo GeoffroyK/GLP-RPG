@@ -1,17 +1,11 @@
 package dataclasses;
 
 import java.awt.Canvas;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collection;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import playable.Character;
@@ -19,7 +13,6 @@ import playable.Monster;
 import playable.Player;
 import spell.Spell;
 import spell.SpellInput;
-import spell.SpellTreatment;
 import loot.Consumable;
 import loot.Equipment;
 import loot.Loot;
@@ -148,6 +141,8 @@ public class DataBase extends Canvas {
 			System.out.println(newEquipment);
 			loots.put(newEquipment.getId(), newEquipment) ;
 		}
+		
+		br.close();
 	}
 
 	private void loadCsvPlayer() throws IOException {
