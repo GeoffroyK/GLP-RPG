@@ -9,11 +9,11 @@ public class SpellTreatment {
 	public static void spellUsed(Player ply, int number, Map map) {
 
 		Spell spell = ply.getSpells()[number];
-		System.out.println(spell.getName());
+		System.out.println("NAME : " +spell.getName());
 		if (ply.getManaPoint() > spell.getManaUsage()) {
 			int manaConsumed = ply.getManaPoint() - spell.getManaUsage();
 			ply.setManaPoint(manaConsumed);
-			System.out.println(spell.getManaUsage() + " //// " + ply.getManaPoint());
+			System.out.println("ManaUsage : " + spell.getManaUsage() + " / ManaLeft : " + ply.getManaPoint());
 
 			switch (spell.getType()) {
 
@@ -24,7 +24,6 @@ public class SpellTreatment {
 				break;
 
 			case "Mvt":
-				System.out.println("hio");
 				switch (ply.getDirection()) {
 
 				/* Haut */ case 0:
@@ -52,9 +51,8 @@ public class SpellTreatment {
 				break;
 
 			case "HP":
-				System.out.println("HP : " + ply.getLifePoint() + " --> ");
 				ply.setLifePoint(ply.getLifePoint() + spell.getDamage());
-				System.out.println(ply.getLifePoint());
+				System.out.println("Heal : " + spell.getDamage() + " -->  HP Left : " + ply.getLifePoint());
 				break;
 
 			case "MP":
