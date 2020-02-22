@@ -4,7 +4,16 @@ import dataclasses.*;
 import inventory.Inventory;
 
 public abstract class Character extends GameObject {
-
+	
+	//Map Position
+	
+	private int x;
+	private int y;
+	// 0=north, 1=west, 2=east, 3=south
+	private int direction;
+	
+	
+	//Caracteristics
 	private String type;
 	private int lifePoint;
 	private int manaPoint;
@@ -19,9 +28,6 @@ public abstract class Character extends GameObject {
 	private int attackSpeed;
 	private int criticalChance;
 	private int dodgeChance;
-	private int direction;
-	private int x;
-	private int y;
 	private Inventory inventory;
 	
 	public Character(String id, String type, int hp, int mp, int str, int dext, int intel, int def, int atk, int range,
@@ -172,7 +178,31 @@ public abstract class Character extends GameObject {
 	public void setCast(String cast) {
 		this.cast = cast;
 	}
-
+	
+	public void setX(int x) {
+		this.x = x;
+	}
+	
+	public void setY(int y) {
+		this.y = y;
+	}
+	
+	public void setDirection(int direction) {
+		this.direction = direction;
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public int getDirection() {
+		return direction;
+	}
+	
 	private String cast;
 
 	
