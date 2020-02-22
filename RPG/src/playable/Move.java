@@ -10,7 +10,7 @@ public class Move {
 	private Map map;
 	
 	public Move(HashMap<String,GameObject> instances, Map map) {
-		hero = PlayerChoice.choice(instances);
+		hero = PlayerChoice.selected(instances);
 		this.map = map;
 	}
 	public void move(String input) {

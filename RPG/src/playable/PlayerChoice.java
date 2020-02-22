@@ -5,8 +5,8 @@ import java.util.HashMap;
 import dataclasses.GameObject;
 
 public class PlayerChoice {
-
-	public static Player choice(HashMap<String, GameObject>instances) {
+	
+	public static Player selected(HashMap<String, GameObject>instances) {
 		Player ply = null;
 		if(instances.containsKey("pg1")) {
 			 ply = (Player) instances.get("pg1");
@@ -20,4 +20,6 @@ public class PlayerChoice {
 		
 		return ply;
 	}
+	
+	
 }

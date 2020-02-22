@@ -16,6 +16,7 @@ public class GameInput {
 	private SpellInput si;
 	private Move mi;
 	private Map map;
+	private boolean running = true;
 	
 	public GameInput(HashMap<String, GameObject> instances) {
 		map = new Map();
@@ -27,13 +28,24 @@ public class GameInput {
 	}
 	
 	public void scan() {
-		input = sc.nextLine();
+		System.out.println("MOVE : 'Z' = UP / 'S' = DOWN / 'Q' = LEFT / 'D' = RIGHT");
+		System.out.println("ATTACK WITH 5 SPELLS AND 1 AUTO ATTACK : 'W,X,C,V,B' = SPELLS / 'SPACE' = AUTOATTACK");
+		System.out.println("EXIT = 'E");
+		while(running) {
+			input = sc.nextLine();
+			
+			if (input.matches("w|x|c|v|b| ")){
+				si.scannerPressed(input);
+			}
+			else if(input.matches("z|q|s|d")) {
+				mi.move(input);
+			}
+			else if(input.equals("e")) {
+				System.out.println("CLOSING GAME");
+				running = false;
+			}
+		}
 		
-		if (input.matches("w|x|c|v|b| ")){
-			si.scannerPressed(input);
-		}
-		if(input.matches("z|q|s|d")) {
-			mi.move(input);
-		}
+		sc.close();
 	}
 }

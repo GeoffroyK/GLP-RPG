@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Scanner;
 
 import game.GameInput;
 import playable.Character;
@@ -23,6 +24,7 @@ public class DataBase extends Canvas {
 	private HashMap<String, Spell> spells;
 	private HashMap<String, Loot> loots;
 	private HashMap<String,GameObject> instances;
+	private Scanner sc;
 
 	private String[] csvGameObjectPaths = { "csvConsumable", "csvEquipment", ".\\CSV\\Spell.csv", "csvTile", "csvProp",
 			".\\CSV\\Player.csv", ".\\CSV\\Monster.csv" };
@@ -46,19 +48,8 @@ public class DataBase extends Canvas {
 			e.printStackTrace();
 		}
 		System.out.println(this);
-
-		Player ply = (Player) characters.get("ps3");
-		Monster ronflex = (Monster) characters.get("ma2");
-		ronflex.setX(5);
-		ronflex.setY(5);
-		ronflex.setDirection(0);
 		
-		instances.put(ply.getId(), ply);
-		instances.put(ronflex.getId(),ronflex);
-		
-		while(running) {
-			new GameInput(instances);
-		}	
+		initGame();
 
 	}
 
@@ -220,6 +211,45 @@ public class DataBase extends Canvas {
 
 		br.close();
 
+	}
+	
+	private void initGame() {
+		
+		Monster ronflex = (Monster) characters.get("ma2");
+		ronflex.setX(5);
+		ronflex.setY(5);
+		ronflex.setDirection(0);
+		
+		instances.put(ronflex.getId(),ronflex);
+		sc = new Scanner(System.in);
+		chooseClassPlayer();
+		new GameInput(instances);
+		sc.close();
+		
+	}
+
+	private void chooseClassPlayer() {
+		System.out.println("CHOOSE CLASS OF CHARACTER : 't' = WARRIOR / 'y' = ARCHER / 'u' = MAGE\n OR EXIT = 'e'");
+		String input = sc.nextLine();
+		if(input.equals("t")) {
+			Player ply = (Player) characters.get("pg1");
+			instances.put(ply.getId(), ply);
+			System.out.println("YOU CHOSE WARRIOR");
+		}
+		else if(input.equals("y")) {
+			Player ply = (Player) characters.get("pa2");
+			instances.put(ply.getId(), ply);
+			System.out.println("YOU CHOSE ARCHER");
+		}
+		else if(input.equals("u")) {
+			Player ply = (Player) characters.get("ps3");
+			instances.put(ply.getId(), ply);
+			System.out.println("YOU CHOSE MAGE");
+		}
+		else if(input.equals("e")) {
+			System.out.println("CLOSING GAME");
+			System.exit(0);
+		}
 	}
 
 	public String toString() {

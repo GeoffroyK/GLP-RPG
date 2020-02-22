@@ -12,11 +12,9 @@ public class MoveTreatment {
 			ply.setDirection(direction);
 			if (ply.getY() - mvt >= 0) {
 				if (map.isOccupied(ply.getX(), ply.getY() - mvt)) {
-					System.out.println("SALUT");
 					System.err.println("Case occupée ! C'est le monstre :"
 							+ map.getMonsterNameByPos(ply.getX(), ply.getY() - mvt));
 				} else {
-					System.out.println("CA VA");
 					ply.setY(ply.getY() - mvt);
 					System.out.println("X : " + ply.getX() + " / Y : " + ply.getY() + " / Regard : "
 							+ charDirection(direction) + " - " + ply.getDirection());

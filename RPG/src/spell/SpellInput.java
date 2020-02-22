@@ -14,7 +14,7 @@ public class SpellInput /*extends inputAdapter*/ {
 	private Map map;
 	
 	public SpellInput(HashMap<String,GameObject> instances, Map map) {
-		ply = PlayerChoice.choice(instances);
+		ply = PlayerChoice.selected(instances);
 		this.map = map;
 	}
 
