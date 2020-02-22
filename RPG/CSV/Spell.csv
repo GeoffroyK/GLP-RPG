@@ -1,7 +1,7 @@
 ID,Name,Effect,Type,Damage,ManaUsage,Range,Time (sec),Cooldown(sec),LvLScaling,StatScaling
 ss1,FireBall,Launch fireball that deals 30*StatScaling*LvlScaling,Dmg,30,11,35,1,6,1,1
 ss2,FireBreath,Fire a cone of fire dealing aoe damage,Aoe,15,25,25,1,5,2,2
-ss3,Teleportation,Teleports the player to a certain distance of 30pxÿ,Mvt,0,12,40,1,8,3,3
+ss3,Teleportation,Teleports the player to a certain distance of 30pxÿ,Mvt,40,12,1,1,8,3,3
 ss4,MoreCrit,Gain +25% Crit,Crit,0,13,1,10,15,4,4
 ss5,ManaUp,Gain Mana but big cooldown,MP,50,0,1,1,30,5,5
 ss6,AutoAttack,Deals attack single,Dmg,15,0,25,1,1,6,6

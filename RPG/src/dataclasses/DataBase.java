@@ -10,10 +10,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import playable.Character;
 import playable.Monster;
+import playable.Move;
 import playable.Player;
 import spell.Spell;
 import spell.SpellInput;
 import loot.Loot;
+import map.Map;
 
 public class DataBase extends Canvas {
 
@@ -45,7 +47,7 @@ public class DataBase extends Canvas {
 		}
 		System.out.println(this);
 
-		Player ply = (Player) characters.get("pa2");
+		Player ply = (Player) characters.get("pg1");
 		instances.put(ply.getId(), ply);
 //		this.addKeyListener(new SpellInput(this,ply));
 		new SpellInput(instances);
@@ -283,16 +285,16 @@ public class DataBase extends Canvas {
 		return serialVersionUID;
 	}
 
-	public static void main(String[] args) {
-		new DataBase();
-	}
-
 	public HashMap<String, Character> getCharacters() {
 		return characters;
 	}
 
 	public void setCharacters(HashMap<String, Character> characters) {
 		this.characters = characters;
+	}
+	
+	public static void main(String[] args) {
+		new DataBase();
 	}
 
 }

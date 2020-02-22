@@ -13,7 +13,7 @@ public class SpellInput /*extends KeyAdapter*/ {
 	private boolean running = true;
 	
 	public SpellInput(HashMap<String,GameObject> instances) {
-		ply = (Player) instances.get("pa2");
+		ply = (Player) instances.get("pg1");
 		scannerPressed();
 	}
 
