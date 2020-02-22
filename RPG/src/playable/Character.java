@@ -4,7 +4,7 @@ import dataclasses.*;
 import inventory.Inventory;
 
 public abstract class Character extends GameObject {
-	
+
 	//Map Position
 	
 	private int x;
@@ -49,6 +49,7 @@ public abstract class Character extends GameObject {
 		criticalChance = ctkChance;
 		this.dodgeChance = dodgeChance;
 	}
+
 	
 	public String toString() {
 		return "-----------------------------------------------\n" +super.toString()+ "\nclass = " + getType() + "\nhp = "
