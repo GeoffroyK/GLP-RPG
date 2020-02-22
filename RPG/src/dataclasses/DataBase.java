@@ -8,14 +8,13 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import game.GameInput;
 import playable.Character;
 import playable.Monster;
-import playable.Move;
 import playable.Player;
 import spell.Spell;
-import spell.SpellInput;
 import loot.Loot;
-import map.Map;
 
 public class DataBase extends Canvas {
 
@@ -27,7 +26,8 @@ public class DataBase extends Canvas {
 
 	private String[] csvGameObjectPaths = { "csvConsumable", "csvEquipment", ".\\CSV\\Spell.csv", "csvTile", "csvProp",
 			".\\CSV\\Player.csv", ".\\CSV\\Monster.csv" };
-	private boolean running = false;
+	
+	private boolean running = true;
 
 	public DataBase() {
 
@@ -47,10 +47,18 @@ public class DataBase extends Canvas {
 		}
 		System.out.println(this);
 
-		Player ply = (Player) characters.get("pg1");
+		Player ply = (Player) characters.get("ps3");
+		Monster ronflex = (Monster) characters.get("ma2");
+		ronflex.setX(5);
+		ronflex.setY(5);
+		ronflex.setDirection(0);
+		
 		instances.put(ply.getId(), ply);
-//		this.addKeyListener(new SpellInput(this,ply));
-		new SpellInput(instances);
+		instances.put(ronflex.getId(),ronflex);
+		
+		while(running) {
+			new GameInput(instances);
+		}	
 
 	}
 

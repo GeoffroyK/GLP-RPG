@@ -1,72 +1,64 @@
 package spell;
 
 import java.util.HashMap;
-import java.util.Scanner;
 
 import dataclasses.GameObject;
+import map.Map;
 import playable.Player;
+import playable.PlayerChoice;
 
-public class SpellInput /*extends KeyAdapter*/ {
+public class SpellInput /*extends inputAdapter*/ {
 
 
 	private Player ply;
-	private boolean running = true;
+	private Map map;
 	
-	public SpellInput(HashMap<String,GameObject> instances) {
-		ply = (Player) instances.get("pg1");
-		scannerPressed();
+	public SpellInput(HashMap<String,GameObject> instances, Map map) {
+		ply = PlayerChoice.choice(instances);
+		this.map = map;
 	}
 
-	private void scannerPressed() {
-		Scanner sc = new Scanner(System.in);
+	public void scannerPressed(String input) {
 		
-		while(running) {
-			String key = sc.nextLine();
-			if (key.equals("a")) {
-				SpellTreatment.spellUsed(ply,0);
-			}
-			if (key.equals("z")) {
-				SpellTreatment.spellUsed(ply,1);
-			}
-			if (key.equals("e")) {
-				SpellTreatment.spellUsed(ply,2);
-			}
-			if (key.equals("r")){
-				SpellTreatment.spellUsed(ply,3);
-			}
-			if (key.equals("t")){
-				SpellTreatment.spellUsed(ply,4);
-			}
-			if (key.equals(" ")){
-				SpellTreatment.spellUsed(ply,5);
-			}
-			if (key.equals("q")){
-				sc.close();
-				running = false;
-			}
+		if (input.equals("w")) {
+			SpellTreatment.spellUsed(ply,0,map);
 		}
-		
+		if (input.equals("x")) {
+			SpellTreatment.spellUsed(ply,1,map);
+		}
+		if (input.equals("c")) {
+			SpellTreatment.spellUsed(ply,2,map);
+		}
+		if (input.equals("v")){
+			SpellTreatment.spellUsed(ply,3,map);
+		}
+		if (input.equals("b")){
+			SpellTreatment.spellUsed(ply,4,map);
+		}
+		if (input.equals(" ")){
+			SpellTreatment.spellUsed(ply,5,map);
+		}
 	}
 	
-//	public void keyPressed(KeyEvent e) {
-//		int key = e.getKeyCode();
+//	public void inputPressed(inputEvent e) {
+//		int input = e.getinputCode();
 //
-//		if (key == KeyEvent.VK_1) {
+//		if (input == inputEvent.VK_1) {
 ////			SpellTreatment.spellUsed(db,ply,"1");
 //		}
-//		if (key == KeyEvent.VK_2) {
+//		if (input == inputEvent.VK_2) {
 ////			SpellTreatment.spellUsed(db,ply,"2");
 //		}
-//		if (key == KeyEvent.VK_3) {
+//		if (input == inputEvent.VK_3) {
 ////			SpellTreatment.spellUsed(db,ply,"3");
 //		}
-//		if (key == KeyEvent.VK_4){
+//		if (input == inputEvent.VK_4){
 ////			SpellTreatment.spellUsed(db,ply,"4");
 //		}
-//		if (key == KeyEvent.VK_5){
+//		if (input == inputEvent.VK_5){
 //			SpellTreatment.spellUsed(db,ply,"5");
 //		}
-//		if (key == KeyEvent.VK_SPACE){
+//		if (input == inputEvent.VK_SPACE){
 ////			SpellTreatment.spellUsed(db,ply,"6");
 //		}
 //		

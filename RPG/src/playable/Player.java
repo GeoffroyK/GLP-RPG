@@ -18,6 +18,9 @@ public class Player extends Character {
 		spells[3] = spell4;
 		spells[4] = spell5;
 		spells[5] = spell6;
+		super.setX(0);
+		super.setY(0);
+		super.setDirection(0);
 		
 //		PlayerTreatment.initSpells(this);
 

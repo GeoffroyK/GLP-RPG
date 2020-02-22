@@ -6,8 +6,8 @@ import playable.Monster;
 
 public class Map {
 	
-	private static final int LENGTH = 10;
-	private static final int WIDTH = 10;
+	private static final int LENGTH = 100;
+	private static final int WIDTH = 100;
 	
 	private int width;
 	private int length;
