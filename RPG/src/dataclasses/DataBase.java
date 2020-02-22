@@ -21,6 +21,7 @@ public class DataBase extends Canvas {
 	private HashMap<String, Character> characters;
 	private HashMap<String, Spell> spells;
 	private HashMap<String, Loot> loots;
+	private HashMap<String,GameObject> instances;
 
 	private String[] csvGameObjectPaths = { "csvConsumable", "csvEquipment", ".\\CSV\\Spell.csv", "csvTile", "csvProp",
 			".\\CSV\\Player.csv", ".\\CSV\\Monster.csv" };
@@ -31,6 +32,7 @@ public class DataBase extends Canvas {
 		spells = new HashMap<String, Spell>();
 		characters = new HashMap<String, Character>();
 		loots = new HashMap<String, Loot>();
+		instances = new HashMap<String, GameObject>();
 
 		try {
 			loadCsvSpell();
@@ -44,8 +46,9 @@ public class DataBase extends Canvas {
 		System.out.println(this);
 
 		Player ply = (Player) characters.get("pa2");
+		instances.put(ply.getId(), ply);
 //		this.addKeyListener(new SpellInput(this,ply));
-		new SpellInput(ply);
+		new SpellInput(instances);
 
 	}
 

@@ -1,7 +1,9 @@
 package spell;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
+import dataclasses.GameObject;
 import playable.Player;
 
 public class SpellInput /*extends KeyAdapter*/ {
@@ -10,8 +12,8 @@ public class SpellInput /*extends KeyAdapter*/ {
 	private Player ply;
 	private boolean running = true;
 	
-	public SpellInput(Player ply) {
-		this.ply = ply;
+	public SpellInput(HashMap<String,GameObject> instances) {
+		ply = (Player) instances.get("pa2");
 		scannerPressed();
 	}
 

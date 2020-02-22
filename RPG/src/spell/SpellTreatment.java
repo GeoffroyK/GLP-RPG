@@ -60,6 +60,9 @@ public class SpellTreatment {
 				ply.setDodgeChance(ply.getDodgeChance() + spell.getDamage());
 				System.out.println(ply.getDodgeChance());
 				break;
+			
+			case "Aoe" : 
+				
 
 			}
 		} else {
