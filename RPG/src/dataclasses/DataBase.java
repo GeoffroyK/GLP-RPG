@@ -15,7 +15,6 @@ import playable.Character;
 import playable.Monster;
 import playable.Player;
 import spell.Spell;
-import loot.Loot;
 
 public class DataBase extends Canvas {
 
