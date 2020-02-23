@@ -22,6 +22,7 @@ import spell.Spell;
 import loot.Consumable;
 import loot.Equipment;
 import loot.Loot;
+import map_objects.Prop;
 
 import static inventory.InventoryThread.*;
 import static inventory.InventoryKey.*;
@@ -37,9 +38,8 @@ public class DataBase extends Canvas {
 	private HashMap<String,Equipment>equipments;
 	private HashMap<String,Consumable>consumables;
 	private HashMap<String,GameObject> instances;
-	
-	private Scanner sc;
 
+	private Scanner sc;
 
 	private String[] csvGameObjectPaths = { ".\\CSV\\Consumable.csv", ".\\CSV\\Equipment.csv", ".\\CSV\\Spell.csv", "csvTile", "csvProp",
 			".\\CSV\\Player.csv", ".\\CSV\\Monster.csv" };
@@ -59,8 +59,12 @@ public class DataBase extends Canvas {
 			loadCsvSpell();
 			loadCsvPlayer();
 			loadCsvMonster();
+
 			loadCsvConsumable();
 			loadCSVEquipments();
+			//loadCsvProp(); 
+			// loadCsvConsumable();
+			// loadCSVEquipments();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -103,31 +107,55 @@ public class DataBase extends Canvas {
 	}
 	
 	public void loadCsvSpell() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(csvGameObjectPaths[2]));
+        BufferedReader br = new BufferedReader(new FileReader(csvGameObjectPaths[2]));
+        br.readLine();
+
+        String line;
+        String[] spellFields;
+        int[] spellIntCSV = new int[5];
+        float[] spellFloatCSV = new float[2];
+
+        while ((line = br.readLine()) != null) {
+            spellFields = line.split(",");
+
+            spellIntCSV[0] = Integer.parseInt(spellFields[4]);
+            spellIntCSV[1] = Integer.parseInt(spellFields[5]);
+            spellIntCSV[2] = Integer.parseInt(spellFields[6]);
+            spellIntCSV[3] = Integer.parseInt(spellFields[7]);
+            spellIntCSV[4] = Integer.parseInt(spellFields[8]);
+            spellFloatCSV[0] = Float.parseFloat(spellFields[9]);
+            spellFloatCSV[1] = Float.parseFloat(spellFields[10]);
+            Spell tmp = new Spell(spellFields[0], spellFields[1], spellFields[2], spellFields[3], spellIntCSV[0],
+                    spellIntCSV[1], spellIntCSV[2], spellIntCSV[3], spellIntCSV[4], spellFloatCSV[0], spellFloatCSV[1]);
+            spells.put(tmp.getId(), tmp);
+        }
+
+        br.close();
+    }
+	
+	/*public void loadCsvProp() throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(csvGameObjectPaths[4]));
 		br.readLine();
 
 		String line;
-		String[] spellFields;
-		int[] spellIntCSV = new int[5];
-		float[] spellFloatCSV = new float[2];
+		String[] propFields;
+		int[] propIntCSV = new int[1];
+		String[] propStringCSV = new String[2];
 
 		while ((line = br.readLine()) != null) {
-			spellFields = line.split(",");
-
-			spellIntCSV[0] = Integer.parseInt(spellFields[4]);
-			spellIntCSV[1] = Integer.parseInt(spellFields[5]);
-			spellIntCSV[2] = Integer.parseInt(spellFields[6]);
-			spellIntCSV[3] = Integer.parseInt(spellFields[7]);
-			spellIntCSV[4] = Integer.parseInt(spellFields[8]);
-			spellFloatCSV[0] = Float.parseFloat(spellFields[9]);
-			spellFloatCSV[1] = Float.parseFloat(spellFields[10]);
-			Spell tmp = new Spell(spellFields[0], spellFields[1], spellFields[2], spellFields[3], spellIntCSV[0],
-					spellIntCSV[1], spellIntCSV[2], spellIntCSV[3], spellIntCSV[4], spellFloatCSV[0], spellFloatCSV[1]);
-			spells.put(tmp.getId(), tmp);
+			propFields = line.split(",");
+			propIntCSV[0] = Integer.parseInt(propFields[2]);
+			propStringCSV[0] = propFields[0];
+			propStringCSV[1] = propFields[1];
+			propStringCSV[2] = propFields[3];
+			Prop tmp = new Prop(propStringCSV[0], propStringCSV[1],
+					propIntCSV[0], propStringCSV[2]);
+			props.put(tmp.getId(), tmp);
 		}
 
 		br.close();
-	}
+<<<<<<< HEAD
+	}*/
 	
 	private void loadCsvConsumable() throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(csvGameObjectPaths[0]));
@@ -272,6 +300,11 @@ public class DataBase extends Canvas {
 		monstre.setY(5);
 		monstre.setDirection(0);
 		
+		Prop coffre = new Prop("id","coffre",1,"null");
+		coffre.setX(5);
+		coffre.setY(0);
+		instances.put(coffre.getId(), coffre);
+	
 		instances.put(ronflex.getId(),ronflex);
 		sc = new Scanner(System.in);
 		chooseClassPlayer();

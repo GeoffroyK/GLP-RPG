@@ -14,7 +14,11 @@ public class MoveTreatment {
 				if (map.isOccupied(ply.getX(), ply.getY() - mvt)) {
 					System.err.println("Case occupée ! C'est le monstre :"
 							+ map.getMonsterNameByPos(ply.getX(), ply.getY() - mvt));
-				} else {
+				}
+				else if (map.isProp(ply.getX(), ply.getY() - mvt)) {
+					System.err.println("Case occupée par un prop");
+				}
+				else {
 					ply.setY(ply.getY() - mvt);
 					System.out.println("X : " + ply.getX() + " / Y : " + ply.getY() + " / Regard : "
 							+ charDirection(direction) + " - " + ply.getDirection());
@@ -30,7 +34,11 @@ public class MoveTreatment {
 				if (map.isOccupied(ply.getX(), ply.getY() + mvt)) {
 					System.err.println("Case occupée ! C'est le monstre :"
 							+ map.getMonsterNameByPos(ply.getX(), ply.getY() + mvt));
-				} else {
+				} 
+				else if (map.isProp(ply.getX(), ply.getY() + mvt)) {
+					System.err.println("Case occupée par un prop");
+				}
+				else {
 					ply.setY(ply.getY() + mvt);
 					System.out.println("X : " + ply.getX() + " / Y : " + ply.getY() + " / Regard : "
 							+ charDirection(direction) + " - " + ply.getDirection());
@@ -47,7 +55,11 @@ public class MoveTreatment {
 				if (map.isOccupied(ply.getX() - mvt, ply.getY())) {
 					System.err.println("Case occupée ! C'est le monstre :"
 							+ map.getMonsterNameByPos(ply.getX() - mvt, ply.getY()));
-				} else {
+				} 
+				else if (map.isProp(ply.getX() - mvt, ply.getY())) {
+					System.err.println("Case occupée c'est un prop");
+				}
+				else {
 					ply.setX(ply.getX() - mvt);
 					System.out.println("X : " + ply.getX() + " / Y : " + ply.getY() + " / Regard : "
 							+ charDirection(direction) + " - " + ply.getDirection());
@@ -63,7 +75,11 @@ public class MoveTreatment {
 				if (map.isOccupied(ply.getX() + mvt, ply.getY())) {
 					System.err.println("Case occupée ! C'est le monstre :"
 							+ map.getMonsterNameByPos(ply.getX() + mvt, ply.getY()));
-				} else {
+				}
+				else if (map.isProp(ply.getX() + mvt, ply.getY())) { 
+					System.err.println("Case occupée c'est un prop");
+				}
+				else {
 					ply.setX(ply.getX() + mvt);
 					System.out.println("X : " + ply.getX() + " / Y : " + ply.getY() + " / Regard : "
 							+ charDirection(direction) + " - " + ply.getDirection());
