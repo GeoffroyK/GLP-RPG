@@ -24,23 +24,23 @@ public class InventoryThread {
 	public static String showInv(Inventory i) {
 		String line = "----------------inventoryStart-----------------\n\n" ;
 		for(Loot l : i.getDrops()) {
-			line += "id : " + l.getId() + " / nom : " + l.getName() + " / possedé : " + l.getItemCounter() ;
+			line += "id : " + l.getId() + " / name : " + l.getName() + " / stored : " + l.getItemCounter() ;
 			if(!isConsumable(l)) {
 				Equipment e = (Equipment) l ;
 				if(e.getEquiped()) {
-					line += " (Equipée) " ;
+					line += " (Equiped) " ;
 				}
 			}
 			line += "\n" ;
 		}
-		line += "\nTaille de l'inventaire : " + i.getSize() + "/" + i.getSizeMax() + "\n\n";
+		line += "\nInventory size : " + i.getSize() + "/" + i.getSizeMax() + "\n\n";
 		line += "----------------inventoryEnd-------------------\n" ;
 		return line ;
 	}
 	
 	public static void Action (Loot lCourant, Player p){
 		
-		System.out.println("choisissez l'action a effectué : (a: use/equip, b: jeter, c: information)");
+		System.out.println("CHOSE ACTION : ('a' = Use/Equip, 'b' = Throw, 'c' = Information)");
 		
 		Scanner sc  = new Scanner(System.in) ;
 		String str = sc.nextLine();

@@ -13,7 +13,7 @@ public class InventoryKey {
 		
 		System.out.println(InventoryThread.showInv(p.getInventory()));
 		
-		System.out.println("Veuillez taper l'ID de l'item que vous voulez utiliser : ");
+		System.out.println("CHOOSE ITEM's ID TO USE : (IF YOU WANNA QUIT PRESS 'E')");
 		
 		Scanner sc  = new Scanner(System.in) ;
 		String str = sc.nextLine();
@@ -28,13 +28,16 @@ public class InventoryKey {
 			}
 		}
 		
-		if(find == 1){
-			InventoryThread.Action(tmp, p);
-		}
-		else {
-			System.out.println("L'équipement recherche n'est pas possedé");
+		if(!str.equals("E")) {
+			if(find == 1){
+				InventoryThread.Action(tmp, p);
+			}
+			else {
+				System.out.println("ID Not Found !");
+			}
 		}
 		
+		System.out.println("QUIT INVENTORY");
 		find = 0 ;
 	}
 	

@@ -17,6 +17,7 @@ import game.GameInput;
 import playable.Character;
 import playable.Monster;
 import playable.Player;
+import playable.PlayerChoice;
 import spell.Spell;
 import loot.Consumable;
 import loot.Equipment;
@@ -40,23 +41,26 @@ public class DataBase extends Canvas {
 	private Scanner sc;
 
 
-	private String[] csvGameObjectPaths = { "csvConsumable", "csvEquipment", ".\\CSV\\Spell.csv", "csvTile", "csvProp",
+	private String[] csvGameObjectPaths = { ".\\CSV\\Consumable.csv", ".\\CSV\\Equipment.csv", ".\\CSV\\Spell.csv", "csvTile", "csvProp",
 			".\\CSV\\Player.csv", ".\\CSV\\Monster.csv" };
 
 	private boolean running = true;
 
 	public DataBase() {
 
+		consumables= new HashMap<String, Consumable>();
+		equipments = new HashMap<String, Equipment>();
 		spells = new HashMap<String, Spell>();
 		characters = new HashMap<String, Character>();
 		instances = new HashMap<String, GameObject>();
+		
 
 		try {
 			loadCsvSpell();
 			loadCsvPlayer();
-			 loadCsvMonster();
-			// loadCsvConsumable();
-			// loadCSVEquipments();
+			loadCsvMonster();
+			loadCsvConsumable();
+			loadCSVEquipments();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -126,7 +130,7 @@ public class DataBase extends Canvas {
 	}
 	
 	private void loadCsvConsumable() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader("C:/Users/Vortex/Documents/testO.csv"));
+		BufferedReader br = new BufferedReader(new FileReader(csvGameObjectPaths[0]));
 		br.readLine() ;
 		
 		String line ;
@@ -153,7 +157,7 @@ public class DataBase extends Canvas {
 	}
 	
 	private void loadCSVEquipments() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader("C:/Users/Vortex/Documents/TESTEQ.csv"));
+		BufferedReader br = new BufferedReader(new FileReader(csvGameObjectPaths[1]));
 		br.readLine() ;
 		
 		String line ;
@@ -271,6 +275,12 @@ public class DataBase extends Canvas {
 		instances.put(ronflex.getId(),ronflex);
 		sc = new Scanner(System.in);
 		chooseClassPlayer();
+		InventoryKey.addLoot(consumables.get("C#001"), PlayerChoice.selected(instances));
+		InventoryKey.addLoot(consumables.get("C#001"), PlayerChoice.selected(instances));
+		InventoryKey.addLoot(consumables.get("C#001"), PlayerChoice.selected(instances));
+		InventoryKey.addLoot(consumables.get("C#001"), PlayerChoice.selected(instances));
+		InventoryKey.addLoot(consumables.get("C#001"), PlayerChoice.selected(instances));
+		//SALE ENCULE RENOMME TA METHODE RUN OU TICK PAS PTN DE GAMEINPUT
 		new GameInput(instances);
 		sc.close();
 		
@@ -331,7 +341,20 @@ public class DataBase extends Canvas {
 			res += character.toString();
 		}
 		res += "--------------------------Character END-----------------------------\n";
-
+		Collection<Consumable> valsConsumable = consumables.values() ;
+		Collection<Equipment> valsEquipment = equipments.values() ;
+		Iterator<Consumable> itConsumable = valsConsumable.iterator();
+		Iterator<Equipment> itEquipment = valsEquipment.iterator();
+		res += "--------------------------Loot INIT-----------------------------\n" ;
+		while(itConsumable.hasNext()) {
+			Consumable consumable = itConsumable.next();
+			res += consumable.toString() ;
+		}
+		while(itEquipment.hasNext()) {
+			Equipment equipment = itEquipment.next();
+			res += equipment.toString() ;
+		}
+		res += "--------------------------Loot END-----------------------------\n" ;
 		return res;
 
 	}
