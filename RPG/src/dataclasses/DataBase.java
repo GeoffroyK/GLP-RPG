@@ -22,8 +22,8 @@ public class DataBase extends Canvas {
 	private static final long serialVersionUID = 1L;
 	private HashMap<String, Character> characters;
 	private HashMap<String, Spell> spells;
-	private HashMap<String, Loot> loots;
 	private HashMap<String,GameObject> instances;
+	
 	private Scanner sc;
 
 	private String[] csvGameObjectPaths = { "csvConsumable", "csvEquipment", ".\\CSV\\Spell.csv", "csvTile", "csvProp",
@@ -35,7 +35,6 @@ public class DataBase extends Canvas {
 
 		spells = new HashMap<String, Spell>();
 		characters = new HashMap<String, Character>();
-		loots = new HashMap<String, Loot>();
 		instances = new HashMap<String, GameObject>();
 
 		try {
@@ -50,7 +49,7 @@ public class DataBase extends Canvas {
 		System.out.println(this);
 		
 		initGame();
-
+		
 	}
 
 	public void loadCsvSpell() throws IOException {
@@ -223,7 +222,7 @@ public class DataBase extends Canvas {
 		monstre.setX(6);
 		monstre.setY(5);
 		monstre.setDirection(0);
-		
+	
 		instances.put(ronflex.getId(),ronflex);
 		sc = new Scanner(System.in);
 		chooseClassPlayer();
@@ -288,14 +287,6 @@ public class DataBase extends Canvas {
 		}
 		res += "--------------------------Character END-----------------------------\n";
 
-		Collection<Loot> valsLoot = loots.values();
-		Iterator<Loot> itLoot = valsLoot.iterator();
-		res += "--------------------------equipment INIT----------------------------\n";
-		while (itLoot.hasNext()) {
-			Loot loot = itLoot.next();
-			res += loot.toString();
-		}
-		res += "--------------------------equipment END-----------------------------\n";
 
 		return res;
 
@@ -307,14 +298,6 @@ public class DataBase extends Canvas {
 
 	public void setSpells(HashMap<String, Spell> spells) {
 		this.spells = spells;
-	}
-
-	public HashMap<String, Loot> getLoots() {
-		return loots;
-	}
-
-	public void setLoots(HashMap<String, Loot> loots) {
-		this.loots = loots;
 	}
 
 	public String[] getCsvGameObjectPaths() {

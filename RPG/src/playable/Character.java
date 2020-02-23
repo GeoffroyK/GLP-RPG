@@ -172,14 +172,6 @@ public abstract class Character extends GameObject {
 		this.dodgeChance = dodgeChance;
 	}
 
-	public String getCast() {
-		return cast;
-	}
-
-	public void setCast(String cast) {
-		this.cast = cast;
-	}
-	
 	public void setX(int x) {
 		this.x = x;
 	}
@@ -203,8 +195,6 @@ public abstract class Character extends GameObject {
 	public int getDirection() {
 		return direction;
 	}
-	
-	private String cast;
 
 	
 
