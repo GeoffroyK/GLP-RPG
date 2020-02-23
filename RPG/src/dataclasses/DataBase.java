@@ -244,6 +244,11 @@ public class DataBase extends Canvas {
 		ronflex.setX(5);
 		ronflex.setY(5);
 		ronflex.setDirection(0);
+		
+		Prop coffre = new Prop("id","coffre",1,"null");
+		coffre.setX(5);
+		coffre.setY(0);
+		instances.put(coffre.getId(), coffre);
 	
 		instances.put(ronflex.getId(),ronflex);
 		sc = new Scanner(System.in);

@@ -1,17 +1,22 @@
 package map_objects;
 
+import java.util.HashMap;
+
+import dataclasses.GameObject;
 import map.Map;
 import playable.Player;
+import playable.PlayerChoice;
 
 
 public class PropInput {
 	private Player ply;
 	private Map map;
-	private PropTreatment pt;
-	private Prop p;
+	private Prop prop;
 	
-	public PropInput(Prop p) {
-		this.p = p;
+	public PropInput(HashMap<String,GameObject> instances, Map map) {
+		prop = (Prop) instances.get("id");
+		ply = PlayerChoice.selected(instances);
+		this.map = map;
 	}
 	
 	public boolean isReachable() {
@@ -33,9 +38,23 @@ public class PropInput {
 		return false;
 	}
 	
-	public void propAction() {
+	public void treatment() {
 		if(isReachable()) {
-			pt.interaction(p.getType());
+			switch(prop.getType()) {
+			case 0:
+				System.out.println("Bonjour je suis un marchand !");
+				break;
+			case 1:
+				System.out.println("Bonjour je suis un coffre !");
+				break;
+			case 2:
+				System.out.println("Bonjour je suis une porte !");
+				break;
+			}
 		}
+	}
+	
+	public Map getMap() {
+		return map;
 	}
 }

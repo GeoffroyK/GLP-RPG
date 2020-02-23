@@ -2,6 +2,7 @@ package map;
 
 import java.util.ArrayList;
 
+import map_objects.Prop;
 import playable.Monster;
 
 public class Map {
@@ -12,6 +13,7 @@ public class Map {
 	private int width;
 	private int length;
 	private ArrayList<Monster> monsters = new ArrayList<Monster>();
+	private ArrayList<Prop> props = new ArrayList<Prop>();
 		
 	public Map() {
 		width = WIDTH;
@@ -20,6 +22,10 @@ public class Map {
 	
 	public void addMonster(Monster mob) {
 		monsters.add(mob);
+	}
+	
+	public void addProp(Prop prop) {
+		props.add(prop);
 	}
 	
 	public String getMonsterNameByPos(int x, int y) {
@@ -33,6 +39,15 @@ public class Map {
 	
 	public boolean isOccupied(int x, int y) {
 		for(Monster e : monsters) {
+			if((x == e.getX())&&(y == e.getY())){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean isProp(int x, int y) {
+		for(Prop e : props) {
 			if((x == e.getX())&&(y == e.getY())){
 				return true;
 			}

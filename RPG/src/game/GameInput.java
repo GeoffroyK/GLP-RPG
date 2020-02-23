@@ -7,7 +7,6 @@ import dataclasses.GameObject;
 import map.Map;
 import map_objects.Prop;
 import map_objects.PropInput;
-import map_objects.PropTreatment;
 import playable.Monster;
 import playable.Move;
 import spell.SpellInput;
@@ -26,6 +25,8 @@ public class GameInput {
 		map = new Map();
 		sc = new Scanner(System.in);
 		si = new SpellInput(instances, map);
+		pi = new PropInput(instances, map);
+		pi.getMap().addProp((Prop) instances.get("id"));
 		mi = new Move(instances, map);
 		mi.getMap().addMonster((Monster) instances.get("ma2"));
 		scan();
@@ -46,7 +47,7 @@ public class GameInput {
 			}
 			//Add Geo
 			else if(input.equals("a")) {
-				pi.propAction();
+				pi.treatment();
 			}
 			else if(input.equals("e")) {
 				System.out.println("CLOSING GAME");
