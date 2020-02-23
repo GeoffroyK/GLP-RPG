@@ -25,12 +25,15 @@ public class MoveTreatment {
 				}
 			} else {
 				System.out.println("BLOQUÉ PAR UN MUR");
+				ply.setY(0);
+				System.out.println("X : " + ply.getX() + " / Y : " + ply.getY() + " / Regard : "
+						+ charDirection(direction) + " - " + ply.getDirection());
 			}
 			break;
 
 		case 3:
 			ply.setDirection(direction);
-			if (ply.getY() + mvt < map.getWidth()) {
+			if (ply.getY() + mvt <= map.getWidth()) {
 				if (map.isOccupied(ply.getX(), ply.getY() + mvt)) {
 					System.err.println("Case occupée ! C'est le monstre :"
 							+ map.getMonsterNameByPos(ply.getX(), ply.getY() + mvt));
@@ -45,6 +48,9 @@ public class MoveTreatment {
 				}
 			} else {
 				System.out.println("BLOQUÉ PAR UN MUR");
+				ply.setY(map.getWidth());
+				System.out.println("X : " + ply.getX() + " / Y : " + ply.getY() + " / Regard : "
+						+ charDirection(direction) + " - " + ply.getDirection());
 			}
 			break;
 
@@ -66,12 +72,15 @@ public class MoveTreatment {
 				}
 			} else {
 				System.out.println("BLOQUÉ PAR UN MUR");
+				ply.setX(0);
+				System.out.println("X : " + ply.getX() + " / Y : " + ply.getY() + " / Regard : "
+						+ charDirection(direction) + " - " + ply.getDirection());
 			}
 			break;
 
 		case 2:
 			ply.setDirection(direction);
-			if (ply.getX() + mvt < map.getLength()) {
+			if (ply.getX() + mvt <= map.getLength()) {
 				if (map.isOccupied(ply.getX() + mvt, ply.getY())) {
 					System.err.println("Case occupée ! C'est le monstre :"
 							+ map.getMonsterNameByPos(ply.getX() + mvt, ply.getY()));
@@ -86,6 +95,9 @@ public class MoveTreatment {
 				}
 			} else {
 				System.out.println("BLOQUÉ PAR UN MUR");
+				ply.setX(map.getLength());
+				System.out.println("X : " + ply.getX() + " / Y : " + ply.getY() + " / Regard : "
+						+ charDirection(direction) + " - " + ply.getDirection());
 			}
 			break;
 		}

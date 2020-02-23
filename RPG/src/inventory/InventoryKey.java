@@ -42,7 +42,7 @@ public class InventoryKey {
 	}
 	
 	public static void addLoot(Loot lootDrop, Player p) {
-		if(p.getInventory().getSize() + lootDrop.getSize() < p.getInventory().getSizeMax()) {
+		if(p.getInventory().getSize() + lootDrop.getSize() <= p.getInventory().getSizeMax()) {
 			int size = p.getInventory().getSize() + lootDrop.getSize();
 			p.getInventory().setSize(size);
 			if(p.getInventory().getDrops().contains(lootDrop)) {
