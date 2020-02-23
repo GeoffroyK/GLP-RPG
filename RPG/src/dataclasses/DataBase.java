@@ -33,19 +33,12 @@ public class DataBase extends Canvas {
 
 
 	private static final long serialVersionUID = 1L;
-<<<<<<< Upstream, based on origin/master
 
 	private static HashMap<String, Character> characters;
 	private static HashMap<String, Spell> spells;
 	private static HashMap<String, Loot> loots;
 	private static HashMap<String,GameObject> instances;
 
-=======
-	private HashMap<String, Character> characters;
-	private HashMap<String, Spell> spells;
-	private HashMap<String,GameObject> instances;
-	
->>>>>>> 3d06426 add cooldown
 	private Scanner sc;
 
 	private static String[] csvGameObjectPaths = { ".\\CSV\\Consumable.csv", ".\\CSV\\Equipment.csv", ".\\CSV\\Spell.csv", "csvTile", "csvProp",
