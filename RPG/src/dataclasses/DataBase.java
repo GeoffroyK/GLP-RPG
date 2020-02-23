@@ -61,6 +61,9 @@ public class DataBase extends Canvas {
 			e.printStackTrace();
 		}
 		
+		System.out.println(this);
+		initGame();
+		
 	/*	Player p = (Player) characters.get("pa2") ;
 		InventoryKey.addLoot(equipments.get("E#001"), p);
 		InventoryKey.addLoot(equipments.get("E#002"), p);

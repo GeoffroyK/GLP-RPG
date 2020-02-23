@@ -39,8 +39,10 @@ public abstract class Character extends GameObject {
 			int inventory, int level, int atkSpeed, int ctkChance, int dodgeChance) {
 
 		super(id);
-		lifePointMax = hp;
-		manaPoint = mp;
+		lifePointMax = hp ;
+		lifePoint = lifePointMax ;
+		manaPointMax = mp;
+		manaPoint = manaPointMax ; 
 		strength = str;
 		dexterity = dext;
 		intelligence = intel;
