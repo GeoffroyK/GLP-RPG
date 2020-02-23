@@ -36,7 +36,7 @@ public class DataBase extends Canvas {
 	private HashMap<String, Character> characters;
 	private HashMap<String, Spell> spells;
 	private HashMap<String,Equipment>equipments;
-	private HashMap<String,Consumable>consumables;
+	private static HashMap<String,Consumable>consumables;
 	private HashMap<String,GameObject> instances;
 
 	private Scanner sc;
@@ -432,4 +432,10 @@ public class DataBase extends Canvas {
 		new DataBase();
 	}
 
+	public static Consumable getById(String id) {
+		if(consumables.containsKey(id)) {
+			return consumables.get(id) ;
+		}
+		return null;
+	}
 }

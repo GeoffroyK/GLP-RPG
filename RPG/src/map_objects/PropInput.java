@@ -2,7 +2,9 @@ package map_objects;
 
 import java.util.HashMap;
 
+import dataclasses.DataBase;
 import dataclasses.GameObject;
+import inventory.InventoryKey;
 import map.Map;
 import playable.Player;
 import playable.PlayerChoice;
@@ -46,6 +48,7 @@ public class PropInput {
 				break;
 			case 1:
 				System.out.println("Bonjour je suis un coffre !");
+				InventoryKey.addLoot(DataBase.getById("C#001"), ply);
 				break;
 			case 2:
 				System.out.println("Bonjour je suis une porte !");
