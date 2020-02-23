@@ -1,5 +1,7 @@
 package playable;
 
+import java.util.ArrayList;
+
 import dataclasses.*;
 import inventory.Inventory;
 
@@ -16,7 +18,9 @@ public abstract class Character extends GameObject {
 	//Caracteristics
 	private String type;
 	private int lifePoint;
+	private int lifePointMax ;
 	private int manaPoint;
+	private int manaPointMax ;
 	private int strength;
 	private int dexterity;
 	private int intelligence;
@@ -28,14 +32,17 @@ public abstract class Character extends GameObject {
 	private int attackSpeed;
 	private int criticalChance;
 	private int dodgeChance;
-	private Inventory inventory;
+	private int speed;
+	private Inventory inventory ;
 	
 	public Character(String id, String type, int hp, int mp, int str, int dext, int intel, int def, int atk, int range,
 			int inventory, int level, int atkSpeed, int ctkChance, int dodgeChance) {
 
 		super(id);
-		lifePoint = hp;
-		manaPoint = mp;
+		lifePointMax = hp ;
+		lifePoint = lifePointMax ;
+		manaPointMax = mp;
+		manaPoint = manaPointMax ; 
 		strength = str;
 		dexterity = dext;
 		intelligence = intel;
@@ -48,6 +55,31 @@ public abstract class Character extends GameObject {
 		this.attackSpeed = atkSpeed;
 		criticalChance = ctkChance;
 		this.dodgeChance = dodgeChance;
+		this.inventory = new Inventory(0, 150) ;
+	}
+
+	public Inventory getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
+	}
+
+	public int getLifePointMax() {
+		return lifePointMax;
+	}
+
+	public void setLifePointMax(int lifePointMax) {
+		this.lifePointMax = lifePointMax;
+	}
+
+	public int getManaPointMax() {
+		return manaPointMax;
+	}
+
+	public void setManaPointMax(int manaPointMax) {
+		this.manaPointMax = manaPointMax;
 	}
 
 	
@@ -170,6 +202,14 @@ public abstract class Character extends GameObject {
 
 	public void setDodgeChance(int dodgeChance) {
 		this.dodgeChance = dodgeChance;
+	}
+
+	public int getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(int speed) {
+		this.speed = speed;
 	}
 
 	public void setX(int x) {

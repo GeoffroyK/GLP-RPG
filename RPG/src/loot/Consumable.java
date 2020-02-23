@@ -16,4 +16,29 @@ public class Consumable extends Loot {
 	public String toString() {
 		return super.toString() + "\nStat / hp : " + hp + " / mp : " + mp + " / vit : " + vit +"\n";
 	}
+
+	public int getHp() {
+		return hp;
+	}
+
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+
+	public int getMp() {
+		return mp;
+	}
+
+	public void setMp(int mp) {
+		this.mp = mp;
+	}
+
+	public int getVit() {
+		return vit;
+	}
+
+	public void setVit(int vit) {
+		this.vit = vit;
+	}
+	
 }

@@ -8,49 +8,100 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import inventory.InventoryKey;
+import inventory.InventoryThread;
 import java.util.Scanner;
 
 import game.GameInput;
 import playable.Character;
 import playable.Monster;
 import playable.Player;
+import playable.PlayerChoice;
 import spell.Spell;
+import loot.Consumable;
+import loot.Equipment;
+import loot.Loot;
+
+import static inventory.InventoryThread.*;
+import static inventory.InventoryKey.*;
 
 public class DataBase extends Canvas {
 
+
+
 	private static final long serialVersionUID = 1L;
+
 	private HashMap<String, Character> characters;
 	private HashMap<String, Spell> spells;
+	private HashMap<String,Equipment>equipments;
+	private HashMap<String,Consumable>consumables;
 	private HashMap<String,GameObject> instances;
 	
 	private Scanner sc;
 
-	private String[] csvGameObjectPaths = { "csvConsumable", "csvEquipment", ".\\CSV\\Spell.csv", "csvTile", "csvProp",
+
+	private String[] csvGameObjectPaths = { ".\\CSV\\Consumable.csv", ".\\CSV\\Equipment.csv", ".\\CSV\\Spell.csv", "csvTile", "csvProp",
 			".\\CSV\\Player.csv", ".\\CSV\\Monster.csv" };
-	
+
 	private boolean running = true;
 
 	public DataBase() {
 
+		consumables= new HashMap<String, Consumable>();
+		equipments = new HashMap<String, Equipment>();
 		spells = new HashMap<String, Spell>();
 		characters = new HashMap<String, Character>();
 		instances = new HashMap<String, GameObject>();
+		
 
 		try {
 			loadCsvSpell();
 			loadCsvPlayer();
-			 loadCsvMonster();
-			// loadCsvConsumable();
-			// loadCSVEquipments();
+			loadCsvMonster();
+			loadCsvConsumable();
+			loadCSVEquipments();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		System.out.println(this);
+		initGame();	
 		
-		initGame();
+	/*  Player p = (Player) characters.get("pa2") ;
+		InventoryKey.addLoot(equipments.get("E#001"), p);
+		InventoryKey.addLoot(equipments.get("E#002"), p);
+		InventoryKey.addLoot(consumables.get("C#001"), p);
+		InventoryKey.addLoot(consumables.get("C#001"), p);
+		p.setLifePoint(80);
+		p.setLifePointMax(100);
 		
-	}
+		System.out.println(p);
+		
+		InventoryKey.choice(p);
+		
+		System.out.println(InventoryThread.showInv(p.getInventory()));
+		System.out.println(p);
+		
+		/*InventoryKey.choice(p);
+		
+		System.out.println(InventoryThread.showInv(p.getInventory()));
+		
+		
+		
+		
+		/*System.out.println(p);
 
+		inventoryThread.equipmentChoice(equipments.get("E#001"), p);
+		
+		System.out.println(p);
+		System.out.println(p.getInventory().getHelmet());*/
+		
+		
+
+		//System.out.println(this);*/
+	}
+	
 	public void loadCsvSpell() throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(csvGameObjectPaths[2]));
 		br.readLine();
@@ -77,60 +128,59 @@ public class DataBase extends Canvas {
 
 		br.close();
 	}
-
-//	private void loadCsvConsumable() throws IOException {
-//		BufferedReader br = new BufferedReader(new FileReader("C:/Users/Vortex/Documents/testO.csv"));
-//		br.readLine() ;
-//		
-//		String line ;
-//		String []lootFields ;
-//		int []statFields =  new int[4];
-//		
-//		Consumable newConsumable ;
-//		
-//		while((line = br.readLine()) != null) {
-//			lootFields = line.split(";");
-//			
-//			double price = Double.parseDouble(lootFields[1]) ;
-//			statFields[0] = Integer.parseInt(lootFields[5]);
-//			statFields[1] = Integer.parseInt(lootFields[6]);
-//			statFields[2] = Integer.parseInt(lootFields[7]);
-//			statFields[3] = Integer.parseInt(lootFields[8]);
-//			
-//			newConsumable = new Consumable(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2], statFields[3]);
-//			System.out.println(newConsumable);
-//			loots.put(newConsumable.getId(), newConsumable);
-//		}
-//		
-//		br.close();
-//	}
-
-//	private void loadCSVEquipments() throws IOException {
-//		BufferedReader br = new BufferedReader(new FileReader("C:/Users/Vortex/Documents/TESTEQ.csv"));
-//		br.readLine() ;
-//		
-//		String line ;
-//		String []lootFields ;
-//		int []statFields = new int[9] ;
-//		
-//		Equipment newEquipment ;
-//		
-//		while((line = br.readLine()) != null) {
-//			lootFields = line.split(";") ;
-//			
-//			double price = Double.parseDouble(lootFields[1]) ;
-//			
-//			for(int i = 0 ; i < statFields.length ; i++) {
-//				statFields[i] = Integer.parseInt(lootFields[i + 5]);
-//			}
-//			
-//			newEquipment = new Equipment(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2], statFields[3], statFields[4], statFields[5], statFields[6], statFields[7], statFields[8], lootFields[10]);
-//			System.out.println(newEquipment);
-//			loots.put(newEquipment.getId(), newEquipment) ;
-//		}
-//		
-//		br.close();
-//	}
+	
+	private void loadCsvConsumable() throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(csvGameObjectPaths[0]));
+		br.readLine() ;
+		
+		String line ;
+		String []lootFields ;
+		int []statFields =  new int[4];
+		
+		Consumable newConsumable ;
+		
+		while((line = br.readLine()) != null) {
+			lootFields = line.split(";");
+			
+			double price = Double.parseDouble(lootFields[1]) ;
+			statFields[0] = Integer.parseInt(lootFields[5]);
+			statFields[1] = Integer.parseInt(lootFields[6]);
+			statFields[2] = Integer.parseInt(lootFields[7]);
+			statFields[3] = Integer.parseInt(lootFields[8]);
+			
+			newConsumable = new Consumable(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2], statFields[3]);
+			//System.out.println(newConsumable);
+			consumables.put(newConsumable.getId(), newConsumable);
+		}
+		
+		br.close();
+	}
+	
+	private void loadCSVEquipments() throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(csvGameObjectPaths[1]));
+		br.readLine() ;
+		
+		String line ;
+		String []lootFields ;
+		int []statFields = new int[9] ;
+		
+		Equipment newEquipment ;
+		
+		while((line = br.readLine()) != null) {
+			lootFields = line.split(";") ;
+			
+			double price = Double.parseDouble(lootFields[1]) ;
+			
+			for(int i = 0 ; i < statFields.length; i++) {
+				statFields[i] = Integer.parseInt(lootFields[i + 5]);
+			}
+			
+			newEquipment = new Equipment(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2], statFields[3], statFields[4], statFields[5], statFields[6], statFields[7], statFields[8], lootFields[14]);
+			//System.out.println(newEquipment);
+			equipments.put(newEquipment.getId(), newEquipment) ;
+		}
+		br.close();
+	}
 
 	private void loadCsvPlayer() throws IOException {
 
@@ -221,10 +271,16 @@ public class DataBase extends Canvas {
 		monstre.setX(6);
 		monstre.setY(5);
 		monstre.setDirection(0);
-	
+		
 		instances.put(ronflex.getId(),ronflex);
 		sc = new Scanner(System.in);
 		chooseClassPlayer();
+		InventoryKey.addLoot(consumables.get("C#001"), PlayerChoice.selected(instances));
+		InventoryKey.addLoot(consumables.get("C#001"), PlayerChoice.selected(instances));
+		InventoryKey.addLoot(consumables.get("C#001"), PlayerChoice.selected(instances));
+		InventoryKey.addLoot(consumables.get("C#001"), PlayerChoice.selected(instances));
+		InventoryKey.addLoot(consumables.get("C#001"), PlayerChoice.selected(instances));
+		//SALE ENCULE RENOMME TA METHODE RUN OU TICK PAS PTN DE GAMEINPUT
 		new GameInput(instances);
 		sc.close();
 		
@@ -287,6 +343,20 @@ public class DataBase extends Canvas {
 		res += "--------------------------Character END-----------------------------\n";
 
 
+		Collection<Consumable> valsConsumable = consumables.values() ;
+		Collection<Equipment> valsEquipment = equipments.values() ;
+		Iterator<Consumable> itConsumable = valsConsumable.iterator();
+		Iterator<Equipment> itEquipment = valsEquipment.iterator();
+		res += "--------------------------Loot INIT-----------------------------\n" ;
+		while(itConsumable.hasNext()) {
+			Consumable consumable = itConsumable.next();
+			res += consumable.toString() ;
+		}
+		while(itEquipment.hasNext()) {
+			Equipment equipment = itEquipment.next();
+			res += equipment.toString() ;
+		}
+		res += "--------------------------Loot END-----------------------------\n" ;
 		return res;
 
 	}
