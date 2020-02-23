@@ -7,6 +7,15 @@ import inventory.Inventory;
 
 public abstract class Character extends GameObject {
 
+	//Map Position
+	
+	private int x;
+	private int y;
+	// 0=north, 1=west, 2=east, 3=south
+	private int direction;
+	
+	
+	//Caracteristics
 	private String type;
 	private int lifePoint;
 	private int lifePointMax ;
@@ -25,11 +34,7 @@ public abstract class Character extends GameObject {
 	private int dodgeChance;
 	private int speed;
 	private Inventory inventory ;
-
-	private int x;
-	private int y;
 	
-
 	public Character(String id, String type, int hp, int mp, int str, int dext, int intel, int def, int atk, int range,
 			int inventory, int level, int atkSpeed, int ctkChance, int dodgeChance) {
 
@@ -43,7 +48,7 @@ public abstract class Character extends GameObject {
 		attack = atk;
 		this.type = type;
 		this.range = range;
-		inventoryStatus = inventory;
+		this.inventoryStatus = inventory;
 		this.level = level;
 		this.attackSpeed = atkSpeed;
 		criticalChance = ctkChance;
@@ -73,6 +78,16 @@ public abstract class Character extends GameObject {
 
 	public void setManaPointMax(int manaPointMax) {
 		this.manaPointMax = manaPointMax;
+	}
+
+	
+	public String toString() {
+		return "-----------------------------------------------\n" +super.toString()+ "\nclass = " + getType() + "\nhp = "
+				+ getLifePoint() + "\nmp = " + getManaPoint() + "\nStr = " + getStrength() + "\ndext = "
+				+ getDexterity() + "\nintel = " + getIntelligence() + "\ndef = " + getDefense() + "\natk = "
+				+ getAttack() + "\nrange = " + getRange() + "\ninventory = " + getInventoryStatus() + "\nlevel = "
+				+ getLevel() + "\natkSpeed = " + getAttackSpeed() + "\nctkChance = " + getCriticalChance()
+				+ "\ndodgeChance = " + getDodgeChance();
 	}
 
 	public int getLifePoint() {
@@ -151,8 +166,8 @@ public abstract class Character extends GameObject {
 		return inventoryStatus;
 	}
 
-	public void setInventoryStatus(int inventory) {
-		inventoryStatus = inventory;
+	public void setInventoryStatus(int inventoryStatus) {
+		this.inventoryStatus = inventoryStatus;
 	}
 
 	public int getLevel() {
@@ -187,14 +202,6 @@ public abstract class Character extends GameObject {
 		this.dodgeChance = dodgeChance;
 	}
 
-	public String getCast() {
-		return cast;
-	}
-
-	public void setCast(String cast) {
-		this.cast = cast;
-	}
-	
 	public int getSpeed() {
 		return speed;
 	}
@@ -203,8 +210,28 @@ public abstract class Character extends GameObject {
 		this.speed = speed;
 	}
 
-	private String cast;
-
+	public void setX(int x) {
+		this.x = x;
+	}
 	
+	public void setY(int y) {
+		this.y = y;
+	}
+	
+	public void setDirection(int direction) {
+		this.direction = direction;
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public int getDirection() {
+		return direction;
+	}
 
 }

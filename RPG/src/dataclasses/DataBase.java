@@ -1,60 +1,67 @@
 package dataclasses;
 
+import java.awt.Canvas;
 import java.io.BufferedReader;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collection;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 
 import inventory.InventoryKey;
 import inventory.InventoryThread;
+import java.util.Scanner;
+
+import game.GameInput;
 import playable.Character;
 import playable.Monster;
 import playable.Player;
 import spell.Spell;
-
 import loot.Consumable;
 import loot.Equipment;
+import loot.Loot;
 
 import static inventory.InventoryThread.*;
 import static inventory.InventoryKey.*;
 
-public class DataBase {
+public class DataBase extends Canvas {
+
+
+
+	private static final long serialVersionUID = 1L;
 
 	private HashMap<String, Character> characters;
-//	private HashMap<String,Tile>tiles;
-//	private HashMap<String,Prop>props;
 	private HashMap<String, Spell> spells;
 	private HashMap<String,Equipment>equipments;
 	private HashMap<String,Consumable>consumables;
+	private HashMap<String,GameObject> instances;
+	
+	private Scanner sc;
+
 
 	private String[] csvGameObjectPaths = { "csvConsumable", "csvEquipment", ".\\CSV\\Spell.csv", "csvTile", "csvProp",
 			".\\CSV\\Player.csv", ".\\CSV\\Monster.csv" };
 
-	
+	private boolean running = true;
+
 	public DataBase() {
 
 		spells = new HashMap<String, Spell>();
 		characters = new HashMap<String, Character>();
-		equipments = new HashMap<String,Equipment>();
-		consumables = new HashMap<String,Consumable>();
-		
+		instances = new HashMap<String, GameObject>();
+
 		try {
 			loadCsvSpell();
 			loadCsvPlayer();
-			loadCsvMonster();
-			loadCsvConsumable();
-			loadCSVEquipments();
+			 loadCsvMonster();
+			// loadCsvConsumable();
+			// loadCSVEquipments();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		Player p = (Player) characters.get("pa2") ;
+	/*	Player p = (Player) characters.get("pa2") ;
 		InventoryKey.addLoot(equipments.get("E#001"), p);
 		InventoryKey.addLoot(equipments.get("E#002"), p);
 		InventoryKey.addLoot(consumables.get("C#001"), p);
@@ -85,14 +92,9 @@ public class DataBase {
 		
 		
 
-		//System.out.println(this);
+		//System.out.println(this);*/
 	}
 	
-	public static void main(String[] args) {
-		new DataBase() ;
-	}
-
-
 	public void loadCsvSpell() throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(csvGameObjectPaths[2]));
 		br.readLine();
@@ -181,17 +183,46 @@ public class DataBase {
 		String line;
 		String[] playerFields;
 		int[] playerIntCSV = new int[14];
+		Spell[] playerSpells = new Spell[6];
 
-		while ((line = br.readLine()) != null) {
+		while ((line = br.readLine()) != null) { // INIT ALL INTEGERS OF PLAYERS
 			playerFields = line.split(",");
 			for (int i = 0; i < 14; i++) {
 				playerIntCSV[i] = Integer.parseInt(playerFields[i + 2]);
 			}
+
+			switch (playerFields[1]) { // INIT PLAYER SPELLS DEPENDING ON PLAYER'S TYPE
+
+			case "Guerrier":
+				for (int i = 1; i <= 6; i++) {
+					String key = "sg" + i;
+					playerSpells[i - 1] = spells.get(key);
+				}
+				break;
+
+			case "Archer":
+				for (int i = 1; i <= 6; i++) {
+					String key = "sa" + i;
+					playerSpells[i - 1] = spells.get(key);
+				}
+				break;
+
+			case "Sorcier":
+				for (int i = 1; i <= 6; i++) {
+					String key = "ss" + i;
+					playerSpells[i - 1] = spells.get(key);
+				}
+				break;
+			}
+
 			Player tmp = new Player(playerFields[0], playerFields[1], playerIntCSV[0], playerIntCSV[1], playerIntCSV[2],
 					playerIntCSV[3], playerIntCSV[4], playerIntCSV[5], playerIntCSV[6], playerIntCSV[7],
 					playerIntCSV[8], playerIntCSV[9], playerIntCSV[10], playerIntCSV[11], playerIntCSV[12],
-					playerIntCSV[13]);
+					playerIntCSV[13], playerSpells[0], playerSpells[1], playerSpells[2], playerSpells[3],
+					playerSpells[4], playerSpells[5]);
+
 			characters.put(tmp.getId(), tmp);
+
 		}
 
 		br.close();
@@ -222,12 +253,66 @@ public class DataBase {
 		br.close();
 
 	}
+	
+	private void initGame() {
+		
+		Monster ronflex = (Monster) characters.get("ma2");
+		ronflex.setX(5);
+		ronflex.setY(5);
+		ronflex.setDirection(0);
+		Monster monstre = (Monster) characters.get("mt3");
+		monstre.setX(6);
+		monstre.setY(5);
+		monstre.setDirection(0);
+		
+		instances.put(ronflex.getId(),ronflex);
+		sc = new Scanner(System.in);
+		chooseClassPlayer();
+		new GameInput(instances);
+		sc.close();
+		
+	}
+
+	private void chooseClassPlayer() {
+		boolean state = true;
+		while(state) {
+			System.out.println("CHOOSE CLASS OF CHARACTER : 't' = WARRIOR / 'y' = ARCHER / 'u' = MAGE\n OR EXIT = 'e'");
+			String input = sc.nextLine();
+			if(input.equals("t")) {
+				Player ply = (Player) characters.get("pg1");
+				instances.put(ply.getId(), ply);
+				System.out.println("YOU CHOSE WARRIOR");
+				state = false;
+			}
+			else if(input.equals("y")) {
+				Player ply = (Player) characters.get("pa2");
+				instances.put(ply.getId(), ply);
+				System.out.println("YOU CHOSE ARCHER");
+				state = false;
+			}
+			else if(input.equals("u")) {
+				Player ply = (Player) characters.get("ps3");
+				instances.put(ply.getId(), ply);
+				System.out.println("YOU CHOSE MAGE");
+				state = false;
+			}
+			else if(input.equals("e")) {
+				System.out.println("CLOSING GAME");
+				System.exit(0);
+			}
+			else {
+				System.out.println("WRONG KEY");
+			}
+		}
+		
+	}
 
 	public String toString() {
 
+		String res = "";
+
 		Collection<Spell> valsSpell = spells.values();
 		Iterator<Spell> itSpell = valsSpell.iterator();
-		String res = "";
 		res += "--------------------------SPELL INIT----------------------------\n";
 		while (itSpell.hasNext()) {
 			Spell spell = itSpell.next();
@@ -243,14 +328,49 @@ public class DataBase {
 			res += character.toString();
 		}
 		res += "--------------------------Character END-----------------------------\n";
+
 		return res;
+
 	}
-	
+
+	public HashMap<String, Spell> getSpells() {
+		return spells;
+	}
+
+	public void setSpells(HashMap<String, Spell> spells) {
+		this.spells = spells;
+	}
+
+	public String[] getCsvGameObjectPaths() {
+		return csvGameObjectPaths;
+	}
+
+	public void setCsvGameObjectPaths(String[] csvGameObjectPaths) {
+		this.csvGameObjectPaths = csvGameObjectPaths;
+	}
+
+	public boolean isRunning() {
+		return running;
+	}
+
+	public void setRunning(boolean running) {
+		this.running = running;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	public HashMap<String, Character> getCharacters() {
 		return characters;
 	}
 
 	public void setCharacters(HashMap<String, Character> characters) {
 		this.characters = characters;
-	}	
+	}
+	
+	public static void main(String[] args) {
+		new DataBase();
+	}
+
 }
