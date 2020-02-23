@@ -26,6 +26,10 @@ public abstract class Character extends GameObject {
 	private int speed;
 	private Inventory inventory ;
 
+	private int x;
+	private int y;
+	
+
 	public Character(String id, String type, int hp, int mp, int str, int dext, int intel, int def, int atk, int range,
 			int inventory, int level, int atkSpeed, int ctkChance, int dodgeChance) {
 
