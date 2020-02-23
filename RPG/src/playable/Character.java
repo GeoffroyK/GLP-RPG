@@ -1,29 +1,36 @@
 package playable;
 
+import java.util.ArrayList;
+
 import dataclasses.*;
+import inventory.Inventory;
 
 public abstract class Character extends GameObject {
 
 	private String type;
 	private int lifePoint;
+	private int lifePointMax ;
 	private int manaPoint;
+	private int manaPointMax ;
 	private int strength;
 	private int dexterity;
 	private int intelligence;
 	private int defense;
 	private int attack;
 	private int range;
-	private int inventory;
+	private int inventoryStatus;
 	private int level;
 	private int attackSpeed;
 	private int criticalChance;
 	private int dodgeChance;
-	
+	private int speed;
+	private Inventory inventory ;
+
 	public Character(String id, String type, int hp, int mp, int str, int dext, int intel, int def, int atk, int range,
 			int inventory, int level, int atkSpeed, int ctkChance, int dodgeChance) {
 
 		super(id);
-		lifePoint = hp;
+		lifePointMax = hp;
 		manaPoint = mp;
 		strength = str;
 		dexterity = dext;
@@ -32,11 +39,36 @@ public abstract class Character extends GameObject {
 		attack = atk;
 		this.type = type;
 		this.range = range;
-		this.inventory = inventory;
+		inventoryStatus = inventory;
 		this.level = level;
 		this.attackSpeed = atkSpeed;
 		criticalChance = ctkChance;
 		this.dodgeChance = dodgeChance;
+		this.inventory = new Inventory(0, 150) ;
+	}
+
+	public Inventory getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
+	}
+
+	public int getLifePointMax() {
+		return lifePointMax;
+	}
+
+	public void setLifePointMax(int lifePointMax) {
+		this.lifePointMax = lifePointMax;
+	}
+
+	public int getManaPointMax() {
+		return manaPointMax;
+	}
+
+	public void setManaPointMax(int manaPointMax) {
+		this.manaPointMax = manaPointMax;
 	}
 
 	public int getLifePoint() {
@@ -111,12 +143,12 @@ public abstract class Character extends GameObject {
 		this.range = range;
 	}
 
-	public int getInventory() {
-		return inventory;
+	public int getInventoryStatus() {
+		return inventoryStatus;
 	}
 
-	public void setInventory(int inventory) {
-		this.inventory = inventory;
+	public void setInventoryStatus(int inventory) {
+		inventoryStatus = inventory;
 	}
 
 	public int getLevel() {
@@ -157,6 +189,14 @@ public abstract class Character extends GameObject {
 
 	public void setCast(String cast) {
 		this.cast = cast;
+	}
+	
+	public int getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(int speed) {
+		this.speed = speed;
 	}
 
 	private String cast;

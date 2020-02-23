@@ -10,6 +10,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import inventory.InventoryKey;
+import inventory.InventoryThread;
 import playable.Character;
 import playable.Monster;
 import playable.Player;
@@ -17,6 +20,9 @@ import spell.Spell;
 
 import loot.Consumable;
 import loot.Equipment;
+
+import static inventory.InventoryThread.*;
+import static inventory.InventoryKey.*;
 
 public class DataBase {
 
@@ -47,8 +53,39 @@ public class DataBase {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		Player p = (Player) characters.get("pa2") ;
+		InventoryKey.addLoot(equipments.get("E#001"), p);
+		InventoryKey.addLoot(equipments.get("E#002"), p);
+		InventoryKey.addLoot(consumables.get("C#001"), p);
+		InventoryKey.addLoot(consumables.get("C#001"), p);
+		p.setLifePoint(80);
+		p.setLifePointMax(100);
+		
+		System.out.println(p);
+		
+		InventoryKey.choice(p);
+		
+		System.out.println(InventoryThread.showInv(p.getInventory()));
+		System.out.println(p);
+		
+		/*InventoryKey.choice(p);
+		
+		System.out.println(InventoryThread.showInv(p.getInventory()));
+		
+		
+		
+		
+		/*System.out.println(p);
 
-		System.out.println(this);
+		inventoryThread.equipmentChoice(equipments.get("E#001"), p);
+		
+		System.out.println(p);
+		System.out.println(p.getInventory().getHelmet());*/
+		
+		
+
+		//System.out.println(this);
 	}
 	
 	public static void main(String[] args) {
@@ -103,7 +140,7 @@ public class DataBase {
 			statFields[3] = Integer.parseInt(lootFields[8]);
 			
 			newConsumable = new Consumable(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2], statFields[3]);
-			System.out.println(newConsumable);
+			//System.out.println(newConsumable);
 			consumables.put(newConsumable.getId(), newConsumable);
 		}
 		
@@ -125,14 +162,15 @@ public class DataBase {
 			
 			double price = Double.parseDouble(lootFields[1]) ;
 			
-			for(int i = 0 ; i < statFields.length ; i++) {
+			for(int i = 0 ; i < statFields.length; i++) {
 				statFields[i] = Integer.parseInt(lootFields[i + 5]);
 			}
 			
-			newEquipment = new Equipment(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2], statFields[3], statFields[4], statFields[5], statFields[6], statFields[7], statFields[8], lootFields[10]);
-			System.out.println(newEquipment);
+			newEquipment = new Equipment(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2], statFields[3], statFields[4], statFields[5], statFields[6], statFields[7], statFields[8], lootFields[14]);
+			//System.out.println(newEquipment);
 			equipments.put(newEquipment.getId(), newEquipment) ;
 		}
+		br.close();
 	}
 
 	private void loadCsvPlayer() throws IOException {
