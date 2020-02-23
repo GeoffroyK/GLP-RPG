@@ -1,15 +1,19 @@
 package spell;
 
+import java.util.HashMap;
+
+import dataclasses.GameObject;
 import map.Map;
+import playable.Monster;
 import playable.MoveTreatment;
 import playable.Player;
 
 public class SpellTreatment {
 
-	public static void spellUsed(Player ply, int number, Map map) {
+	public static void spellUsed(HashMap<String, GameObject> instances, Player ply, int number, Map map) {
 
 		Spell spell = ply.getSpells()[number];
-		System.out.println("NAME : " +spell.getName());
+		System.out.println("NAME : " + spell.getName());
 		if (ply.getManaPoint() > spell.getManaUsage()) {
 			int manaConsumed = ply.getManaPoint() - spell.getManaUsage();
 			ply.setManaPoint(manaConsumed);
@@ -18,9 +22,102 @@ public class SpellTreatment {
 			switch (spell.getType()) {
 
 			case "Dmg":
-				System.out.println("HP : " + ply.getLifePoint() + " --> ");
-				ply.setLifePoint(ply.getLifePoint() - spell.getDamage());
-				System.out.println(ply.getLifePoint());
+				int cptRange = 1;
+				boolean state = true;
+				switch (ply.getDirection()) {
+
+				/* Haut */ case 0:
+					while (cptRange <= spell.getRange() && state) {
+						if (map.isOccupied(ply.getX(), ply.getY() - cptRange)) {
+							System.out.println("MONSTER FOUND");
+							String monsterId = map.getMonsterIdByPos(ply.getX(), ply.getY() - cptRange);
+							Monster monster = (Monster) instances.get(monsterId);
+							int previousMonsterHP = monster.getLifePoint();
+							monster.setLifePoint(monster.getLifePoint() - spell.getDamage());
+							System.out.println("Damage Dealt : " + spell.getDamage() + "\nMonsterLife : From "
+									+ previousMonsterHP + " to " + monster.getLifePoint());
+							if(monster.getLifePoint() <= 0) {
+								map.suppMonster(monster);
+								System.out.println("MONSTER IS DEAD");
+							}
+							state = false;
+						}
+						cptRange++;
+					}
+					if(state) {
+						System.out.println("MONSTER NOT FOUND");
+					}
+					break;
+
+					/* Gauche */ case 1:
+						while (cptRange <= spell.getRange() && state) {
+							if (map.isOccupied(ply.getX() - cptRange, ply.getY())) {
+								System.out.println("MONSTER FOUND");
+								String monsterId = map.getMonsterIdByPos(ply.getX() - cptRange, ply.getY());
+								Monster monster = (Monster) instances.get(monsterId);
+								int previousMonsterHP = monster.getLifePoint();
+								monster.setLifePoint(monster.getLifePoint() - spell.getDamage());
+								System.out.println("Damage Dealt : " + spell.getDamage() + "\nMonsterLife : From "
+										+ previousMonsterHP + " to " + monster.getLifePoint());
+								if(monster.getLifePoint() <= 0) {
+									map.suppMonster(monster);
+									System.out.println("MONSTER IS DEAD");
+								}
+								state = false;
+							}
+							cptRange++;
+						}
+						if(state) {
+							System.out.println("MONSTER NOT FOUND");
+						}
+						break;
+
+					/* Droite */ case 2:
+						while (cptRange <= spell.getRange() && state) {
+							if (map.isOccupied(ply.getX() + cptRange, ply.getY())) {
+								System.out.println("MONSTER FOUND");
+								String monsterId = map.getMonsterIdByPos(ply.getX() + cptRange, ply.getY());
+								Monster monster = (Monster) instances.get(monsterId);
+								int previousMonsterHP = monster.getLifePoint();
+								monster.setLifePoint(monster.getLifePoint() - spell.getDamage());
+								System.out.println("Damage Dealt : " + spell.getDamage() + "\nMonsterLife : From "
+										+ previousMonsterHP + " to " + monster.getLifePoint());
+								if(monster.getLifePoint() <= 0) {
+									map.suppMonster(monster);
+									System.out.println("MONSTER IS DEAD");
+								}
+								state = false;
+							}
+							cptRange++;
+						}
+						if(state) {
+							System.out.println("MONSTER NOT FOUND");
+						}
+						break;
+
+					/* Bas */ case 3:
+						while (cptRange <= spell.getRange() && state) {
+							if (map.isOccupied(ply.getX() , ply.getY()+ cptRange)) {
+								System.out.println("MONSTER FOUND");
+								String monsterId = map.getMonsterIdByPos(ply.getX(), ply.getY() + cptRange);
+								Monster monster = (Monster) instances.get(monsterId);
+								int previousMonsterHP = monster.getLifePoint();
+								monster.setLifePoint(monster.getLifePoint() - spell.getDamage());
+								System.out.println("Damage Dealt : " + spell.getDamage() + "\nMonsterLife : From "
+										+ previousMonsterHP + " to " + monster.getLifePoint());
+								if(monster.getLifePoint() <= 0) {
+									map.suppMonster(monster);
+									System.out.println("MONSTER IS DEAD");
+								}
+								state = false;
+							}
+							cptRange++;
+						}
+						if(state) {
+							System.out.println("MONSTER NOT FOUND");
+						}
+						break;
+				}
 				break;
 
 			case "Mvt":

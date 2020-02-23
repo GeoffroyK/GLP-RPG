@@ -12,31 +12,34 @@ public class SpellInput /*extends inputAdapter*/ {
 
 	private Player ply;
 	private Map map;
+	private HashMap<String,GameObject> instances;
 	
 	public SpellInput(HashMap<String,GameObject> instances, Map map) {
+		this.instances = instances;
 		ply = PlayerChoice.selected(instances);
 		this.map = map;
+		int cooldown[] = {0,0,0,0,0,0};
 	}
 
 	public void scannerPressed(String input) {
 		
 		if (input.equals("w")) {
-			SpellTreatment.spellUsed(ply,0,map);
+			SpellTreatment.spellUsed(instances,ply,0,map);
 		}
 		if (input.equals("x")) {
-			SpellTreatment.spellUsed(ply,1,map);
+			SpellTreatment.spellUsed(instances,ply,1,map);
 		}
 		if (input.equals("c")) {
-			SpellTreatment.spellUsed(ply,2,map);
+			SpellTreatment.spellUsed(instances,ply,2,map);
 		}
 		if (input.equals("v")){
-			SpellTreatment.spellUsed(ply,3,map);
+			SpellTreatment.spellUsed(instances,ply,3,map);
 		}
 		if (input.equals("b")){
-			SpellTreatment.spellUsed(ply,4,map);
+			SpellTreatment.spellUsed(instances,ply,4,map);
 		}
 		if (input.equals(" ")){
-			SpellTreatment.spellUsed(ply,5,map);
+			SpellTreatment.spellUsed(instances,ply,5,map);
 		}
 	}
 	

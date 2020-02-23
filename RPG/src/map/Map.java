@@ -22,10 +22,23 @@ public class Map {
 		monsters.add(mob);
 	}
 	
+	public void suppMonster(Monster mob) {
+		monsters.remove(mob);
+	}
+	
 	public String getMonsterNameByPos(int x, int y) {
 		for(Monster e : monsters) {
 			if((x == e.getX())&&(y == e.getY())){
 				return e.getType();
+			}
+		}
+		return "none";
+	}
+	
+	public String getMonsterIdByPos(int x, int y) {
+		for(Monster e : monsters) {
+			if((x == e.getX())&&(y == e.getY())){
+				return e.getId();
 			}
 		}
 		return "none";

@@ -219,6 +219,10 @@ public class DataBase extends Canvas {
 		ronflex.setX(5);
 		ronflex.setY(5);
 		ronflex.setDirection(0);
+		Monster monstre = (Monster) characters.get("mt3");
+		monstre.setX(6);
+		monstre.setY(5);
+		monstre.setDirection(0);
 		
 		instances.put(ronflex.getId(),ronflex);
 		sc = new Scanner(System.in);
@@ -229,27 +233,37 @@ public class DataBase extends Canvas {
 	}
 
 	private void chooseClassPlayer() {
-		System.out.println("CHOOSE CLASS OF CHARACTER : 't' = WARRIOR / 'y' = ARCHER / 'u' = MAGE\n OR EXIT = 'e'");
-		String input = sc.nextLine();
-		if(input.equals("t")) {
-			Player ply = (Player) characters.get("pg1");
-			instances.put(ply.getId(), ply);
-			System.out.println("YOU CHOSE WARRIOR");
+		boolean state = true;
+		while(state) {
+			System.out.println("CHOOSE CLASS OF CHARACTER : 't' = WARRIOR / 'y' = ARCHER / 'u' = MAGE\n OR EXIT = 'e'");
+			String input = sc.nextLine();
+			if(input.equals("t")) {
+				Player ply = (Player) characters.get("pg1");
+				instances.put(ply.getId(), ply);
+				System.out.println("YOU CHOSE WARRIOR");
+				state = false;
+			}
+			else if(input.equals("y")) {
+				Player ply = (Player) characters.get("pa2");
+				instances.put(ply.getId(), ply);
+				System.out.println("YOU CHOSE ARCHER");
+				state = false;
+			}
+			else if(input.equals("u")) {
+				Player ply = (Player) characters.get("ps3");
+				instances.put(ply.getId(), ply);
+				System.out.println("YOU CHOSE MAGE");
+				state = false;
+			}
+			else if(input.equals("e")) {
+				System.out.println("CLOSING GAME");
+				System.exit(0);
+			}
+			else {
+				System.out.println("WRONG KEY");
+			}
 		}
-		else if(input.equals("y")) {
-			Player ply = (Player) characters.get("pa2");
-			instances.put(ply.getId(), ply);
-			System.out.println("YOU CHOSE ARCHER");
-		}
-		else if(input.equals("u")) {
-			Player ply = (Player) characters.get("ps3");
-			instances.put(ply.getId(), ply);
-			System.out.println("YOU CHOSE MAGE");
-		}
-		else if(input.equals("e")) {
-			System.out.println("CLOSING GAME");
-			System.exit(0);
-		}
+		
 	}
 
 	public String toString() {
