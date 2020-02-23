@@ -3,6 +3,7 @@ package game;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import dataclasses.DataBase;
 import dataclasses.GameObject;
 import inventory.InventoryKey;
 import map.Map;
@@ -38,10 +39,18 @@ public class GameInput {
 	}
 	
 	public void scan() {
+		
+		input = sc.nextLine() ;
+		if(input.matches("t|y|u")) {
+			PlayerChoice.chooseClassPlayer(input);
+			System.out.println(DataBase.getInstances().size());
+		}
+		
 		System.out.println("MOVE : 'Z' = UP / 'S' = DOWN / 'Q' = LEFT / 'D' = RIGHT");
 		System.out.println("ATTACK WITH 5 SPELLS AND 1 AUTO ATTACK : 'W,X,C,V,B' = SPELLS / 'SPACE' = AUTOATTACK");
 		System.out.println("OPEN INVENTORY : 'I'");
 		System.out.println("EXIT = 'E'");
+		
 		while(running) {
 			input = sc.nextLine();
 			

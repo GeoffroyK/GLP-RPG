@@ -33,15 +33,15 @@ public class DataBase extends Canvas {
 
 	private static final long serialVersionUID = 1L;
 
-	private HashMap<String, Character> characters;
-	private HashMap<String, Spell> spells;
-	private HashMap<String,Equipment>equipments;
+	private static HashMap<String, Character> characters;
+	private static HashMap<String, Spell> spells;
+	private static HashMap<String,Equipment>equipments;
 	private static HashMap<String,Consumable>consumables;
-	private HashMap<String,GameObject> instances;
+	private static HashMap<String,GameObject> instances;
 
 	private Scanner sc;
 
-	private String[] csvGameObjectPaths = { ".\\CSV\\Consumable.csv", ".\\CSV\\Equipment.csv", ".\\CSV\\Spell.csv", "csvTile", "csvProp",
+	private static String[] csvGameObjectPaths = { ".\\CSV\\Consumable.csv", ".\\CSV\\Equipment.csv", ".\\CSV\\Spell.csv", "csvTile", "csvProp",
 			".\\CSV\\Player.csv", ".\\CSV\\Monster.csv" };
 
 	private boolean running = true;
@@ -56,15 +56,12 @@ public class DataBase extends Canvas {
 		
 
 		try {
-			loadCsvSpell();
-			loadCsvPlayer();
-			loadCsvMonster();
-
-			loadCsvConsumable();
-			loadCSVEquipments();
+			DataBaseTreatment.loadCsvSpell(csvGameObjectPaths[2], this);
+			DataBaseTreatment.loadCsvPlayer(csvGameObjectPaths[5], this);
+			DataBaseTreatment.loadCsvMonster(csvGameObjectPaths[6], this);
+			DataBaseTreatment.loadCsvConsumable(csvGameObjectPaths[0], this);
+			DataBaseTreatment.loadCSVEquipments(csvGameObjectPaths[1], this);
 			//loadCsvProp(); 
-			// loadCsvConsumable();
-			// loadCSVEquipments();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -106,189 +103,6 @@ public class DataBase extends Canvas {
 		//System.out.println(this);*/
 	}
 	
-	public void loadCsvSpell() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(csvGameObjectPaths[2]));
-        br.readLine();
-
-        String line;
-        String[] spellFields;
-        int[] spellIntCSV = new int[5];
-        float[] spellFloatCSV = new float[2];
-
-        while ((line = br.readLine()) != null) {
-            spellFields = line.split(",");
-
-            spellIntCSV[0] = Integer.parseInt(spellFields[4]);
-            spellIntCSV[1] = Integer.parseInt(spellFields[5]);
-            spellIntCSV[2] = Integer.parseInt(spellFields[6]);
-            spellIntCSV[3] = Integer.parseInt(spellFields[7]);
-            spellIntCSV[4] = Integer.parseInt(spellFields[8]);
-            spellFloatCSV[0] = Float.parseFloat(spellFields[9]);
-            spellFloatCSV[1] = Float.parseFloat(spellFields[10]);
-            Spell tmp = new Spell(spellFields[0], spellFields[1], spellFields[2], spellFields[3], spellIntCSV[0],
-                    spellIntCSV[1], spellIntCSV[2], spellIntCSV[3], spellIntCSV[4], spellFloatCSV[0], spellFloatCSV[1]);
-            spells.put(tmp.getId(), tmp);
-        }
-
-        br.close();
-    }
-	
-	/*public void loadCsvProp() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(csvGameObjectPaths[4]));
-		br.readLine();
-
-		String line;
-		String[] propFields;
-		int[] propIntCSV = new int[1];
-		String[] propStringCSV = new String[2];
-
-		while ((line = br.readLine()) != null) {
-			propFields = line.split(",");
-			propIntCSV[0] = Integer.parseInt(propFields[2]);
-			propStringCSV[0] = propFields[0];
-			propStringCSV[1] = propFields[1];
-			propStringCSV[2] = propFields[3];
-			Prop tmp = new Prop(propStringCSV[0], propStringCSV[1],
-					propIntCSV[0], propStringCSV[2]);
-			props.put(tmp.getId(), tmp);
-		}
-
-		br.close();
-<<<<<<< HEAD
-	}*/
-	
-	private void loadCsvConsumable() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(csvGameObjectPaths[0]));
-		br.readLine() ;
-		
-		String line ;
-		String []lootFields ;
-		int []statFields =  new int[4];
-		
-		Consumable newConsumable ;
-		
-		while((line = br.readLine()) != null) {
-			lootFields = line.split(";");
-			
-			double price = Double.parseDouble(lootFields[1]) ;
-			statFields[0] = Integer.parseInt(lootFields[5]);
-			statFields[1] = Integer.parseInt(lootFields[6]);
-			statFields[2] = Integer.parseInt(lootFields[7]);
-			statFields[3] = Integer.parseInt(lootFields[8]);
-			
-			newConsumable = new Consumable(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2], statFields[3]);
-			//System.out.println(newConsumable);
-			consumables.put(newConsumable.getId(), newConsumable);
-		}
-		
-		br.close();
-	}
-	
-	private void loadCSVEquipments() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(csvGameObjectPaths[1]));
-		br.readLine() ;
-		
-		String line ;
-		String []lootFields ;
-		int []statFields = new int[9] ;
-		
-		Equipment newEquipment ;
-		
-		while((line = br.readLine()) != null) {
-			lootFields = line.split(";") ;
-			
-			double price = Double.parseDouble(lootFields[1]) ;
-			
-			for(int i = 0 ; i < statFields.length; i++) {
-				statFields[i] = Integer.parseInt(lootFields[i + 5]);
-			}
-			
-			newEquipment = new Equipment(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2], statFields[3], statFields[4], statFields[5], statFields[6], statFields[7], statFields[8], lootFields[14]);
-			//System.out.println(newEquipment);
-			equipments.put(newEquipment.getId(), newEquipment) ;
-		}
-		br.close();
-	}
-
-	private void loadCsvPlayer() throws IOException {
-
-		BufferedReader br = new BufferedReader(new FileReader(csvGameObjectPaths[5]));
-		br.readLine();
-
-		String line;
-		String[] playerFields;
-		int[] playerIntCSV = new int[14];
-		Spell[] playerSpells = new Spell[6];
-
-		while ((line = br.readLine()) != null) { // INIT ALL INTEGERS OF PLAYERS
-			playerFields = line.split(",");
-			for (int i = 0; i < 14; i++) {
-				playerIntCSV[i] = Integer.parseInt(playerFields[i + 2]);
-			}
-
-			switch (playerFields[1]) { // INIT PLAYER SPELLS DEPENDING ON PLAYER'S TYPE
-
-			case "Guerrier":
-				for (int i = 1; i <= 6; i++) {
-					String key = "sg" + i;
-					playerSpells[i - 1] = spells.get(key);
-				}
-				break;
-
-			case "Archer":
-				for (int i = 1; i <= 6; i++) {
-					String key = "sa" + i;
-					playerSpells[i - 1] = spells.get(key);
-				}
-				break;
-
-			case "Sorcier":
-				for (int i = 1; i <= 6; i++) {
-					String key = "ss" + i;
-					playerSpells[i - 1] = spells.get(key);
-				}
-				break;
-			}
-
-			Player tmp = new Player(playerFields[0], playerFields[1], playerIntCSV[0], playerIntCSV[1], playerIntCSV[2],
-					playerIntCSV[3], playerIntCSV[4], playerIntCSV[5], playerIntCSV[6], playerIntCSV[7],
-					playerIntCSV[8], playerIntCSV[9], playerIntCSV[10], playerIntCSV[11], playerIntCSV[12],
-					playerIntCSV[13], playerSpells[0], playerSpells[1], playerSpells[2], playerSpells[3],
-					playerSpells[4], playerSpells[5]);
-
-			characters.put(tmp.getId(), tmp);
-
-		}
-
-		br.close();
-
-	}
-
-	private void loadCsvMonster() throws IOException {
-
-		BufferedReader br = new BufferedReader(new FileReader(csvGameObjectPaths[6]));
-		br.readLine();
-
-		String line;
-		String[] monsterFields;
-		int[] monsterIntCSV = new int[15];
-
-		while ((line = br.readLine()) != null) {
-			monsterFields = line.split(",");
-			for (int i = 0; i < 14; i++) {
-				monsterIntCSV[i] = Integer.parseInt(monsterFields[i + 2]);
-			}
-			Monster tmp = new Monster(monsterFields[0], monsterFields[1], monsterIntCSV[0], monsterIntCSV[1],
-					monsterIntCSV[2], monsterIntCSV[3], monsterIntCSV[4], monsterIntCSV[5], monsterIntCSV[6],
-					monsterIntCSV[7], monsterIntCSV[8], monsterIntCSV[9], monsterIntCSV[10], monsterIntCSV[11],
-					monsterIntCSV[12], monsterIntCSV[13], monsterIntCSV[14]);
-			characters.put(tmp.getId(), tmp);
-		}
-
-		br.close();
-
-	}
-	
 	private void initGame() {
 		
 		Monster ronflex = (Monster) characters.get("ma2");
@@ -307,49 +121,9 @@ public class DataBase extends Canvas {
 	
 		instances.put(ronflex.getId(),ronflex);
 		sc = new Scanner(System.in);
-		chooseClassPlayer();
-		InventoryKey.addLoot(consumables.get("C#001"), PlayerChoice.selected(instances));
-		InventoryKey.addLoot(consumables.get("C#001"), PlayerChoice.selected(instances));
-		InventoryKey.addLoot(consumables.get("C#001"), PlayerChoice.selected(instances));
-		InventoryKey.addLoot(consumables.get("C#001"), PlayerChoice.selected(instances));
-		InventoryKey.addLoot(consumables.get("C#001"), PlayerChoice.selected(instances));
 		//SALE ENCULE RENOMME TA METHODE RUN OU TICK PAS PTN DE GAMEINPUT
 		new GameInput(instances);
 		sc.close();
-		
-	}
-
-	private void chooseClassPlayer() {
-		boolean state = true;
-		while(state) {
-			System.out.println("CHOOSE CLASS OF CHARACTER : 't' = WARRIOR / 'y' = ARCHER / 'u' = MAGE\n OR EXIT = 'e'");
-			String input = sc.nextLine();
-			if(input.equals("t")) {
-				Player ply = (Player) characters.get("pg1");
-				instances.put(ply.getId(), ply);
-				System.out.println("YOU CHOSE WARRIOR");
-				state = false;
-			}
-			else if(input.equals("y")) {
-				Player ply = (Player) characters.get("pa2");
-				instances.put(ply.getId(), ply);
-				System.out.println("YOU CHOSE ARCHER");
-				state = false;
-			}
-			else if(input.equals("u")) {
-				Player ply = (Player) characters.get("ps3");
-				instances.put(ply.getId(), ply);
-				System.out.println("YOU CHOSE MAGE");
-				state = false;
-			}
-			else if(input.equals("e")) {
-				System.out.println("CLOSING GAME");
-				System.exit(0);
-			}
-			else {
-				System.out.println("WRONG KEY");
-			}
-		}
 		
 	}
 
@@ -392,50 +166,43 @@ public class DataBase extends Canvas {
 
 	}
 
-	public HashMap<String, Spell> getSpells() {
+	public static HashMap<String, Spell> getSpells() {
 		return spells;
 	}
 
-	public void setSpells(HashMap<String, Spell> spells) {
-		this.spells = spells;
-	}
-
-	public String[] getCsvGameObjectPaths() {
+	public static String[] getCsvGameObjectPaths() {
 		return csvGameObjectPaths;
-	}
-
-	public void setCsvGameObjectPaths(String[] csvGameObjectPaths) {
-		this.csvGameObjectPaths = csvGameObjectPaths;
 	}
 
 	public boolean isRunning() {
 		return running;
 	}
 
-	public void setRunning(boolean running) {
-		this.running = running;
-	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	public HashMap<String, Character> getCharacters() {
+	public static HashMap<String, Character> getCharacters() {
 		return characters;
 	}
+	
+	public static HashMap<String, Equipment> getEquipments() {
+		return equipments;
+	}
 
-	public void setCharacters(HashMap<String, Character> characters) {
-		this.characters = characters;
+	public static HashMap<String, Consumable> getConsumables() {
+		return consumables;
+	}
+
+	public static HashMap<String, GameObject> getInstances() {
+		return instances;
+	}
+
+	public Scanner getSc() {
+		return sc;
 	}
 	
 	public static void main(String[] args) {
 		new DataBase();
-	}
-
-	public static Consumable getById(String id) {
-		if(consumables.containsKey(id)) {
-			return consumables.get(id) ;
-		}
-		return null;
 	}
 }
