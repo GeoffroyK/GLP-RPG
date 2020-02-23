@@ -5,6 +5,9 @@ import java.util.Scanner;
 
 import dataclasses.GameObject;
 import map.Map;
+import map_objects.Prop;
+import map_objects.PropInput;
+import map_objects.PropTreatment;
 import playable.Monster;
 import playable.Move;
 import spell.SpellInput;
@@ -16,6 +19,7 @@ public class GameInput {
 	private SpellInput si;
 	private Move mi;
 	private Map map;
+	private PropInput pi;
 	private boolean running = true;
 	
 	public GameInput(HashMap<String, GameObject> instances) {
@@ -39,6 +43,10 @@ public class GameInput {
 			}
 			else if(input.matches("z|q|s|d")) {
 				mi.move(input);
+			}
+			//Add Geo
+			else if(input.equals("a")) {
+				pi.propAction();
 			}
 			else if(input.equals("e")) {
 				System.out.println("CLOSING GAME");

@@ -16,6 +16,7 @@ import playable.Monster;
 import playable.Player;
 import spell.Spell;
 import loot.Loot;
+import map_objects.Prop;
 
 public class DataBase extends Canvas {
 
@@ -27,7 +28,7 @@ public class DataBase extends Canvas {
 	private Scanner sc;
 
 	private String[] csvGameObjectPaths = { "csvConsumable", "csvEquipment", ".\\CSV\\Spell.csv", "csvTile", "csvProp",
-			".\\CSV\\Player.csv", ".\\CSV\\Monster.csv" };
+			".\\CSV\\Player.csv", ".\\CSV\\Monster.csv"};
 	
 	private boolean running = true;
 
@@ -41,7 +42,8 @@ public class DataBase extends Canvas {
 		try {
 			loadCsvSpell();
 			loadCsvPlayer();
-			 loadCsvMonster();
+			loadCsvMonster();
+			//loadCsvProp(); 
 			// loadCsvConsumable();
 			// loadCSVEquipments();
 		} catch (IOException e) {
@@ -54,31 +56,54 @@ public class DataBase extends Canvas {
 	}
 
 	public void loadCsvSpell() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(csvGameObjectPaths[2]));
+        BufferedReader br = new BufferedReader(new FileReader(csvGameObjectPaths[2]));
+        br.readLine();
+
+        String line;
+        String[] spellFields;
+        int[] spellIntCSV = new int[5];
+        float[] spellFloatCSV = new float[2];
+
+        while ((line = br.readLine()) != null) {
+            spellFields = line.split(",");
+
+            spellIntCSV[0] = Integer.parseInt(spellFields[4]);
+            spellIntCSV[1] = Integer.parseInt(spellFields[5]);
+            spellIntCSV[2] = Integer.parseInt(spellFields[6]);
+            spellIntCSV[3] = Integer.parseInt(spellFields[7]);
+            spellIntCSV[4] = Integer.parseInt(spellFields[8]);
+            spellFloatCSV[0] = Float.parseFloat(spellFields[9]);
+            spellFloatCSV[1] = Float.parseFloat(spellFields[10]);
+            Spell tmp = new Spell(spellFields[0], spellFields[1], spellFields[2], spellFields[3], spellIntCSV[0],
+                    spellIntCSV[1], spellIntCSV[2], spellIntCSV[3], spellIntCSV[4], spellFloatCSV[0], spellFloatCSV[1]);
+            spells.put(tmp.getId(), tmp);
+        }
+
+        br.close();
+    }
+	
+	/*public void loadCsvProp() throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(csvGameObjectPaths[4]));
 		br.readLine();
 
 		String line;
-		String[] spellFields;
-		int[] spellIntCSV = new int[5];
-		float[] spellFloatCSV = new float[2];
+		String[] propFields;
+		int[] propIntCSV = new int[1];
+		String[] propStringCSV = new String[2];
 
 		while ((line = br.readLine()) != null) {
-			spellFields = line.split(",");
-
-			spellIntCSV[0] = Integer.parseInt(spellFields[4]);
-			spellIntCSV[1] = Integer.parseInt(spellFields[5]);
-			spellIntCSV[2] = Integer.parseInt(spellFields[6]);
-			spellIntCSV[3] = Integer.parseInt(spellFields[7]);
-			spellIntCSV[4] = Integer.parseInt(spellFields[8]);
-			spellFloatCSV[0] = Float.parseFloat(spellFields[9]);
-			spellFloatCSV[1] = Float.parseFloat(spellFields[10]);
-			Spell tmp = new Spell(spellFields[0], spellFields[1], spellFields[2], spellFields[3], spellIntCSV[0],
-					spellIntCSV[1], spellIntCSV[2], spellIntCSV[3], spellIntCSV[4], spellFloatCSV[0], spellFloatCSV[1]);
-			spells.put(tmp.getId(), tmp);
+			propFields = line.split(",");
+			propIntCSV[0] = Integer.parseInt(propFields[2]);
+			propStringCSV[0] = propFields[0];
+			propStringCSV[1] = propFields[1];
+			propStringCSV[2] = propFields[3];
+			Prop tmp = new Prop(propStringCSV[0], propStringCSV[1],
+					propIntCSV[0], propStringCSV[2]);
+			props.put(tmp.getId(), tmp);
 		}
 
 		br.close();
-	}
+	}*/
 
 //	private void loadCsvConsumable() throws IOException {
 //		BufferedReader br = new BufferedReader(new FileReader("C:/Users/Vortex/Documents/testO.csv"));
@@ -219,7 +244,7 @@ public class DataBase extends Canvas {
 		ronflex.setX(5);
 		ronflex.setY(5);
 		ronflex.setDirection(0);
-		
+	
 		instances.put(ronflex.getId(),ronflex);
 		sc = new Scanner(System.in);
 		chooseClassPlayer();
