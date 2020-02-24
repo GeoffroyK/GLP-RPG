@@ -29,23 +29,17 @@ public class GameInput {
 	public GameInput(HashMap<String, GameObject> instances) {
 		map = new Map();
 		sc = new Scanner(System.in);
-		si = new SpellInput(instances, map);
+		si = new SpellInput(map);
 		pi = new PropInput(instances, map);
-		pi.getMap().addProp((Prop) instances.get("id"));
-		mi = new Move(instances, map);
+		pi.getMap().addProp((Prop) DataBase.getInstances().get("id"));
+		mi = new Move(map);
 		mi.getMap().addMonster((Monster) instances.get("ma2"));
 		plyr = PlayerChoice.selected(instances);
 		scan();
 	}
 	
 	public void scan() {
-		
-		input = sc.nextLine() ;
-		if(input.matches("t|y|u")) {
-			PlayerChoice.chooseClassPlayer(input);
-			System.out.println(DataBase.getInstances().size());
-		}
-		
+	
 		System.out.println("MOVE : 'Z' = UP / 'S' = DOWN / 'Q' = LEFT / 'D' = RIGHT");
 		System.out.println("ATTACK WITH 5 SPELLS AND 1 AUTO ATTACK : 'W,X,C,V,B' = SPELLS / 'SPACE' = AUTOATTACK");
 		System.out.println("OPEN INVENTORY : 'I'");

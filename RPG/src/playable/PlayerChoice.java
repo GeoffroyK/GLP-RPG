@@ -19,18 +19,17 @@ public class PlayerChoice {
 		else if(instances.containsKey("ps3")) {
 			 ply = (Player) instances.get("ps3");
 		}
-		System.out.println("le bon endroit : " + ply);
 		return ply;
 	}
 	
 	public static void chooseClassPlayer(String input) {
 		boolean state = true;
 		while(state) {
-			System.out.println("CHOOSE CLASS OF CHARACTER : 't' = WARRIOR / 'y' = ARCHER / 'u' = MAGE\n OR EXIT = 'e'");
 			if(input.equals("t")) {
+				
 				Player ply = (Player) DataBase.getCharacters().get("pg1");
 				DataBase.getInstances().put(ply.getId(), ply);
-				System.out.println("YOU CHOSE WARRIOR" + ply.getDirection());
+				System.out.println("YOU CHOSE WARRIOR");
 				state = false;
 			}
 			else if(input.equals("y")) {

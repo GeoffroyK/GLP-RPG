@@ -21,6 +21,7 @@ import playable.PlayerChoice;
 import spell.Spell;
 import loot.Consumable;
 import loot.Equipment;
+import loot.EquipmentTreatment;
 import loot.Loot;
 import map_objects.Prop;
 
@@ -35,8 +36,7 @@ public class DataBase extends Canvas {
 
 	private static HashMap<String, Character> characters;
 	private static HashMap<String, Spell> spells;
-	private static HashMap<String,Equipment>equipments;
-	private static HashMap<String,Consumable>consumables;
+	private static HashMap<String, Loot> loots;
 	private static HashMap<String,GameObject> instances;
 
 	private Scanner sc;
@@ -48,19 +48,18 @@ public class DataBase extends Canvas {
 
 	public DataBase() {
 
-		consumables= new HashMap<String, Consumable>();
-		equipments = new HashMap<String, Equipment>();
+		loots = new HashMap<String, Loot>();
 		spells = new HashMap<String, Spell>();
 		characters = new HashMap<String, Character>();
 		instances = new HashMap<String, GameObject>();
 		
 
 		try {
-			DataBaseTreatment.loadCsvSpell(csvGameObjectPaths[2], this);
-			DataBaseTreatment.loadCsvPlayer(csvGameObjectPaths[5], this);
-			DataBaseTreatment.loadCsvMonster(csvGameObjectPaths[6], this);
-			DataBaseTreatment.loadCsvConsumable(csvGameObjectPaths[0], this);
-			DataBaseTreatment.loadCSVEquipments(csvGameObjectPaths[1], this);
+			DataBaseInit.loadCsvSpell(csvGameObjectPaths[2]);
+			DataBaseInit.loadCsvPlayer(csvGameObjectPaths[5]);
+			DataBaseInit.loadCsvMonster(csvGameObjectPaths[6]);
+			DataBaseInit.loadCsvConsumable(csvGameObjectPaths[0]);
+			DataBaseInit.loadCSVEquipments(csvGameObjectPaths[1]);
 			//loadCsvProp(); 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -103,6 +102,10 @@ public class DataBase extends Canvas {
 		//System.out.println(this);*/
 	}
 	
+	public static HashMap<String, Loot> getLoots() {
+		return loots;
+	}
+
 	private void initGame() {
 		
 		Monster ronflex = (Monster) characters.get("ma2");
@@ -121,6 +124,12 @@ public class DataBase extends Canvas {
 	
 		instances.put(ronflex.getId(),ronflex);
 		sc = new Scanner(System.in);
+		System.out.println("CHOOSE CLASS OF CHARACTER : 't' = WARRIOR / 'y' = ARCHER / 'u' = MAGE\n OR EXIT = 'e'");
+		String input = sc.nextLine() ;
+		PlayerChoice.chooseClassPlayer(input);
+		InventoryKey.addLoot(loots.get("E#001"), PlayerChoice.selected(instances));
+		InventoryKey.addLoot(loots.get("E#001"), PlayerChoice.selected(instances));
+		
 		//SALE ENCULE RENOMME TA METHODE RUN OU TICK PAS PTN DE GAMEINPUT
 		new GameInput(instances);
 		sc.close();
@@ -148,18 +157,13 @@ public class DataBase extends Canvas {
 			res += character.toString();
 		}
 		res += "--------------------------Character END-----------------------------\n";
-		Collection<Consumable> valsConsumable = consumables.values() ;
-		Collection<Equipment> valsEquipment = equipments.values() ;
-		Iterator<Consumable> itConsumable = valsConsumable.iterator();
-		Iterator<Equipment> itEquipment = valsEquipment.iterator();
+		Collection<Loot> valsLoot = loots.values() ;
+		Iterator<Loot> itLoot = valsLoot.iterator();
 		res += "--------------------------Loot INIT-----------------------------\n" ;
-		while(itConsumable.hasNext()) {
-			Consumable consumable = itConsumable.next();
-			res += consumable.toString() ;
-		}
-		while(itEquipment.hasNext()) {
-			Equipment equipment = itEquipment.next();
-			res += equipment.toString() ;
+
+		while(itLoot.hasNext()) {
+			Loot loot = itLoot.next() ;
+			res += loot.toString() ;
 		}
 		res += "--------------------------Loot END-----------------------------\n" ;
 		return res;
@@ -184,14 +188,6 @@ public class DataBase extends Canvas {
 
 	public static HashMap<String, Character> getCharacters() {
 		return characters;
-	}
-	
-	public static HashMap<String, Equipment> getEquipments() {
-		return equipments;
-	}
-
-	public static HashMap<String, Consumable> getConsumables() {
-		return consumables;
 	}
 
 	public static HashMap<String, GameObject> getInstances() {

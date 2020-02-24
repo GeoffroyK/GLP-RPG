@@ -48,7 +48,7 @@ public class PropInput {
 				break;
 			case 1:
 				System.out.println("Bonjour je suis un coffre !");
-				InventoryKey.addLoot(DataBase.getById("C#001"), ply);
+				InventoryKey.addLoot(DataBase.getLoots().get("C#001"), ply);
 				break;
 			case 2:
 				System.out.println("Bonjour je suis une porte !");

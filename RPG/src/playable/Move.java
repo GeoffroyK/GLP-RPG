@@ -1,6 +1,7 @@
 package playable;
 import java.util.HashMap;
 
+import dataclasses.DataBase;
 import dataclasses.GameObject;
 import map.*;
 
@@ -9,10 +10,11 @@ public class Move {
 	private Player hero;
 	private Map map;
 	
-	public Move(HashMap<String,GameObject> instances, Map map) {
-		hero = PlayerChoice.selected(instances);
+	public Move(Map map) {
+		hero = PlayerChoice.selected(DataBase.getInstances());
 		this.map = map;
 	}
+	
 	public void move(String input) {
 		
 		System.out.println("Direction ?");

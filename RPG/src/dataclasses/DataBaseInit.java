@@ -6,13 +6,16 @@ import java.io.IOException;
 
 import loot.Consumable;
 import loot.Equipment;
+import loot.Loot;
 import playable.Monster;
 import playable.Player;
 import spell.Spell;
 
-public class DataBaseTreatment {
+import static dataclasses.DataBase.*;
+
+public class DataBaseInit {
 	
-	public static void loadCsvSpell(String csvPath, DataBase d) throws IOException {
+	public static void loadCsvSpell(String csvPath) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(csvPath));
         br.readLine();
 
@@ -33,13 +36,13 @@ public class DataBaseTreatment {
             spellFloatCSV[1] = Float.parseFloat(spellFields[10]);
             Spell tmp = new Spell(spellFields[0], spellFields[1], spellFields[2], spellFields[3], spellIntCSV[0],
                     spellIntCSV[1], spellIntCSV[2], spellIntCSV[3], spellIntCSV[4], spellFloatCSV[0], spellFloatCSV[1]);
-            d.getSpells().put(tmp.getId(), tmp);
+            DataBase.getSpells().put(tmp.getId(), tmp);
         }
 
         br.close();
     }
 	
-	public static void loadCsvConsumable(String csvPath, DataBase d) throws IOException {
+	public static void loadCsvConsumable(String csvPath) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(csvPath));
 		br.readLine() ;
 		
@@ -60,13 +63,13 @@ public class DataBaseTreatment {
 			
 			newConsumable = new Consumable(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2], statFields[3]);
 			//System.out.println(newConsumable);
-			DataBase.getConsumables().put(newConsumable.getId(), newConsumable);
+			DataBase.getLoots().put(newConsumable.getId(), newConsumable);
 		}
 		
 		br.close();
 	}
 	
-	public static void loadCSVEquipments(String csvPath, DataBase d) throws IOException {
+	public static void loadCSVEquipments(String csvPath) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(csvPath));
 		br.readLine() ;
 		
@@ -87,12 +90,12 @@ public class DataBaseTreatment {
 			
 			newEquipment = new Equipment(lootFields[0], price, lootFields[2], lootFields[3], lootFields[4], statFields[0], statFields[1], statFields[2], statFields[3], statFields[4], statFields[5], statFields[6], statFields[7], statFields[8], lootFields[14]);
 			//System.out.println(newEquipment);
-			d.getEquipments().put(newEquipment.getId(), newEquipment) ;
+			DataBase.getLoots().put(newEquipment.getId(), newEquipment) ;
 		}
 		br.close();
 	}
 
-	public static void loadCsvPlayer(String csvPath, DataBase d) throws IOException {
+	public static void loadCsvPlayer(String csvPath) throws IOException {
 
 		BufferedReader br = new BufferedReader(new FileReader(csvPath));
 		br.readLine();
@@ -113,21 +116,21 @@ public class DataBaseTreatment {
 			case "Guerrier":
 				for (int i = 1; i <= 6; i++) {
 					String key = "sg" + i;
-					playerSpells[i - 1] = d.getSpells().get(key);
+					playerSpells[i - 1] = DataBase.getSpells().get(key);
 				}
 				break;
 
 			case "Archer":
 				for (int i = 1; i <= 6; i++) {
 					String key = "sa" + i;
-					playerSpells[i - 1] = d.getSpells().get(key);
+					playerSpells[i - 1] = DataBase.getSpells().get(key);
 				}
 				break;
 
 			case "Sorcier":
 				for (int i = 1; i <= 6; i++) {
 					String key = "ss" + i;
-					playerSpells[i - 1] = d.getSpells().get(key);
+					playerSpells[i - 1] = DataBase.getSpells().get(key);
 				}
 				break;
 			}
@@ -138,7 +141,7 @@ public class DataBaseTreatment {
 					playerIntCSV[13], playerSpells[0], playerSpells[1], playerSpells[2], playerSpells[3],
 					playerSpells[4], playerSpells[5]);
 
-			d.getCharacters().put(tmp.getId(), tmp);
+			DataBase.getCharacters().put(tmp.getId(), tmp);
 
 		}
 
@@ -146,7 +149,7 @@ public class DataBaseTreatment {
 
 	}
 
-	public static void loadCsvMonster(String csvPath, DataBase d) throws IOException {
+	public static void loadCsvMonster(String csvPath) throws IOException {
 
 		BufferedReader br = new BufferedReader(new FileReader(csvPath));
 		br.readLine();
@@ -164,7 +167,7 @@ public class DataBaseTreatment {
 					monsterIntCSV[2], monsterIntCSV[3], monsterIntCSV[4], monsterIntCSV[5], monsterIntCSV[6],
 					monsterIntCSV[7], monsterIntCSV[8], monsterIntCSV[9], monsterIntCSV[10], monsterIntCSV[11],
 					monsterIntCSV[12], monsterIntCSV[13], monsterIntCSV[14]);
-			d.getCharacters().put(tmp.getId(), tmp);
+			DataBase.getCharacters().put(tmp.getId(), tmp);
 		}
 
 		br.close();
@@ -192,6 +195,7 @@ public class DataBaseTreatment {
 	}
 
 	br.close();
+	}
 	<<<<<<< HEAD
-	}*/
+*/
 }

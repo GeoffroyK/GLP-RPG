@@ -5,8 +5,6 @@ import map.Map;
 public class MoveTreatment {
 
 	public static void reposition(Player ply, int direction, int mvt, Map map) {
-		System.out.println(direction);
-		System.out.println(ply);
 		switch (direction) {
 
 		case 0:

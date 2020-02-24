@@ -2,6 +2,7 @@ package spell;
 
 import java.util.HashMap;
 
+import dataclasses.DataBase;
 import dataclasses.GameObject;
 import map.Map;
 import playable.Player;
@@ -12,16 +13,14 @@ public class SpellInput /*extends inputAdapter*/ {
 
 	private Player ply;
 	private Map map;
-	private HashMap<String,GameObject> instances;
 	
-	public SpellInput(HashMap<String,GameObject> instances, Map map) {
-		this.instances = instances;
-		ply = PlayerChoice.selected(instances);
+	public SpellInput(Map map) {
+		ply = PlayerChoice.selected(DataBase.getInstances());
 		this.map = map;
 		int cooldown[] = {0,0,0,0,0,0};
 	}
 
-	public void scannerPressed(String input) {
+	/*public void scannerPressed(String input) {
 		
 		if (input.equals("w")) {
 			SpellTreatment.spellUsed(instances,ply,0,map);
@@ -41,7 +40,7 @@ public class SpellInput /*extends inputAdapter*/ {
 		if (input.equals(" ")){
 			SpellTreatment.spellUsed(instances,ply,5,map);
 		}
-	}
+	}*/
 	
 //	public void inputPressed(inputEvent e) {
 //		int input = e.getinputCode();
