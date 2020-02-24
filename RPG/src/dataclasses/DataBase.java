@@ -293,15 +293,16 @@ public class DataBase extends Canvas {
 		ronflex.setY(5);
 		ronflex.setDirection(0);
 		Monster monstre = (Monster) characters.get("mt3");
-		monstre.setX(6);
-		monstre.setY(5);
+		monstre.setX(10);
+		monstre.setY(10);
 		monstre.setDirection(0);
 		
 		Prop coffre = new Prop("id","coffre",1,"null");
 		coffre.setX(5);
 		coffre.setY(0);
+		
+		instances.put(monstre.getId(),monstre);
 		instances.put(coffre.getId(), coffre);
-	
 		instances.put(ronflex.getId(),ronflex);
 		sc = new Scanner(System.in);
 		chooseClassPlayer();
