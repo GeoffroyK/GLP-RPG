@@ -1,8 +1,5 @@
 package spell;
 
-import java.util.HashMap;
-
-import dataclasses.GameObject;
 import map.Map;
 import playable.Player;
 import playable.PlayerChoice;

@@ -1,8 +1,5 @@
 package playable;
 
-import java.util.HashMap;
-
-import dataclasses.GameObject;
 import map.*;
 
 public class Move {

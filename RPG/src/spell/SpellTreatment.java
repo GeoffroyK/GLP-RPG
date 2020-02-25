@@ -1,16 +1,13 @@
 package spell;
 
-import java.util.HashMap;
-
 import dataclasses.DataBase;
-import dataclasses.GameObject;
 import map.Map;
 import playable.Monster;
 import playable.MoveTreatment;
 import playable.Player;
 
 public class SpellTreatment {
-	
+
 	public static void spellUsed(Spell spell, Player ply, Map map) {
 		switch (spell.getType()) {
 

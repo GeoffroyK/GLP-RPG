@@ -1,14 +1,9 @@
 package inventory;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import loot.*;
 import playable.Player;
-
-import static loot.ConsumableTreatment.* ;
-import static loot.EquipmentTreatment.* ;
-import static inventory.InventoryKey.*;
 
 public class InventoryThread {
 	

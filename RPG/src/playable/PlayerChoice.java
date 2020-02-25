@@ -1,10 +1,6 @@
 package playable;
 
-import java.util.HashMap;
-import java.util.Scanner;
-
 import dataclasses.DataBase;
-import dataclasses.GameObject;
 
 public class PlayerChoice {
 	

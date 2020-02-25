@@ -2,11 +2,8 @@ package inventory;
 
 import java.util.ArrayList;
 
-import loot.Consumable;
 import loot.Equipment;
 import loot.Loot;
-
-import static inventory.InventoryThread.*;
 
 public class Inventory {
 	

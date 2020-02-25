@@ -1,7 +1,5 @@
 package playable;
 
-import java.util.ArrayList;
-
 import dataclasses.*;
 import inventory.Inventory;
 

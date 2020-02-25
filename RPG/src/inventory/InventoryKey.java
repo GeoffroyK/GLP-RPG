@@ -2,10 +2,8 @@ package inventory;
 
 import java.util.Scanner;
 
-import loot.EquipmentTreatment;
 import loot.Loot;
 import playable.Player;
-import static inventory.InventoryThread.*;
 
 public class InventoryKey {
 	
