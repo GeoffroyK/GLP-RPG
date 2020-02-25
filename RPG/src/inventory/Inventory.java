@@ -16,6 +16,7 @@ public class Inventory {
 	private Equipment pants ;
 	private Equipment arms ;
 	private Equipment weapon ;
+	private int gold ;
 	private int size ;
 	private int sizeMax ;
 	
@@ -27,7 +28,16 @@ public class Inventory {
 		arms = null ;
 		weapon = null ;
 		this.size = size ;
-		this.sizeMax = sizeMax ;	
+		this.sizeMax = sizeMax ;
+		gold = 0 ;
+	}
+
+	public int getGold() {
+		return gold;
+	}
+
+	public void setGold(int gold) {
+		this.gold = gold;
 	}
 
 	public int getSizeMax() {

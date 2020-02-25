@@ -10,8 +10,8 @@ public class Move {
 	private Player hero;
 	private Map map;
 
-	public Move(HashMap<String, GameObject> instances, Map map) {
-		hero = PlayerChoice.selected(instances);
+	public Move(Map map) {
+		hero = PlayerChoice.selected();
 		this.map = map;
 	}
 

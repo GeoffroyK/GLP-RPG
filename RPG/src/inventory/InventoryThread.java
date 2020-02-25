@@ -33,7 +33,8 @@ public class InventoryThread {
 			}
 			line += "\n" ;
 		}
-		line += "\nInventory size : " + i.getSize() + "/" + i.getSizeMax() + "\n\n";
+		line += "\nInventory size : " + i.getSize() + "/" + i.getSizeMax() + "\n"
+				+ "Gold : " + i.getGold() + "\n\n";
 		line += "----------------inventoryEnd-------------------\n" ;
 		return line ;
 	}
@@ -75,6 +76,10 @@ public class InventoryThread {
 				EquipmentTreatment.equip(e, p);
 				p.getInventory().setHelmet(e);
 			}
+			else if(e.getEquiped()) {
+				EquipmentTreatment.unquip(e, p);
+				p.getInventory().setHelmet(null);
+			}
 			else {
 				EquipmentTreatment.unquip(p.getInventory().getHelmet(), p);
 				p.getInventory().setHelmet(e);
@@ -86,6 +91,10 @@ public class InventoryThread {
 			if(p.getInventory().getArms() == null) {
 				EquipmentTreatment.equip(e, p);
 				p.getInventory().setArms(e);
+			}
+			else if(e.getEquiped()) {
+				EquipmentTreatment.unquip(e, p);
+				p.getInventory().setArms(null);
 			}
 			else {
 				EquipmentTreatment.unquip(p.getInventory().getArms(), p);
@@ -99,6 +108,10 @@ public class InventoryThread {
 				EquipmentTreatment.equip(e, p);
 				p.getInventory().setPants(e);
 			}
+			else if(e.getEquiped()) {
+				EquipmentTreatment.unquip(e, p);
+				p.getInventory().setPants(null);			
+				}
 			else {
 				EquipmentTreatment.unquip(p.getInventory().getPants(), p);
 				p.getInventory().setPants(e);
@@ -111,6 +124,10 @@ public class InventoryThread {
 				EquipmentTreatment.equip(e, p);
 				p.getInventory().setChestplate(e);
 			}
+			else if(e.getEquiped()) {
+				EquipmentTreatment.unquip(e, p);
+				p.getInventory().setChestplate(null);
+			}
 			else {
 				EquipmentTreatment.unquip(p.getInventory().getChestplate(), p);
 				p.getInventory().setChestplate(e);
@@ -122,6 +139,10 @@ public class InventoryThread {
 			if(p.getInventory().getWeapon() == null) {
 				EquipmentTreatment.equip(e, p);
 				p.getInventory().setWeapon(e);
+			}
+			else if(e.getEquiped()) {
+				EquipmentTreatment.unquip(e, p);
+				p.getInventory().setWeapon(null);
 			}
 			else {
 				EquipmentTreatment.unquip(p.getInventory().getWeapon(), p);

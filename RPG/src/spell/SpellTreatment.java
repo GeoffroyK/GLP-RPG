@@ -2,6 +2,7 @@ package spell;
 
 import java.util.HashMap;
 
+import dataclasses.DataBase;
 import dataclasses.GameObject;
 import map.Map;
 import playable.Monster;
@@ -9,8 +10,8 @@ import playable.MoveTreatment;
 import playable.Player;
 
 public class SpellTreatment {
-
-	public static void spellUsed(HashMap<String, GameObject> instances, Spell spell, Player ply, Map map) {
+	
+	public static void spellUsed(Spell spell, Player ply, Map map) {
 		switch (spell.getType()) {
 
 		case "Dmg":
@@ -23,7 +24,7 @@ public class SpellTreatment {
 					if (map.isOccupied(ply.getX(), ply.getY() - cptRange)) {
 						System.out.println("MONSTER FOUND");
 						String monsterId = map.getMonsterIdByPos(ply.getX(), ply.getY() - cptRange);
-						Monster monster = (Monster) instances.get(monsterId);
+						Monster monster = (Monster) DataBase.getInstances().get(monsterId);
 						int previousMonsterHP = monster.getLifePoint();
 						monster.setLifePoint(monster.getLifePoint() - spell.getDamage());
 						System.out.println("Damage Dealt : " + spell.getDamage() + "\nMonsterLife : From "
@@ -46,7 +47,7 @@ public class SpellTreatment {
 					if (map.isOccupied(ply.getX() - cptRange, ply.getY())) {
 						System.out.println("MONSTER FOUND");
 						String monsterId = map.getMonsterIdByPos(ply.getX() - cptRange, ply.getY());
-						Monster monster = (Monster) instances.get(monsterId);
+						Monster monster = (Monster) DataBase.getInstances().get(monsterId);
 						int previousMonsterHP = monster.getLifePoint();
 						monster.setLifePoint(monster.getLifePoint() - spell.getDamage());
 						System.out.println("Damage Dealt : " + spell.getDamage() + "\nMonsterLife : From "
@@ -69,7 +70,7 @@ public class SpellTreatment {
 					if (map.isOccupied(ply.getX() + cptRange, ply.getY())) {
 						System.out.println("MONSTER FOUND");
 						String monsterId = map.getMonsterIdByPos(ply.getX() + cptRange, ply.getY());
-						Monster monster = (Monster) instances.get(monsterId);
+						Monster monster = (Monster) DataBase.getInstances().get(monsterId);
 						int previousMonsterHP = monster.getLifePoint();
 						monster.setLifePoint(monster.getLifePoint() - spell.getDamage());
 						System.out.println("Damage Dealt : " + spell.getDamage() + "\nMonsterLife : From "
@@ -92,7 +93,7 @@ public class SpellTreatment {
 					if (map.isOccupied(ply.getX(), ply.getY() + cptRange)) {
 						System.out.println("MONSTER FOUND");
 						String monsterId = map.getMonsterIdByPos(ply.getX(), ply.getY() + cptRange);
-						Monster monster = (Monster) instances.get(monsterId);
+						Monster monster = (Monster) DataBase.getInstances().get(monsterId);
 						int previousMonsterHP = monster.getLifePoint();
 						monster.setLifePoint(monster.getLifePoint() - spell.getDamage());
 						System.out.println("Damage Dealt : " + spell.getDamage() + "\nMonsterLife : From "
