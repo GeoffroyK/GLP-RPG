@@ -8,40 +8,64 @@ import map.Map;
 import playable.Player;
 import playable.PlayerChoice;
 
-public class SpellInput /*extends inputAdapter*/ {
-
+public class SpellInput /* extends inputAdapter */ {
 
 	private Player ply;
 	private Map map;
-	
+	private int[] cooldown = { 0, 0, 0, 0, 0, 0 };
+
 	public SpellInput(Map map) {
-		ply = PlayerChoice.selected(DataBase.getInstances());
+		ply = PlayerChoice.selected();
 		this.map = map;
-		int cooldown[] = {0,0,0,0,0,0};
 	}
 
-	/*public void scannerPressed(String input) {
+	public void scannerPressed(String input) {
 		
-		if (input.equals("w")) {
-			SpellTreatment.spellUsed(instances,ply,0,map);
+		switch(input) {
+			
+		case "w" : isUsable(0);
+			break;
+			
+		case "x" : isUsable(1);
+		break;
+			
+		case "c" : isUsable(2);
+		break;
+			
+		case "v" : isUsable(3);
+		break;
+			
+		case "b" : isUsable(4);
+		break;
+			
+		case " " : isUsable(5);
+		break;
 		}
-		if (input.equals("x")) {
-			SpellTreatment.spellUsed(instances,ply,1,map);
+	}
+
+	public void isUsable(int number) {
+		Spell spell = ply.getSpells()[number];
+		System.out.println("NAME : " + spell.getName());
+		if (ply.getManaPoint() > spell.getManaUsage()) {
+			if (cooldown[number] == 0) {
+				SpellTreatment.spellUsed(spell, ply, map);
+				int manaConsumed = ply.getManaPoint() - spell.getManaUsage();
+				ply.setManaPoint(manaConsumed);
+				System.out.println("ManaUsage : " + spell.getManaUsage() + " / ManaLeft : " + ply.getManaPoint());
+				cooldown[number] = spell.getCooldown();
+			} else {
+				for(int i = 0; i<6; i++) {
+					if(cooldown[i] > 0) {
+						cooldown[i]--;
+					}
+				}
+				System.out.println("WAIT COOLDOWN : " + cooldown[number] + " sec left");
+			}
+		} else {
+			System.out.println("PAS ASSEZ DE MANA \nManaUsage : " + spell.getManaUsage() + " / Mana actuel : " + ply.getManaPoint());
 		}
-		if (input.equals("c")) {
-			SpellTreatment.spellUsed(instances,ply,2,map);
-		}
-		if (input.equals("v")){
-			SpellTreatment.spellUsed(instances,ply,3,map);
-		}
-		if (input.equals("b")){
-			SpellTreatment.spellUsed(instances,ply,4,map);
-		}
-		if (input.equals(" ")){
-			SpellTreatment.spellUsed(instances,ply,5,map);
-		}
-	}*/
-	
+	}
+
 //	public void inputPressed(inputEvent e) {
 //		int input = e.getinputCode();
 //

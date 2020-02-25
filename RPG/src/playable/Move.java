@@ -11,7 +11,7 @@ public class Move {
 	private Map map;
 	
 	public Move(Map map) {
-		hero = PlayerChoice.selected(DataBase.getInstances());
+		hero = PlayerChoice.selected();
 		this.map = map;
 	}
 	

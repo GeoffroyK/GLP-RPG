@@ -8,16 +8,16 @@ import dataclasses.GameObject;
 
 public class PlayerChoice {
 	
-	public static Player selected(HashMap<String, GameObject> instances) {
+	public static Player selected() {
 		Player ply = null;
-		if(instances.containsKey("pg1")) {
-			 ply = (Player) instances.get("pg1");
+		if(DataBase.getInstances().containsKey("pg1")) {
+			 ply = (Player) DataBase.getInstances().get("pg1");
 		}
-		else if(instances.containsKey("pa2")) {
-			 ply = (Player) instances.get("pa2");
+		else if(DataBase.getInstances().containsKey("pa2")) {
+			 ply = (Player) DataBase.getInstances().get("pa2");
 		}
-		else if(instances.containsKey("ps3")) {
-			 ply = (Player) instances.get("ps3");
+		else if(DataBase.getInstances().containsKey("ps3")) {
+			 ply = (Player) DataBase.getInstances().get("ps3");
 		}
 		return ply;
 	}

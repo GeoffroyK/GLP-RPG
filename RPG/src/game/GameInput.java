@@ -26,15 +26,15 @@ public class GameInput {
 	private PropInput pi;
 	private boolean running = true;
 	
-	public GameInput(HashMap<String, GameObject> instances) {
+	public GameInput() {
 		map = new Map();
 		sc = new Scanner(System.in);
 		si = new SpellInput(map);
-		pi = new PropInput(instances, map);
+		pi = new PropInput(map);
 		pi.getMap().addProp((Prop) DataBase.getInstances().get("id"));
 		mi = new Move(map);
-		mi.getMap().addMonster((Monster) instances.get("ma2"));
-		plyr = PlayerChoice.selected(instances);
+		mi.getMap().addMonster((Monster) DataBase.getInstances().get("ma2"));
+		plyr = PlayerChoice.selected();
 		scan();
 	}
 	
