@@ -81,6 +81,9 @@ public class Frame {
 			y -= 0.001f ;
 			d = 4 ;
 		}
+		if(glfwGetKey(window, GLFW_MOUSE_BUTTON_1) == GL_TRUE) {
+			System.out.println("ceci est un souris listnerer");
+		}
 		if(glfwGetKey(window, GLFW_KEY_RIGHT) == GL_TRUE) {
 			glBegin(GL_QUADS);
 			glVertex2f(-0.01f, 0.01f);

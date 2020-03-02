@@ -1,30 +1,48 @@
 package playable;
 
+import java.util.ArrayList;
+
 import dataclasses.*;
+import inventory.Inventory;
 
 public abstract class Character extends GameObject {
 
+	//Map Position
+	
+	private int x;
+	private int y;
+	// 0=north, 1=west, 2=east, 3=south
+	private int direction;
+	
+	
+	//Caracteristics
 	private String type;
 	private int lifePoint;
+	private int lifePointMax ;
 	private int manaPoint;
+	private int manaPointMax ;
 	private int strength;
 	private int dexterity;
 	private int intelligence;
 	private int defense;
 	private int attack;
 	private int range;
-	private int inventory;
+	private int inventoryStatus;
 	private int level;
 	private int attackSpeed;
 	private int criticalChance;
 	private int dodgeChance;
+	private int speed;
+	private Inventory inventory ;
 	
 	public Character(String id, String type, int hp, int mp, int str, int dext, int intel, int def, int atk, int range,
 			int inventory, int level, int atkSpeed, int ctkChance, int dodgeChance) {
 
 		super(id);
-		lifePoint = hp;
-		manaPoint = mp;
+		lifePointMax = hp ;
+		lifePoint = lifePointMax ;
+		manaPointMax = mp;
+		manaPoint = manaPointMax ; 
 		strength = str;
 		dexterity = dext;
 		intelligence = intel;
@@ -32,11 +50,46 @@ public abstract class Character extends GameObject {
 		attack = atk;
 		this.type = type;
 		this.range = range;
-		this.inventory = inventory;
+		this.inventoryStatus = inventory;
 		this.level = level;
 		this.attackSpeed = atkSpeed;
 		criticalChance = ctkChance;
 		this.dodgeChance = dodgeChance;
+		this.inventory = new Inventory(0, 150) ;
+	}
+
+	public Inventory getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
+	}
+
+	public int getLifePointMax() {
+		return lifePointMax;
+	}
+
+	public void setLifePointMax(int lifePointMax) {
+		this.lifePointMax = lifePointMax;
+	}
+
+	public int getManaPointMax() {
+		return manaPointMax;
+	}
+
+	public void setManaPointMax(int manaPointMax) {
+		this.manaPointMax = manaPointMax;
+	}
+
+	
+	public String toString() {
+		return "-----------------------------------------------\n" +super.toString()+ "\nclass = " + getType() + "\nhp = "
+				+ getLifePoint() + "\nmp = " + getManaPoint() + "\nStr = " + getStrength() + "\ndext = "
+				+ getDexterity() + "\nintel = " + getIntelligence() + "\ndef = " + getDefense() + "\natk = "
+				+ getAttack() + "\nrange = " + getRange() + "\ninventory = " + getInventoryStatus() + "\nlevel = "
+				+ getLevel() + "\natkSpeed = " + getAttackSpeed() + "\nctkChance = " + getCriticalChance()
+				+ "\ndodgeChance = " + getDodgeChance();
 	}
 
 	public int getLifePoint() {
@@ -111,12 +164,12 @@ public abstract class Character extends GameObject {
 		this.range = range;
 	}
 
-	public int getInventory() {
-		return inventory;
+	public int getInventoryStatus() {
+		return inventoryStatus;
 	}
 
-	public void setInventory(int inventory) {
-		this.inventory = inventory;
+	public void setInventoryStatus(int inventoryStatus) {
+		this.inventoryStatus = inventoryStatus;
 	}
 
 	public int getLevel() {
@@ -151,16 +204,36 @@ public abstract class Character extends GameObject {
 		this.dodgeChance = dodgeChance;
 	}
 
-	public String getCast() {
-		return cast;
+	public int getSpeed() {
+		return speed;
 	}
 
-	public void setCast(String cast) {
-		this.cast = cast;
+	public void setSpeed(int speed) {
+		this.speed = speed;
 	}
 
-	private String cast;
-
+	public void setX(int x) {
+		this.x = x;
+	}
 	
+	public void setY(int y) {
+		this.y = y;
+	}
+	
+	public void setDirection(int direction) {
+		this.direction = direction;
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public int getDirection() {
+		return direction;
+	}
 
 }
