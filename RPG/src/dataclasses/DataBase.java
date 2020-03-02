@@ -125,10 +125,11 @@ public class DataBase extends Canvas {
 		instances.put(ronflex.getId(),ronflex);
 		sc = new Scanner(System.in);
 		System.out.println("CHOOSE CLASS OF CHARACTER : 't' = WARRIOR / 'y' = ARCHER / 'u' = MAGE\n OR EXIT = 'e'");
-		String input = sc.nextLine() ;
-		PlayerChoice.chooseClassPlayer(input);
+			String input = sc.nextLine() ;
+			PlayerChoice.chooseClassPlayer(input);
+
 		InventoryKey.addLoot(loots.get("E#001"), PlayerChoice.selected());
-		InventoryKey.addLoot(loots.get("E#001"), PlayerChoice.selected());
+		InventoryKey.addLoot(loots.get("E#002"), PlayerChoice.selected());
 		
 		//SALE ENCULE RENOMME TA METHODE RUN OU TICK PAS PTN DE GAMEINPUT
 		new GameInput();

@@ -58,6 +58,9 @@ public class InventoryThread {
 			break ;
 		
 		case "b" :
+			if(!isConsumable(lCourant)) {
+				slotVerif((Equipment) lCourant, p) ; 
+			}
 			InventoryKey.suppLoot(lCourant, p);
 			break;
 			
@@ -66,6 +69,13 @@ public class InventoryThread {
 			break;
 		}
 	}
+	
+	/*public static void verif(Equipment e, Player p) {
+		if(e.getEquiped()) {
+			EquipmentTreatment.unquip(e, p);
+		}
+	}*/
+	
 	
 	public static void slotVerif(Equipment e, Player p) {
 		

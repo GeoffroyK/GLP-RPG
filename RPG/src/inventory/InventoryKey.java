@@ -29,7 +29,10 @@ public class InventoryKey {
 		}
 		
 		if(!str.equals("E")) {
-			if(find == 1){
+			if(str.equals("P")) {
+				System.out.println(p);
+			}
+			else if(find == 1){
 				InventoryThread.Action(tmp, p);
 			}
 			else {
@@ -42,7 +45,7 @@ public class InventoryKey {
 	}
 	
 	public static void addLoot(Loot lootDrop, Player p) {
-		if(p.getInventory().getSize() + lootDrop.getSize() < p.getInventory().getSizeMax()) {
+		if(p.getInventory().getSize() + lootDrop.getSize() <= p.getInventory().getSizeMax()) {
 			int size = p.getInventory().getSize() + lootDrop.getSize();
 			p.getInventory().setSize(size);
 			if(p.getInventory().getDrops().contains(lootDrop)) {
