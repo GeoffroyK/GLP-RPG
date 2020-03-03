@@ -16,7 +16,8 @@ public class Frame {
 	private boolean running = false ;
 	
 	public Frame() {
-		
+		create();
+		start(); 
 	}
 	
 	public void create() {
@@ -29,7 +30,7 @@ public class Frame {
 		window = glfwCreateWindow(width, height, title, 0, 0) ;
 		
 		if(window == 0) {
-			System.out.println("dd");
+			System.out.println("Erreur pas creéation window");
 		}
 		
 		glfwShowWindow(window);
@@ -38,6 +39,7 @@ public class Frame {
 	}
 	
 	public void exit() {
+		glfwTerminate();
 		glfwDestroyWindow(window);
 		System.exit(0) ;
 	}
@@ -84,7 +86,7 @@ public class Frame {
 		if(glfwGetKey(window, GLFW_KEY_RIGHT) == GL_TRUE) {
 			glBegin(GL_QUADS);
 			glVertex2f(-0.01f, 0.01f);
-			glVertex2f(0.002f, 0.01f);
+			glVertex2f(0.002f, 0.01f); 
 			glVertex2f(0.002f, -0.01f);
 			glVertex2f(-0.01f, -0.01f);
 			glEnd();	
