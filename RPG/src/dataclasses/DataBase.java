@@ -54,36 +54,6 @@ public class DataBase extends Canvas {
 		System.out.println(this);
 		initGame();
 
-		/*
-		 * Player p = (Player) characters.get("pa2") ;
-		 * InventoryKey.addLoot(equipments.get("E#001"), p);
-		 * InventoryKey.addLoot(equipments.get("E#002"), p);
-		 * InventoryKey.addLoot(consumables.get("C#001"), p);
-		 * InventoryKey.addLoot(consumables.get("C#001"), p); p.setLifePoint(80);
-		 * p.setLifePointMax(100);
-		 * 
-		 * System.out.println(p);
-		 * 
-		 * InventoryKey.choice(p);
-		 * 
-		 * System.out.println(InventoryThread.showInv(p.getInventory()));
-		 * System.out.println(p);
-		 * 
-		 * /*InventoryKey.choice(p);
-		 * 
-		 * System.out.println(InventoryThread.showInv(p.getInventory()));
-		 * 
-		 * 
-		 * 
-		 * 
-		 * /*System.out.println(p);
-		 * 
-		 * inventoryThread.equipmentChoice(equipments.get("E#001"), p);
-		 * 
-		 * System.out.println(p); System.out.println(p.getInventory().getHelmet());
-		 */
-
-		// System.out.println(this);*/
 	}
 
 	public static HashMap<String, Loot> getLoots() {
