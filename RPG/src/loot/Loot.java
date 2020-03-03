@@ -1,7 +1,7 @@
 package loot;
 
 import dataclasses.GameObject;
-import game.GameLauncher;
+import ihmvanilla.GameLauncher;
 
 public abstract class Loot extends GameObject {
 	

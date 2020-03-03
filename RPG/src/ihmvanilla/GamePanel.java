@@ -1,4 +1,4 @@
-package game;
+package ihmvanilla;
 
 import java.awt.Color;
 import java.awt.Dimension;
