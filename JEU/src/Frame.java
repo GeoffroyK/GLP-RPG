@@ -29,7 +29,7 @@ public class Frame {
 		window = glfwCreateWindow(width, height, title, 0, 0);
 
 		if (window == 0) {
-			System.out.println("dd");
+			System.out.println("Erreur pas creéation window");
 		}
 
 		glfwShowWindow(window);
