@@ -1,4 +1,4 @@
-package ihmvanilla;
+package game;
 
 import javax.swing.JFrame;
 

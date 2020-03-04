@@ -1,7 +1,12 @@
 package game;
 
 public class GameLauncher {
-	public static void main(String[]args) {
-		new Main();
+
+	public GameLauncher() {
+		new Window();
+	}
+	
+	public static void main(String[] args) {
+		new GameLauncher();
 	}
 }
