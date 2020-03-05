@@ -18,11 +18,6 @@ public class Game extends Canvas implements Runnable {
 	private static final String NAME = "Game";
 	
 	public boolean running = false;
-	public int tickCount = 0;
-	
-	private BufferedImage image = new BufferedImage(WIDTH,HEIGHT, BufferedImage.TYPE_INT_RGB);
-	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
-	
 	
 	private JFrame frame;
 	
@@ -101,11 +96,7 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	public void tick() {
-		tickCount++;
 		
-		for(int i = 0; i<pixels.length; i++) {
-			pixels[i] = i + tickCount;
-		}
 	}
 	
 	public void render() {
@@ -117,12 +108,9 @@ public class Game extends Canvas implements Runnable {
 		
 		Graphics g = bs.getDrawGraphics();
 		
-		g.setColor(Color.CYAN);
-		g.fillRect(0,0,getWidth(),getHeight());
-		
-		g.drawImage(image,0,0, getWidth(), getHeight(), null);
-		
-		
+		g.setColor(Color.GRAY);
+		g.fillRect(0,0,getWidth(),getHeight());		
+				
 		g.dispose();
 		bs.show();
 		}
