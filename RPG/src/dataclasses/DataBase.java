@@ -129,8 +129,6 @@ public class DataBase extends Canvas {
 		PlayerChoice.chooseClassPlayer(input);
 		InventoryKey.addLoot(loots.get("E#001"), PlayerChoice.selected());
 		InventoryKey.addLoot(loots.get("E#001"), PlayerChoice.selected());
-		 bx<qwbxqb  xqs ;
-		
 		//SALE ENCULE RENOMME TA METHODE RUN OU TICK PAS PTN DE GAMEINPUT
 		new GameInput();
 		sc.close();

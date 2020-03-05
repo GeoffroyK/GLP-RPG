@@ -9,7 +9,7 @@ public class Window extends JFrame {
 	public Window() {
 		setTitle("DarkDreams");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setContentPane(new GamePanel(1280,720)); // Contenu de la fenetre
+		setContentPane(new GamePanel(1280,720));// Contenu de la fenetre
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);

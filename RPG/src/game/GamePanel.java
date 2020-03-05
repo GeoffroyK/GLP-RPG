@@ -8,6 +8,10 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+import static InputControl.InputData.* ;
+
+import InputControl.InputHandler;
+
 public class GamePanel extends JPanel implements Runnable {
 	
 
@@ -20,6 +24,8 @@ public class GamePanel extends JPanel implements Runnable {
 	private BufferedImage img;
 	private Graphics2D g;
 	
+	private InputHandler input ;
+	
 	private boolean running = false;
 	
 	public GamePanel(int width, int height) {
@@ -28,6 +34,8 @@ public class GamePanel extends JPanel implements Runnable {
 		setPreferredSize(new Dimension(width,height));
 		setFocusable(true); // Allows JPanel to have inputs 
 		requestFocus();
+		input = new InputHandler(this) ;
+		
 	}
 
 	public void addNotify(){
@@ -72,7 +80,7 @@ public class GamePanel extends JPanel implements Runnable {
 			int updateCount = 0;
 			while(((now - lastUpdateTime) > TBU) && (updateCount < MUBR)) { // Calculate time between now and last Update and how many loops there was, max 5 iteration
 				update();
-				input();
+				inputLog();
 				lastUpdateTime += TBU;
 				updateCount++;
 			}
@@ -81,7 +89,7 @@ public class GamePanel extends JPanel implements Runnable {
 				lastUpdateTime = now - TBU;
 			}
 			
-			input();
+			inputLog();
 			render();
 			draw();
 			lastRenderTime = now;
@@ -116,8 +124,10 @@ public class GamePanel extends JPanel implements Runnable {
 
 	}
 	
-	private void input() {
-		
+	private void inputLog() {
+		if (getUp().isPressed()) {
+			System.out.println("youhou t es pas nul");
+		}
 	}
 	
 	private void render() {
