@@ -15,21 +15,20 @@ public class Frame {
 	private boolean running = false;
 
 	public Frame() {
-		create();
-		start();
+		
 	}
-
+	
 	public void create() {
-		if (!glfwInit()) {
+		if(!glfwInit()) {
 			System.out.println("prout");
 		}
-
+		
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-		window = glfwCreateWindow(width, height, title, 0, 0);
-
-		if (window == 0) {
-			System.out.println("Erreur pas creéation window");
+		window = glfwCreateWindow(width, height, title, 0, 0) ;
+		
+		if(window == 0) {
+			System.out.println("dd");
 		}
 
 		glfwShowWindow(window);
@@ -87,6 +86,9 @@ public class Frame {
 		if (glfwGetKey(window, GLFW_KEY_S) == GL_TRUE) {
 			y -= 0.001f;
 			d = 4;
+		}
+		if(glfwGetKey(window, GLFW_MOUSE_BUTTON_1) == GL_TRUE) {
+			System.out.println("ceci est un souris listnerer");
 		}
 		if (glfwGetKey(window, GLFW_KEY_RIGHT) == GL_TRUE) {
 			glBegin(GL_QUADS);

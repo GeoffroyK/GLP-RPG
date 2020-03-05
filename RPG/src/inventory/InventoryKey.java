@@ -27,7 +27,10 @@ public class InventoryKey {
 		}
 		
 		if(!str.equals("E")) {
-			if(find == 1){
+			if(str.equals("P")) {
+				System.out.println(p);
+			}
+			else if(find == 1){
 				InventoryThread.Action(tmp, p);
 			}
 			else {

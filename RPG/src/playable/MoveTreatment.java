@@ -11,11 +11,11 @@ public class MoveTreatment {
 			ply.setDirection(direction);
 			if (ply.getY() - mvt >= 0) {
 				if (map.isOccupied(ply.getX(), ply.getY() - mvt)) {
-					System.err.println("Case occupée ! C'est le monstre :"
+					System.out.println("Case occupée ! C'est le monstre :"
 							+ map.getMonsterNameByPos(ply.getX(), ply.getY() - mvt));
 				}
 				else if (map.isProp(ply.getX(), ply.getY() - mvt)) {
-					System.err.println("Case occupée par un prop");
+					System.out.println("Case occupée par un prop");
 				}
 				else {
 					ply.setY(ply.getY() - mvt);
@@ -34,11 +34,11 @@ public class MoveTreatment {
 			ply.setDirection(direction);
 			if (ply.getY() + mvt <= map.getWidth()) {
 				if (map.isOccupied(ply.getX(), ply.getY() + mvt)) {
-					System.err.println("Case occupée ! C'est le monstre :"
+					System.out.println("Case occupée ! C'est le monstre :"
 							+ map.getMonsterNameByPos(ply.getX(), ply.getY() + mvt));
 				} 
 				else if (map.isProp(ply.getX(), ply.getY() + mvt)) {
-					System.err.println("Case occupée par un prop");
+					System.out.println("Case occupée par un prop");
 				}
 				else {
 					ply.setY(ply.getY() + mvt);
@@ -58,11 +58,11 @@ public class MoveTreatment {
 			if (ply.getX() - mvt >= 0) {
 				System.out.println("hi");
 				if (map.isOccupied(ply.getX() - mvt, ply.getY())) {
-					System.err.println("Case occupée ! C'est le monstre :"
+					System.out.println("Case occupée ! C'est le monstre :"
 							+ map.getMonsterNameByPos(ply.getX() - mvt, ply.getY()));
 				} 
 				else if (map.isProp(ply.getX() - mvt, ply.getY())) {
-					System.err.println("Case occupée c'est un prop");
+					System.out.println("Case occupée c'est un prop");
 				}
 				else {
 					ply.setX(ply.getX() - mvt);
@@ -81,11 +81,11 @@ public class MoveTreatment {
 			ply.setDirection(direction);
 			if (ply.getX() + mvt <= map.getLength()) {
 				if (map.isOccupied(ply.getX() + mvt, ply.getY())) {
-					System.err.println("Case occupée ! C'est le monstre :"
+					System.out.println("Case occupée ! C'est le monstre : "
 							+ map.getMonsterNameByPos(ply.getX() + mvt, ply.getY()));
 				}
 				else if (map.isProp(ply.getX() + mvt, ply.getY())) { 
-					System.err.println("Case occupée c'est un prop");
+					System.out.println("Case occupée c'est un prop");
 				}
 				else {
 					ply.setX(ply.getX() + mvt);

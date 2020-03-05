@@ -1,35 +1,48 @@
 package dataclasses;
 
 import java.awt.Canvas;
+import java.io.BufferedReader;
+
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
 import inventory.InventoryKey;
+import inventory.InventoryThread;
 import java.util.Scanner;
 
 import game.GameInput;
 import playable.Character;
 import playable.Monster;
+import playable.Player;
 import playable.PlayerChoice;
 import spell.Spell;
+import loot.Consumable;
+import loot.Equipment;
+import loot.EquipmentTreatment;
 import loot.Loot;
 import map_objects.Prop;
 
+import static inventory.InventoryThread.*;
+import static inventory.InventoryKey.*;
+
 public class DataBase extends Canvas {
+
+
 
 	private static final long serialVersionUID = 1L;
 
 	private static HashMap<String, Character> characters;
 	private static HashMap<String, Spell> spells;
 	private static HashMap<String, Loot> loots;
-	private static HashMap<String, GameObject> instances;
+	private static HashMap<String,GameObject> instances;
 
 	private Scanner sc;
 
-	private static String[] csvGameObjectPaths = { ".\\CSV\\Consumable.csv", ".\\CSV\\Equipment.csv",
-			".\\CSV\\Spell.csv", "csvTile", "csvProp", ".\\CSV\\Player.csv", ".\\CSV\\Monster.csv" };
+	private static String[] csvGameObjectPaths = { ".\\CSV\\Consumable.csv", ".\\CSV\\Equipment.csv", ".\\CSV\\Spell.csv", "csvTile", "csvProp",
+			".\\CSV\\Player.csv", ".\\CSV\\Monster.csv" };
 
 	private boolean running = true;
 
