@@ -1,32 +1,21 @@
 package dataclasses;
 
 import java.awt.Canvas;
-import java.io.BufferedReader;
-
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
 import inventory.InventoryKey;
-import inventory.InventoryThread;
 import java.util.Scanner;
 
 import game.GameInput;
 import playable.Character;
 import playable.Monster;
-import playable.Player;
 import playable.PlayerChoice;
 import spell.Spell;
-import loot.Consumable;
-import loot.Equipment;
-import loot.EquipmentTreatment;
 import loot.Loot;
 import map_objects.Prop;
-
-import static inventory.InventoryThread.*;
-import static inventory.InventoryKey.*;
 
 public class DataBase extends Canvas {
 
@@ -74,13 +63,15 @@ public class DataBase extends Canvas {
 
 	private void initGame() {
 
+		PlayerChoice.chooseClassPlayer("t");
+		
 		Monster ronflex = (Monster) characters.get("ma2");
-		ronflex.setX(5);
-		ronflex.setY(5);
+		ronflex.setX(500);
+		ronflex.setY(100);
 		ronflex.setDirection(0);
 		Monster monstre = (Monster) characters.get("mt3");
-		monstre.setX(6);
-		monstre.setY(5);
+		monstre.setX(300);
+		monstre.setY(600);
 		monstre.setDirection(0);
 
 		Prop coffre = new Prop("id", "coffre", 1, "null");
@@ -90,16 +81,19 @@ public class DataBase extends Canvas {
 
 	
 		instances.put(ronflex.getId(),ronflex);
-		sc = new Scanner(System.in);
-		System.out.println("CHOOSE CLASS OF CHARACTER : 't' = WARRIOR / 'y' = ARCHER / 'u' = MAGE\n OR EXIT = 'e'");
-			String input = sc.nextLine() ;
-			PlayerChoice.chooseClassPlayer(input);
+		instances.put(monstre.getId(),monstre);
+		
 
-		InventoryKey.addLoot(loots.get("E#001"), PlayerChoice.selected());
-		InventoryKey.addLoot(loots.get("E#002"), PlayerChoice.selected());
+//		sc = new Scanner(System.in);
+//		System.out.println("CHOOSE CLASS OF CHARACTER : 't' = WARRIOR / 'y' = ARCHER / 'u' = MAGE\n OR EXIT = 'e'");
+//			String input = sc.nextLine() ;
+//			PlayerChoice.chooseClassPlayer(input);
+
+//		InventoryKey.addLoot(loots.get("E#001"), PlayerChoice.selected());
+//		InventoryKey.addLoot(loots.get("E#002"), PlayerChoice.selected());
 		//SALE ENCULE RENOMME TA METHODE RUN OU TICK PAS PTN DE GAMEINPUT
-		new GameInput();
-		sc.close();
+//		new GameInput();
+//		sc.close();
 
 	}
 

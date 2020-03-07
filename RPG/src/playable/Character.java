@@ -7,8 +7,11 @@ public abstract class Character extends GameObject {
 
 	//Map Position
 	
-	private int x;
-	private int y;
+	private float x;
+	private float y;
+	
+	private float VelX;
+	private float VelY;
 	// 0=north, 1=west, 2=east, 3=south
 	private int direction;
 	
@@ -88,6 +91,22 @@ public abstract class Character extends GameObject {
 				+ getAttack() + "\nrange = " + getRange() + "\ninventory = " + getInventoryStatus() + "\nlevel = "
 				+ getLevel() + "\natkSpeed = " + getAttackSpeed() + "\nctkChance = " + getCriticalChance()
 				+ "\ndodgeChance = " + getDodgeChance();
+	}
+
+	public float getVelX() {
+		return VelX;
+	}
+
+	public void setVelX(float velX) {
+		VelX = velX;
+	}
+
+	public float getVelY() {
+		return VelY;
+	}
+
+	public void setVelY(float velY) {
+		VelY = velY;
 	}
 
 	public int getLifePoint() {
@@ -210,11 +229,11 @@ public abstract class Character extends GameObject {
 		this.speed = speed;
 	}
 
-	public void setX(int x) {
+	public void setX(float x) {
 		this.x = x;
 	}
 	
-	public void setY(int y) {
+	public void setY(float y) {
 		this.y = y;
 	}
 	
@@ -222,11 +241,11 @@ public abstract class Character extends GameObject {
 		this.direction = direction;
 	}
 	
-	public int getX() {
+	public float getX() {
 		return x;
 	}
 	
-	public int getY() {
+	public float getY() {
 		return y;
 	}
 	

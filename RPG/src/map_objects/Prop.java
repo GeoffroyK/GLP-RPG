@@ -1,5 +1,7 @@
 package map_objects;
 
+import java.awt.Graphics;
+
 import dataclasses.GameObject;
 
 public class Prop extends GameObject {
@@ -43,6 +45,20 @@ public class Prop extends GameObject {
 	
 	public void setY(int y) {
 		this.y = y;
+	}
+
+
+	@Override
+	public void tick() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void render(Graphics g) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

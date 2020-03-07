@@ -1,5 +1,8 @@
 package playable;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 import spell.Spell;
 
 public class Player extends Character {
@@ -49,6 +52,17 @@ public class Player extends Character {
 
 	public void setSpells(Spell[] spells) {
 		this.spells = spells;
+	}
+
+	public void tick() {
+		this.setX(getX() + getVelX());
+		this.setY(getY() + getVelY());
+		
+	}
+
+	public void render(Graphics g) {
+		g.setColor(Color.blue);
+		g.fillRect((int) getX(),(int) getY(), 32, 32);
 	}
 
 }

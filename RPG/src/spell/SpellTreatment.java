@@ -18,9 +18,9 @@ public class SpellTreatment {
 
 			/* Haut */ case 0:
 				while (cptRange <= spell.getRange() && state) {
-					if (map.isOccupied(ply.getX(), ply.getY() - cptRange)) {
+					if (map.isOccupied((int)ply.getX(),(int) ply.getY() - cptRange)) {
 						System.out.println("MONSTER FOUND");
-						String monsterId = map.getMonsterIdByPos(ply.getX(), ply.getY() - cptRange);
+						String monsterId = map.getMonsterIdByPos((int)ply.getX(),(int) ply.getY() - cptRange);
 						Monster monster = (Monster) DataBase.getInstances().get(monsterId);
 						int previousMonsterHP = monster.getLifePoint();
 						monster.setLifePoint(monster.getLifePoint() - spell.getDamage());
@@ -41,9 +41,9 @@ public class SpellTreatment {
 
 			/* Gauche */ case 1:
 				while (cptRange <= spell.getRange() && state) {
-					if (map.isOccupied(ply.getX() - cptRange, ply.getY())) {
+					if (map.isOccupied((int)ply.getX() - cptRange, (int)ply.getY())) {
 						System.out.println("MONSTER FOUND");
-						String monsterId = map.getMonsterIdByPos(ply.getX() - cptRange, ply.getY());
+						String monsterId = map.getMonsterIdByPos((int)ply.getX() - cptRange, (int)ply.getY());
 						Monster monster = (Monster) DataBase.getInstances().get(monsterId);
 						int previousMonsterHP = monster.getLifePoint();
 						monster.setLifePoint(monster.getLifePoint() - spell.getDamage());
@@ -64,9 +64,9 @@ public class SpellTreatment {
 
 			/* Droite */ case 2:
 				while (cptRange <= spell.getRange() && state) {
-					if (map.isOccupied(ply.getX() + cptRange, ply.getY())) {
+					if (map.isOccupied((int)ply.getX() + cptRange,(int)ply.getY())) {
 						System.out.println("MONSTER FOUND");
-						String monsterId = map.getMonsterIdByPos(ply.getX() + cptRange, ply.getY());
+						String monsterId = map.getMonsterIdByPos((int)ply.getX() + cptRange,(int) ply.getY());
 						Monster monster = (Monster) DataBase.getInstances().get(monsterId);
 						int previousMonsterHP = monster.getLifePoint();
 						monster.setLifePoint(monster.getLifePoint() - spell.getDamage());
@@ -87,9 +87,9 @@ public class SpellTreatment {
 
 			/* Bas */ case 3:
 				while (cptRange <= spell.getRange() && state) {
-					if (map.isOccupied(ply.getX(), ply.getY() + cptRange)) {
+					if (map.isOccupied((int)ply.getX(),(int) ply.getY() + cptRange)) {
 						System.out.println("MONSTER FOUND");
-						String monsterId = map.getMonsterIdByPos(ply.getX(), ply.getY() + cptRange);
+						String monsterId = map.getMonsterIdByPos((int)ply.getX(), (int)ply.getY() + cptRange);
 						Monster monster = (Monster) DataBase.getInstances().get(monsterId);
 						int previousMonsterHP = monster.getLifePoint();
 						monster.setLifePoint(monster.getLifePoint() - spell.getDamage());

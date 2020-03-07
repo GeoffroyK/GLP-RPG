@@ -1,5 +1,7 @@
 package loot;
 
+import java.awt.Graphics;
+
 public class Equipment extends Loot {
 	
 	private int hpMax;
@@ -123,6 +125,18 @@ public class Equipment extends Loot {
 
 	public void setEquiped(Boolean equiped) {
 		this.equiped = equiped;
+	}
+
+	@Override
+	public void tick() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void render(Graphics g) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

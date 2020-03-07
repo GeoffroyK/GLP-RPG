@@ -1,5 +1,7 @@
 package spell;
 
+import java.awt.Graphics;
+
 import dataclasses.GameObject;
 
 public class Spell extends GameObject {
@@ -117,6 +119,18 @@ public class Spell extends GameObject {
 
 	public void setCooldown(int cooldown) {
 		this.cooldown = cooldown;
+	}
+
+	@Override
+	public void tick() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void render(Graphics g) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

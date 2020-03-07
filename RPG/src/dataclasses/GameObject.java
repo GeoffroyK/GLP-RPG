@@ -1,5 +1,7 @@
 package dataclasses;
 
+import java.awt.Graphics;
+
 public abstract class GameObject{
 
 	private String id;
@@ -8,6 +10,9 @@ public abstract class GameObject{
 	public GameObject(String id) {
 		this.id = id;
 	}
+	
+	public abstract void tick();
+	public abstract void render(Graphics g);
 	
 	public String toString() {
 		return "id = " + id + " ";

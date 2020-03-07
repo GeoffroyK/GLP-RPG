@@ -8,17 +8,24 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.Collection;
+import java.util.Iterator;
 
 import javax.swing.JFrame;
 
 import InputControl.InputHandler;
+import dataclasses.DataBase;
+import dataclasses.GameObject;
+import inventory.InventoryKey;
+import loot.Loot;
+import playable.Move;
+import playable.PlayerChoice;
 
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
-	private static final int WIDTH = 160;
+	private static final int WIDTH = 900;
 	private static final int HEIGHT = WIDTH / 12 * 9;
-	private static final int SCALE = 3;
 	private static final String NAME = "Game";
 	
 	public boolean running = false;
@@ -26,11 +33,12 @@ public class Game extends Canvas implements Runnable {
 	private JFrame frame;
 	
 	private InputHandler input;
+	private DataBase db;
 	
 	public Game() {
-		setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-		setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-		setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
+		setMinimumSize(new Dimension(WIDTH, HEIGHT));
+		setMaximumSize(new Dimension(WIDTH, HEIGHT));
+		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		frame = new JFrame(NAME);
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,7 +51,6 @@ public class Game extends Canvas implements Runnable {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 
-		
 		init();
 		start();
 		
@@ -51,6 +58,7 @@ public class Game extends Canvas implements Runnable {
 	
 	public void init() {
 		input = new InputHandler(this) ;
+		db = new DataBase();
 	}
 	
 	public synchronized void start() {
@@ -110,42 +118,44 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	public void tick() {
-		inputLog();
+		inputlog();
+		Collection<GameObject> valsInstances = DataBase.getInstances().values();
+		Iterator<GameObject> itInstances = valsInstances.iterator();
+		
+		while (itInstances.hasNext()) {
+			GameObject go = itInstances.next();
+			go.tick();
+		}
 	}
 	
-	private void inputLog() {
-		if (getUp().isPressed()) {
-			System.out.println("Up");
+	public void inputlog() {
+		if((getDown().isPressed() && getUp().isPressed())){
+			PlayerChoice.selected().setVelY(0);
 		}
-		if (getLeft().isPressed()) {
-			System.out.println("Left");
+		else if (getUp().isPressed()) {
+			PlayerChoice.selected().setVelY(-5);
+			System.out.println();
 		}
-		if (getDown().isPressed()) {
-			System.out.println("Down");
+		else if (getDown().isPressed()) {
+			PlayerChoice.selected().setVelY(5);
 		}
-		if (getRight().isPressed()) {
-			System.out.println("Right");
+		else  {
+			PlayerChoice.selected().setVelY(0);
 		}
-		if (getInventaire().isPressed()) {
-			System.out.println("Inventaire");
+
+		if(getLeft().isPressed() && getRight().isPressed()){
+			PlayerChoice.selected().setVelX(0);
 		}
-		if (getAutoAttack().isPressed()) {
-			System.out.println("AutoAttack");
+		else if (getLeft().isPressed()) {
+			PlayerChoice.selected().setVelX(-5);
 		}
-		if (getSpell1().isPressed()) {
-			System.out.println("Spell1");
+
+		else if (getRight().isPressed()) {
+			PlayerChoice.selected().setVelX(5);
 		}
-		if (getSpell2().isPressed()) {
-			System.out.println("Spell2");
-		}
-		if (getSpell3().isPressed()) {
-			System.out.println("Spell3");
-		}
-		if (getSpell4().isPressed()) {
-			System.out.println("Spell4");
-		}
-		if (getSpell5().isPressed()) {
-			System.out.println("Spell5");
+		
+		else {
+			PlayerChoice.selected().setVelX(0);
 		}
 	}
 	
@@ -161,6 +171,14 @@ public class Game extends Canvas implements Runnable {
 		g.setColor(Color.GRAY);
 		g.fillRect(0,0,getWidth(),getHeight());		
 				
+		Collection<GameObject> valsInstances = DataBase.getInstances().values();
+		Iterator<GameObject> itInstances = valsInstances.iterator();
+		
+		while (itInstances.hasNext()) {
+			GameObject go = itInstances.next();
+			go.render(g);
+		}
+		
 		g.dispose();
 		bs.show();
 		}

@@ -1,5 +1,7 @@
 package loot;
 
+import java.awt.Graphics;
+
 public class Consumable extends Loot {	
 	
 	private int hp;
@@ -39,6 +41,18 @@ public class Consumable extends Loot {
 
 	public void setVit(int vit) {
 		this.vit = vit;
+	}
+
+	@Override
+	public void tick() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void render(Graphics g) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
