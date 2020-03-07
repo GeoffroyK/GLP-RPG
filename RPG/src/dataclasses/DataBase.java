@@ -64,8 +64,6 @@ public class DataBase extends Canvas {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-<<<<<<< Upstream, based on origin/master
 		System.out.println(this);
 		initGame();
 		
@@ -99,11 +97,6 @@ public class DataBase extends Canvas {
 		System.out.println(p.getInventory().getHelmet());*/
 		
 		
-=======
-		initGame();
-		
-	}
->>>>>>> 3d06426 add cooldown
 
 		//System.out.println(this);*/
 	}
@@ -122,14 +115,12 @@ public class DataBase extends Canvas {
 		monstre.setX(6);
 		monstre.setY(5);
 		monstre.setDirection(0);
-<<<<<<< Upstream, based on origin/master
 		
 		Prop coffre = new Prop("id","coffre",1,"null");
 		coffre.setX(5);
 		coffre.setY(0);
 		instances.put(coffre.getId(), coffre);
-=======
->>>>>>> 3d06426 add cooldown
+
 	
 		instances.put(ronflex.getId(),ronflex);
 		sc = new Scanner(System.in);
@@ -166,13 +157,9 @@ public class DataBase extends Canvas {
 			res += character.toString();
 		}
 		res += "--------------------------Character END-----------------------------\n";
-<<<<<<< Upstream, based on origin/master
 		Collection<Loot> valsLoot = loots.values() ;
 		Iterator<Loot> itLoot = valsLoot.iterator();
 		res += "--------------------------Loot INIT-----------------------------\n" ;
-=======
-
->>>>>>> 3d06426 add cooldown
 
 		while(itLoot.hasNext()) {
 			Loot loot = itLoot.next() ;
@@ -187,15 +174,12 @@ public class DataBase extends Canvas {
 		return spells;
 	}
 
-<<<<<<< Upstream, based on origin/master
-	public static String[] getCsvGameObjectPaths() {
-=======
 	public void setSpells(HashMap<String, Spell> spells) {
-		this.spells = spells;
+		DataBase.spells = spells;
 	}
 
 	public String[] getCsvGameObjectPaths() {
->>>>>>> 3d06426 add cooldown
+
 		return csvGameObjectPaths;
 	}
 

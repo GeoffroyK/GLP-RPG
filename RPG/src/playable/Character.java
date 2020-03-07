@@ -203,7 +203,6 @@ public abstract class Character extends GameObject {
 	public void setDodgeChance(int dodgeChance) {
 		this.dodgeChance = dodgeChance;
 	}
-<<<<<<< Upstream, based on origin/master
 
 	public int getSpeed() {
 		return speed;
@@ -212,8 +211,6 @@ public abstract class Character extends GameObject {
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
-=======
->>>>>>> 3d06426 add cooldown
 
 	public void setX(int x) {
 		this.x = x;
@@ -238,10 +235,6 @@ public abstract class Character extends GameObject {
 	public int getDirection() {
 		return direction;
 	}
-<<<<<<< Upstream, based on origin/master
-=======
 
-	
->>>>>>> 3d06426 add cooldown
 
 }
