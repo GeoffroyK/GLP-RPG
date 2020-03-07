@@ -29,7 +29,46 @@ public class InputHandler implements KeyListener{
 		
 		if(KeyIndentity == KeyEvent.VK_Z) {
 			getUp().setPressed(pressed);
-			System.out.println("effectue");
+		}
+		
+		if(KeyIndentity == KeyEvent.VK_Q) {
+			getLeft().setPressed(pressed);
+		}
+		
+		if(KeyIndentity == KeyEvent.VK_S) {
+			getDown().setPressed(pressed);
+		}
+		
+		if(KeyIndentity == KeyEvent.VK_D) {
+			getRight().setPressed(pressed);
+		}
+		
+		if(KeyIndentity == KeyEvent.VK_I) {
+			getInventaire().setPressed(pressed);
+		}
+
+		if(KeyIndentity == KeyEvent.VK_SPACE) {
+			getAutoAttack().setPressed(pressed);
+		}
+
+		if(KeyIndentity == KeyEvent.VK_1) {
+			getSpell1().setPressed(pressed);
+		}
+
+		if(KeyIndentity == KeyEvent.VK_2) {
+			getSpell2().setPressed(pressed);
+		}
+
+		if(KeyIndentity == KeyEvent.VK_3) {
+			getSpell3().setPressed(pressed);
+		}
+
+		if(KeyIndentity == KeyEvent.VK_4) {
+			getSpell4().setPressed(pressed);
+		}
+
+		if(KeyIndentity == KeyEvent.VK_5) {
+			getSpell5().setPressed(pressed);
 		}
 		
 	}

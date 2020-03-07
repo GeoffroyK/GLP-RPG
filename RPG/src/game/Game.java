@@ -115,7 +115,37 @@ public class Game extends Canvas implements Runnable {
 	
 	private void inputLog() {
 		if (getUp().isPressed()) {
-			System.out.println("youhou t es pas nul");
+			System.out.println("Up");
+		}
+		if (getLeft().isPressed()) {
+			System.out.println("Left");
+		}
+		if (getDown().isPressed()) {
+			System.out.println("Down");
+		}
+		if (getRight().isPressed()) {
+			System.out.println("Right");
+		}
+		if (getInventaire().isPressed()) {
+			System.out.println("Inventaire");
+		}
+		if (getAutoAttack().isPressed()) {
+			System.out.println("AutoAttack");
+		}
+		if (getSpell1().isPressed()) {
+			System.out.println("Spell1");
+		}
+		if (getSpell2().isPressed()) {
+			System.out.println("Spell2");
+		}
+		if (getSpell3().isPressed()) {
+			System.out.println("Spell3");
+		}
+		if (getSpell4().isPressed()) {
+			System.out.println("Spell4");
+		}
+		if (getSpell5().isPressed()) {
+			System.out.println("Spell5");
 		}
 	}
 	
