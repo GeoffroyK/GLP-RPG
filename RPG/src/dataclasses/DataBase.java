@@ -52,7 +52,6 @@ public class DataBase extends Canvas {
 		spells = new HashMap<String, Spell>();
 		characters = new HashMap<String, Character>();
 		instances = new HashMap<String, GameObject>();
-		
 
 		try {
 			DataBaseInit.loadCsvSpell(csvGameObjectPaths[2]);
@@ -60,53 +59,21 @@ public class DataBase extends Canvas {
 			DataBaseInit.loadCsvMonster(csvGameObjectPaths[6]);
 			DataBaseInit.loadCsvConsumable(csvGameObjectPaths[0]);
 			DataBaseInit.loadCSVEquipments(csvGameObjectPaths[1]);
-			//loadCsvProp(); 
+			// loadCsvProp();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		System.out.println(this);
 		initGame();
-		
-	/*	Player p = (Player) characters.get("pa2") ;
-		InventoryKey.addLoot(equipments.get("E#001"), p);
-		InventoryKey.addLoot(equipments.get("E#002"), p);
-		InventoryKey.addLoot(consumables.get("C#001"), p);
-		InventoryKey.addLoot(consumables.get("C#001"), p);
-		p.setLifePoint(80);
-		p.setLifePointMax(100);
-		
-		System.out.println(p);
-		
-		InventoryKey.choice(p);
-		
-		System.out.println(InventoryThread.showInv(p.getInventory()));
-		System.out.println(p);
-		
-		/*InventoryKey.choice(p);
-		
-		System.out.println(InventoryThread.showInv(p.getInventory()));
-		
-		
-		
-		
-		/*System.out.println(p);
 
-		inventoryThread.equipmentChoice(equipments.get("E#001"), p);
-		
-		System.out.println(p);
-		System.out.println(p.getInventory().getHelmet());*/
-		
-		
-
-		//System.out.println(this);*/
 	}
-	
+
 	public static HashMap<String, Loot> getLoots() {
 		return loots;
 	}
 
 	private void initGame() {
-		
+
 		Monster ronflex = (Monster) characters.get("ma2");
 		ronflex.setX(5);
 		ronflex.setY(5);
@@ -115,8 +82,8 @@ public class DataBase extends Canvas {
 		monstre.setX(6);
 		monstre.setY(5);
 		monstre.setDirection(0);
-		
-		Prop coffre = new Prop("id","coffre",1,"null");
+
+		Prop coffre = new Prop("id", "coffre", 1, "null");
 		coffre.setX(5);
 		coffre.setY(0);
 		instances.put(coffre.getId(), coffre);
@@ -133,7 +100,7 @@ public class DataBase extends Canvas {
 		//SALE ENCULE RENOMME TA METHODE RUN OU TICK PAS PTN DE GAMEINPUT
 		new GameInput();
 		sc.close();
-		
+
 	}
 
 	public String toString() {
@@ -156,16 +123,18 @@ public class DataBase extends Canvas {
 			Character character = itCharacter.next();
 			res += character.toString();
 		}
-		res += "--------------------------Character END-----------------------------\n";
-		Collection<Loot> valsLoot = loots.values() ;
-		Iterator<Loot> itLoot = valsLoot.iterator();
-		res += "--------------------------Loot INIT-----------------------------\n" ;
 
-		while(itLoot.hasNext()) {
-			Loot loot = itLoot.next() ;
-			res += loot.toString() ;
+		res += "--------------------------Character END-----------------------------\n";
+		
+		Collection<Loot> valsLoot = loots.values();
+		Iterator<Loot> itLoot = valsLoot.iterator();
+		res += "--------------------------Loot INIT-----------------------------\n";
+		
+		while (itLoot.hasNext()) {
+			Loot loot = itLoot.next();
+			res += loot.toString();
 		}
-		res += "--------------------------Loot END-----------------------------\n" ;
+		res += "--------------------------Loot END-----------------------------\n";
 		return res;
 
 	}
@@ -202,7 +171,7 @@ public class DataBase extends Canvas {
 	public Scanner getSc() {
 		return sc;
 	}
-	
+
 	public static void main(String[] args) {
 		new DataBase();
 	}

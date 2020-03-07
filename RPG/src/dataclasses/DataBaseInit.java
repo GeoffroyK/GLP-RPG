@@ -6,12 +6,9 @@ import java.io.IOException;
 
 import loot.Consumable;
 import loot.Equipment;
-import loot.Loot;
 import playable.Monster;
 import playable.Player;
 import spell.Spell;
-
-import static dataclasses.DataBase.*;
 
 public class DataBaseInit {
 	

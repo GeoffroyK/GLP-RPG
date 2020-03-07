@@ -1,9 +1,6 @@
 package map_objects;
 
-import java.util.HashMap;
-
 import dataclasses.DataBase;
-import dataclasses.GameObject;
 import inventory.InventoryKey;
 import map.Map;
 import playable.Player;

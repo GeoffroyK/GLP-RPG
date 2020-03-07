@@ -1,10 +1,8 @@
 package game;
 
-import java.util.HashMap;
 import java.util.Scanner;
 
 import dataclasses.DataBase;
-import dataclasses.GameObject;
 import inventory.InventoryKey;
 import map.Map;
 import map_objects.Prop;

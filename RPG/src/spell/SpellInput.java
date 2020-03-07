@@ -1,9 +1,5 @@
 package spell;
 
-import java.util.HashMap;
-
-import dataclasses.DataBase;
-import dataclasses.GameObject;
 import map.Map;
 import playable.Player;
 import playable.PlayerChoice;
@@ -13,14 +9,14 @@ public class SpellInput /* extends inputAdapter */ {
 	private Player ply;
 	private Map map;
 	private int[] cooldown = { 0, 0, 0, 0, 0, 0 };
-
+	
 	public SpellInput(Map map) {
 		ply = PlayerChoice.selected();
 		this.map = map;
 	}
 
 	public void scannerPressed(String input) {
-		
+
 		switch(input) {
 			
 		case "w" : isUsable(0);
@@ -65,6 +61,7 @@ public class SpellInput /* extends inputAdapter */ {
 		} else {
 			System.out.println("PAS ASSEZ DE MANA \nManaUsage : " + spell.getManaUsage() + " / Mana actuel : " + ply.getManaPoint());
 		}
+
 	}
 
 //	public void inputPressed(inputEvent e) {
