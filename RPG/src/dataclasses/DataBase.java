@@ -66,7 +66,7 @@ public class DataBase extends Canvas {
 		}
 		
 		System.out.println(this);
-		initGame();
+		//initGame();
 		
 	/*	Player p = (Player) characters.get("pa2") ;
 		InventoryKey.addLoot(equipments.get("E#001"), p);

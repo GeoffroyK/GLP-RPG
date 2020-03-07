@@ -6,12 +6,28 @@ import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.image.BufferStrategy;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
+import java.io.File;
+import java.io.IOException;
+import java.text.AttributedCharacterIterator;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import HUD.HudTop;
+import HUD.LifeBar;
+import HUD.MpBar;
 import InputControl.InputHandler;
+import dataclasses.DataBase;
+import playable.Player;
 
 public class Game extends Canvas implements Runnable {
 
@@ -26,6 +42,10 @@ public class Game extends Canvas implements Runnable {
 	private JFrame frame;
 	
 	private InputHandler input;
+	private HudTop hTop ;
+	
+	private Player p;
+	
 	
 	public Game() {
 		setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
@@ -51,6 +71,9 @@ public class Game extends Canvas implements Runnable {
 	
 	public void init() {
 		input = new InputHandler(this) ;
+		hTop = new HudTop() ;
+		
+		p = (Player) DataBase.getCharacters().get("pg1") ;
 	}
 	
 	public synchronized void start() {
@@ -116,12 +139,15 @@ public class Game extends Canvas implements Runnable {
 	private void inputLog() {
 		if (getUp().isPressed()) {
 			System.out.println("Up");
+			p.setLifePoint(50);
 		}
 		if (getLeft().isPressed()) {
 			System.out.println("Left");
+			p.setLifePoint(70);
 		}
 		if (getDown().isPressed()) {
 			System.out.println("Down");
+			p.setLifePoint(20);
 		}
 		if (getRight().isPressed()) {
 			System.out.println("Right");
@@ -159,15 +185,18 @@ public class Game extends Canvas implements Runnable {
 		Graphics g = bs.getDrawGraphics();
 		
 		g.setColor(Color.GRAY);
-		g.fillRect(0,0,getWidth(),getHeight());		
-				
+		g.fillRect(0,0,getWidth(),getHeight());
+		
+		hTop.render(p, g);
+		
 		g.dispose();
 		bs.show();
-		}
+	}
 	
 
 
 	public static void main(String[]args) {
+		new DataBase() ;
 		Game ga = new Game();	
 	
 	}
