@@ -129,12 +129,7 @@ public class DataBase extends Canvas {
 			PlayerChoice.chooseClassPlayer(input);
 
 		InventoryKey.addLoot(loots.get("E#001"), PlayerChoice.selected());
-<<<<<<< HEAD
 		InventoryKey.addLoot(loots.get("E#002"), PlayerChoice.selected());
-		
-=======
-		InventoryKey.addLoot(loots.get("E#001"), PlayerChoice.selected());
->>>>>>> refs/heads/Vorty
 		//SALE ENCULE RENOMME TA METHODE RUN OU TICK PAS PTN DE GAMEINPUT
 		new GameInput();
 		sc.close();
