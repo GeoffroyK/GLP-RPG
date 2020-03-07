@@ -1,17 +1,21 @@
 package game;
 
+import static InputControl.InputData.* ;
+
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
+import InputControl.InputHandler;
+
 public class Game extends Canvas implements Runnable {
+
+	private static final long serialVersionUID = 1L;
 	private static final int WIDTH = 160;
 	private static final int HEIGHT = WIDTH / 12 * 9;
 	private static final int SCALE = 3;
@@ -20,6 +24,8 @@ public class Game extends Canvas implements Runnable {
 	public boolean running = false;
 	
 	private JFrame frame;
+	
+	private InputHandler input;
 	
 	public Game() {
 		setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
@@ -36,7 +42,15 @@ public class Game extends Canvas implements Runnable {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+
 		
+		init();
+		start();
+		
+	}
+	
+	public void init() {
+		input = new InputHandler(this) ;
 	}
 	
 	public synchronized void start() {
@@ -96,7 +110,13 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	public void tick() {
-		
+		inputLog();
+	}
+	
+	private void inputLog() {
+		if (getUp().isPressed()) {
+			System.out.println("youhou t es pas nul");
+		}
 	}
 	
 	public void render() {
@@ -119,7 +139,6 @@ public class Game extends Canvas implements Runnable {
 
 	public static void main(String[]args) {
 		Game ga = new Game();	
-		ga.start();
 	
 	}
 }

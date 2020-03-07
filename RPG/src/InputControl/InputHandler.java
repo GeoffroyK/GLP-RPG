@@ -3,13 +3,13 @@ package InputControl;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import game.GamePanel;
+import game.Game;
 
 import static InputControl.InputData.* ;
 
 public class InputHandler implements KeyListener{
 
-	public InputHandler (GamePanel game) {
+	public InputHandler (Game game) {
 		game.addKeyListener(this);
 	}
 
@@ -26,10 +26,12 @@ public class InputHandler implements KeyListener{
 	}
 	
 	public void toggledKey(int KeyIndentity, boolean pressed) {
-		if(KeyIndentity == KeyEvent.VK_W) {
+		
+		if(KeyIndentity == KeyEvent.VK_Z) {
 			getUp().setPressed(pressed);
 			System.out.println("effectue");
 		}
+		
 	}
 
 }
