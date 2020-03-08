@@ -22,18 +22,20 @@ import java.text.AttributedCharacterIterator;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import HUD.HudInventory;
 import HUD.HudTop;
 import HUD.LifeBar;
 import HUD.MpBar;
 import InputControl.InputHandler;
 import dataclasses.DataBase;
+import inventory.InventoryKey;
 import playable.Player;
 
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
-	private static final int WIDTH = 160;
-	private static final int HEIGHT = WIDTH / 12 * 9;
+	private static final int WIDTH = 248;
+	private static final int HEIGHT = 200;
 	private static final int SCALE = 3;
 	private static final String NAME = "Game";
 	
@@ -41,8 +43,11 @@ public class Game extends Canvas implements Runnable {
 	
 	private JFrame frame;
 	
+	private int state ;
+	
 	private InputHandler input;
 	private HudTop hTop ;
+	private HudInventory hInventory ;
 	
 	private Player p;
 	
@@ -72,8 +77,10 @@ public class Game extends Canvas implements Runnable {
 	public void init() {
 		input = new InputHandler(this) ;
 		hTop = new HudTop() ;
+		hInventory = new HudInventory(this) ;
 		
 		p = (Player) DataBase.getCharacters().get("pg1") ;
+		DataBase.getInstances().put(p.getId(), p) ;
 	}
 	
 	public synchronized void start() {
@@ -143,17 +150,21 @@ public class Game extends Canvas implements Runnable {
 		}
 		if (getLeft().isPressed()) {
 			System.out.println("Left");
-			p.setLifePoint(70);
+			InventoryKey.addLoot(DataBase.getLoots().get("C#001"), p);
 		}
 		if (getDown().isPressed()) {
 			System.out.println("Down");
-			p.setLifePoint(20);
+			InventoryKey.addLoot(DataBase.getLoots().get("E#001"), p);
 		}
 		if (getRight().isPressed()) {
 			System.out.println("Right");
+			state = 0 ;
+			hInventory.clickableZoneErase();
 		}
 		if (getInventaire().isPressed()) {
 			System.out.println("Inventaire");
+			state = 1 ;
+			hInventory.clickableZoneCreation(p);
 		}
 		if (getAutoAttack().isPressed()) {
 			System.out.println("AutoAttack");
@@ -184,10 +195,19 @@ public class Game extends Canvas implements Runnable {
 		
 		Graphics g = bs.getDrawGraphics();
 		
-		g.setColor(Color.GRAY);
-		g.fillRect(0,0,getWidth(),getHeight());
+		if(state == 0) {
+			g.setColor(Color.GRAY);
+			g.fillRect(0,0,getWidth(),getHeight());
+			
+			hTop.render(p, g);
+		}
 		
-		hTop.render(p, g);
+		if(state == 1) {
+			hInventory.checking(p, g);
+			g.setColor(Color.BLACK);
+			g.fillRect(0,0,getWidth(),getHeight());
+			hInventory.render(p, g);		
+		}
 		
 		g.dispose();
 		bs.show();

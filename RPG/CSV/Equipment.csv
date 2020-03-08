@@ -1,3 +1,3 @@
 id;price;name;textbox;spritePath;Hpmax;Mpmax;armor;dodge;strengh;dexterity;intel;criti;size;type
-E#001;101.1;Casque;D'une inutile incroyable;idk;100;100;50;15;566;48;7889;12;15;helmet
-E#002;15.1;Jambiere;D'une inutilite flemme;idk;50;11;25;36;45;12;266;788;23;pants
+E#001;101.1;Casque;D'une inutile incroyable;C:\\Users\\Vortex\\Documents\\Inventory\\Helmet.png;100;100;50;15;566;48;7889;12;15;helmet
+E#002;15.1;Jambiere;D'une inutilite flemme;C:\\Users\\Vortex\\Documents\\Inventory\\Pants.png;50;11;25;36;45;12;266;788;23;pants
