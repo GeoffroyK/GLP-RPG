@@ -3,6 +3,7 @@ package playable;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import game.Colision;
 import spell.Spell;
 
 public class Player extends Character {
@@ -24,6 +25,8 @@ public class Player extends Character {
 		super.setX(0);
 		super.setY(0);
 		super.setDirection(0);
+		super.setWidth(32);
+		super.setHeight(32);
 		
 //		PlayerTreatment.initSpells(this);
 
@@ -55,6 +58,7 @@ public class Player extends Character {
 	}
 
 	public void tick() {
+		
 		this.setX(getX() + getVelX());
 		this.setY(getY() + getVelY());
 		

@@ -69,10 +69,16 @@ public class DataBase extends Canvas {
 		ronflex.setX(500);
 		ronflex.setY(100);
 		ronflex.setDirection(0);
+		
 		Monster monstre = (Monster) characters.get("mt3");
 		monstre.setX(300);
 		monstre.setY(600);
 		monstre.setDirection(0);
+		
+		Monster guerrier = (Monster) characters.get("mg1");
+		guerrier.setX(500);
+		guerrier.setY(30);
+		guerrier.setDirection(0);
 
 		Prop coffre = new Prop("id", "coffre", 1, "null");
 		coffre.setX(5);
@@ -82,6 +88,7 @@ public class DataBase extends Canvas {
 	
 		instances.put(ronflex.getId(),ronflex);
 		instances.put(monstre.getId(),monstre);
+		instances.put(guerrier.getId(),guerrier);
 		
 
 //		sc = new Scanner(System.in);

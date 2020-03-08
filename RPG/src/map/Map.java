@@ -33,7 +33,7 @@ public class Map {
 		props.add(prop);
 	}
 	
-	public String getMonsterNameByPos(int x, int y) {
+	public String getMonsterNameByPos(float x, float y) {
 		for(Monster e : monsters) {
 			if((x == e.getX())&&(y == e.getY())){
 				return e.getType();
@@ -42,7 +42,7 @@ public class Map {
 		return "none";
 	}
 	
-	public String getMonsterIdByPos(int x, int y) {
+	public String getMonsterIdByPos(float x, float y) {
 		for(Monster e : monsters) {
 			if((x == e.getX())&&(y == e.getY())){
 				return e.getId();
@@ -51,7 +51,7 @@ public class Map {
 		return "none";
 	}
 	
-	public boolean isOccupied(int x, int y) {
+	public boolean isOccupied(float x, float y) {
 		for(Monster e : monsters) {
 			if((x == e.getX())&&(y == e.getY())){
 				return true;
@@ -60,7 +60,7 @@ public class Map {
 		return false;
 	}
 	
-	public boolean isProp(int x, int y) {
+	public boolean isProp(float x, float y) {
 		for(Prop e : props) {
 			if((x == e.getX())&&(y == e.getY())){
 				return true;

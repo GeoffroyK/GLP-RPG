@@ -18,6 +18,7 @@ import dataclasses.DataBase;
 import dataclasses.GameObject;
 import inventory.InventoryKey;
 import loot.Loot;
+import playable.CharactersInstances;
 import playable.Move;
 import playable.PlayerChoice;
 
@@ -134,7 +135,6 @@ public class Game extends Canvas implements Runnable {
 		}
 		else if (getUp().isPressed()) {
 			PlayerChoice.selected().setVelY(-5);
-			System.out.println();
 		}
 		else if (getDown().isPressed()) {
 			PlayerChoice.selected().setVelY(5);

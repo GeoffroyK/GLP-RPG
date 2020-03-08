@@ -37,10 +37,10 @@ public class Colision {
 		return false;
 	}
 	
-	public boolean isCircleCollide(Colision c) {
+	public boolean isCircleCollide(Colision box) {
 		
-		float dx = Math.max(c.getX() , Math.min(x + (r / 2), c.getX() + c.getWidth()));
-		float dy = Math.max(c.getY() , Math.min(y + (r / 2), c.getX() + c.getHeight()));
+		float dx = Math.max(box.getX() , Math.min(x + (r / 2), box.getX() + box.getWidth()));
+		float dy = Math.max(box.getY() , Math.min(y + (r / 2), box.getX() + box.getHeight()));
 		
 		dx = x + (r / 2) - dx;
 		dy = y + (r / 2) - dy;
@@ -50,6 +50,7 @@ public class Colision {
 		}
 		
 		return false;
+		
 	}
 	
 	

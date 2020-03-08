@@ -15,7 +15,9 @@ public abstract class Character extends GameObject {
 	// 0=north, 1=west, 2=east, 3=south
 	private int direction;
 	
-	
+	private int width;
+	private int height;
+
 	//Caracteristics
 	private String type;
 	private int lifePoint;
@@ -253,6 +255,21 @@ public abstract class Character extends GameObject {
 		return direction;
 	}
 
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
 
 	
 
