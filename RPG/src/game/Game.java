@@ -54,7 +54,6 @@ public class Game extends Canvas implements Runnable {
 
 		init();
 		start();
-		
 	}
 	
 	public void init() {
