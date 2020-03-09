@@ -1,4 +1,4 @@
-package HUD;
+package HUD.top;
 
 import java.awt.Graphics;
 import java.awt.Image;

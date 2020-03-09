@@ -22,10 +22,10 @@ import java.text.AttributedCharacterIterator;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-import HUD.HudInventory;
-import HUD.HudTop;
-import HUD.LifeBar;
-import HUD.MpBar;
+import HUD.inventory.HudInventory;
+import HUD.top.HudTop;
+import HUD.top.LifeBar;
+import HUD.top.MpBar;
 import InputControl.InputHandler;
 import dataclasses.DataBase;
 import inventory.InventoryKey;

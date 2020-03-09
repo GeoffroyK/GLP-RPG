@@ -1,4 +1,4 @@
-package HUD;
+package HUD.inventory;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -25,7 +25,10 @@ import playable.Player;
 public class HudInventory implements MouseListener{
 	
 	private Image background = null ;
-	private ArrayList<Rectangle> r;
+	
+	private ArrayList<Rectangle> clickableArea ;
+	private Rectangle selected = null ;
+	
 	private Point click ;
 	private int searchState = 0 ;
 	
@@ -40,10 +43,10 @@ public class HudInventory implements MouseListener{
 		int x = 21 ;
 		int y = 69 ;
 		
-		r = new ArrayList<Rectangle>() ;
+		clickableArea = new ArrayList<Rectangle>() ;
 		for(Loot l : hero.getInventory().getDrops()) {
-			Rectangle rDs = new Rectangle(x, y, 20, 20) ;
-			r.add(rDs);
+			Rectangle rDs = new Rectangle(x, y, 19, 19) ;
+			clickableArea.add(rDs);
 			
 			x += 40 ;
 			if(x > 330) {
@@ -52,10 +55,17 @@ public class HudInventory implements MouseListener{
 			}
 		}
 		
+		Rectangle equip = new Rectangle(12, 362, 102, 32);
+		Rectangle throwAway = new Rectangle(128, 362, 102, 32);
+		Rectangle detail = new Rectangle(243, 362, 102, 32);
+		clickableArea.add(equip);
+		clickableArea.add(throwAway);
+		clickableArea.add
+		
 	}
 	
 	public void clickableZoneErase() {
-		r.clear();
+		clickableArea.clear();
 	}
 	
 	public void render(Player hero, Graphics g) {
@@ -82,20 +92,27 @@ public class HudInventory implements MouseListener{
 				}
 				//System.out.println("LOOP");
 			}
+			
+			if(selected != null) {
+				g.setColor(Color.RED);
+				g.drawRect(selected.x, selected.y, selected.width, selected.height);
+			}
+			
 		
 	}
 	
 	public void selection(Player hero, Point e, Rectangle w, int index, Graphics g) {
 		if(w.contains(e)) {
 			System.out.println(hero.getInventory().getDrops().get(index));
+			selected = w ;
 			searchState = 0 ;
 		}
 	}
 	
 	public void checking(Player hero, Graphics g) {
 		if(searchState == 1) {
-			for(Rectangle w : r) {
-				selection(hero, click, w, r.indexOf(w), g) ;
+			for(Rectangle w : clickableArea) {
+				selection(hero, click, w, clickableArea.indexOf(w), g) ;
 			}
 		}
 		searchState = 0 ;
