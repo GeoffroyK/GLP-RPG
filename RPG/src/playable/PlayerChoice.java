@@ -25,18 +25,21 @@ public class PlayerChoice {
 				
 				Player ply = (Player) DataBase.getCharacters().get("pg1");
 				DataBase.getInstances().put(ply.getId(), ply);
+				DataBase.getCharInstances().put(ply.getId(), ply);
 				System.out.println("YOU CHOSE WARRIOR");
 				state = false;
 			}
 			else if(input.equals("y")) {
 				Player ply = (Player) DataBase.getCharacters().get("pa2");
 				DataBase.getInstances().put(ply.getId(), ply);
+				DataBase.getCharInstances().put(ply.getId(), ply);
 				System.out.println("YOU CHOSE ARCHER");
 				state = false;
 			}
 			else if(input.equals("u")) {
 				Player ply = (Player) DataBase.getCharacters().get("ps3");
 				DataBase.getInstances().put(ply.getId(), ply);
+				DataBase.getCharInstances().put(ply.getId(), ply);
 				System.out.println("YOU CHOSE MAGE");
 				state = false;
 			}

@@ -1,6 +1,7 @@
 package playable;
 
 import dataclasses.*;
+import game.Colision;
 import inventory.Inventory;
 
 public abstract class Character extends GameObject {

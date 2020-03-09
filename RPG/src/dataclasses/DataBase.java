@@ -2,6 +2,7 @@ package dataclasses;
 
 import java.awt.Canvas;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -27,6 +28,7 @@ public class DataBase extends Canvas {
 	private static HashMap<String, Spell> spells;
 	private static HashMap<String, Loot> loots;
 	private static HashMap<String,GameObject> instances;
+	private static HashMap<String, Character> charInstances;
 
 	private Scanner sc;
 
@@ -41,6 +43,7 @@ public class DataBase extends Canvas {
 		spells = new HashMap<String, Spell>();
 		characters = new HashMap<String, Character>();
 		instances = new HashMap<String, GameObject>();
+		charInstances = new HashMap<String, Character>();
 
 		try {
 			DataBaseInit.loadCsvSpell(csvGameObjectPaths[2]);
@@ -69,16 +72,19 @@ public class DataBase extends Canvas {
 		ronflex.setX(500);
 		ronflex.setY(100);
 		ronflex.setDirection(0);
+		ronflex.defineArea();
 		
 		Monster monstre = (Monster) characters.get("mt3");
 		monstre.setX(300);
 		monstre.setY(600);
 		monstre.setDirection(0);
+		monstre.defineArea();
 		
 		Monster guerrier = (Monster) characters.get("mg1");
 		guerrier.setX(500);
 		guerrier.setY(30);
 		guerrier.setDirection(0);
+		guerrier.defineArea();
 
 		Prop coffre = new Prop("id", "coffre", 1, "null");
 		coffre.setX(5);
@@ -90,7 +96,10 @@ public class DataBase extends Canvas {
 		instances.put(monstre.getId(),monstre);
 		instances.put(guerrier.getId(),guerrier);
 		
-
+		charInstances.put(ronflex.getId() + "#001",ronflex);
+		charInstances.put(monstre.getId() + "#002",monstre);
+		charInstances.put(guerrier.getId() + "#003",guerrier);
+		
 //		sc = new Scanner(System.in);
 //		System.out.println("CHOOSE CLASS OF CHARACTER : 't' = WARRIOR / 'y' = ARCHER / 'u' = MAGE\n OR EXIT = 'e'");
 //			String input = sc.nextLine() ;
@@ -172,6 +181,12 @@ public class DataBase extends Canvas {
 	public Scanner getSc() {
 		return sc;
 	}
+	
+
+	public static HashMap<String, Character> getCharInstances() {
+		return charInstances;
+	}
+
 
 	public static void main(String[] args) {
 		new DataBase();

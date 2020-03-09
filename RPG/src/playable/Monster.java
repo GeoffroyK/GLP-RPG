@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import dataclasses.DataBase;
 import dataclasses.GameObject;
@@ -33,6 +35,7 @@ public class Monster extends Character {
 		this.lootChance = lootChance;
 		this.lootPrice = lootPrice;
 		
+		//defineArea();
 	}
 	
 	public void defineArea() {
@@ -69,15 +72,13 @@ public class Monster extends Character {
 	
 	public void tick() {
 		
-		//System.out.println("Type : " + getType() +"\nDetectionX : " + getDetectionX() + "\nDetectionY : " + getDetectionY());
-
 		detection();
 		
 		this.setX(getX() + getVelX());
 		this.setY(getY() + getVelY());
 	}
 	
-	private void move() {
+	public void move() {
 		
 		float diffX = getX() - PlayerChoice.selected().getX();
 		float diffY = getY() - PlayerChoice.selected().getY();
@@ -92,27 +93,61 @@ public class Monster extends Character {
 		
 	}
 
-	private void detection() {
+	public void detection() {
 		defineArea();
+		
 		ply = PlayerChoice.selected();
-
-		player = new Colision(ply.getX(), ply.getY(), 32, 32);
+		player = new Colision ((int) ply.getX(),(int) ply.getY(), ply.getWidth(), ply.getHeight());
 		monster = new Colision((int) getX(),(int) getY(), getWidth(), getHeight());
 		monsterVision = new Colision(getDetectionX(),getDetectionY(), getDetectionWidth(), getDetectionHeight()); // size/2 - width/2
-		
+
 		if(monsterVision.isCollide(player)) {
-			if(!monster.isCollide(player)) {
-				move();
+			for (Map.Entry<String, Character> item : DataBase.getCharInstances().entrySet()) {
+			    String key = item.getKey();
+			    Character character = item.getValue();
+			    
+			    Colision colChar = new Colision((int) character.getX(),(int) character.getY(), character.getWidth(), character.getHeight());
+			    if(!(this == character)) {
+			    	System.out.println(character.getType());
+					if(!monster.isCollide(colChar)) {
+						move();
+					}
+					else {
+						setVelX(0);
+						setVelY(0);
+					}
+					
+			    }
 			}
-			else {
-				setVelX(0);
-				setVelY(0);
-			}
+		
 		}
 		else {
 			setVelX(0);
 			setVelY(0);
 		}
+
+//		defineArea();
+//		ply = PlayerChoice.selected();
+//
+//		player = new Colision(ply.getX(), ply.getY(), 32, 32);
+//		monster = new Colision((int) getX(),(int) getY(), getWidth(), getHeight());
+//		monsterVision = new Colision(getDetectionX(),getDetectionY(), getDetectionWidth(), getDetectionHeight()); // size/2 - width/2
+//		
+//		if(monsterVision.isCollide(player)) {
+//			if(!monster.isCollide(player)) {
+//				move();
+//			}
+//			else {
+//				setVelX(0);
+//				setVelY(0);
+//			}
+//		}
+//		else {
+//			setVelX(0);
+//			setVelY(0);
+//		}
+		
+		
 		
 //		monster = new Colision(getX()-84,getY()-84,200);
 //		if(monster.mobDetectionCircle(player)) {
@@ -204,6 +239,7 @@ public class Monster extends Character {
 	public void setLootPrice(int lootPrice) {
 		this.lootPrice = lootPrice;
 	}
+
 
 
 }
