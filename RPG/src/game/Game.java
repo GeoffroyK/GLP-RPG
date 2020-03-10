@@ -156,29 +156,58 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void inputlog() {
-		if ((getDown().isPressed() && getUp().isPressed())) {
-			PlayerChoice.selected().setVelY(0);
-		} else if (getUp().isPressed()) {
-			PlayerChoice.selected().setVelY(-5);
-		} else if (getDown().isPressed()) {
-			PlayerChoice.selected().setVelY(5);
+		move();
+		plyDirection();
+	}
+	
+	public void move() {
+		Player ply = PlayerChoice.selected();
+		if ((getDown().isPressed() && getUp().isPressed())) { // UP AND DOWN
+			ply.setVelY(0);
+		} else if (getUp().isPressed()) { // UP
+			ply.setVelY(-5);
+			
+		} else if (getDown().isPressed()) { // DOWN
+			ply.setVelY(5);
 		} else {
-			PlayerChoice.selected().setVelY(0);
+			ply.setVelY(0);
 		}
 
-		if (getLeft().isPressed() && getRight().isPressed()) {
-			PlayerChoice.selected().setVelX(0);
-		} else if (getLeft().isPressed()) {
-			PlayerChoice.selected().setVelX(-5);
+		if (getLeft().isPressed() && getRight().isPressed()) { // LEFT AND RIGHT
+			ply.setVelX(0);
+		} else if (getLeft().isPressed()) { // LEFT
+			ply.setVelX(-5);
 		}
-
-		else if (getRight().isPressed()) {
-			PlayerChoice.selected().setVelX(5);
+		else if (getRight().isPressed()) { // RIGHT
+			ply.setVelX(5);
 		}
-
 		else {
-			PlayerChoice.selected().setVelX(0);
+			ply.setVelX(0);
 		}
+	}
+	
+	public void plyDirection() {
+		Player ply = PlayerChoice.selected();
+		if (getUp().isPressed()) { // UP
+			ply.setDirection(0);
+		}
+		
+		else if( getUp().isPressed() && getRight().isPressed()) {
+			
+		}
+		if (getRight().isPressed()) { // RIGHT
+			ply.setDirection(1);
+		}	
+		
+		if (getDown().isPressed()) { // DOWN
+			ply.setDirection(2);
+		}
+		
+		if (getLeft().isPressed()) { // LEFT
+			ply.setDirection(3);
+		}
+		
+
 	}
 
 	public void render() {

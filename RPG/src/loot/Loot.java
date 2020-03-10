@@ -7,7 +7,7 @@ public abstract class Loot extends GameObject {
 	private double price;
 	private String name ;
 	private String textBox;
-	private int size ;
+	private int size ;   
 	private int itemCounter;
 	
 	public Loot(String id, double price, String name, String textBox, String spritePath, int size) {

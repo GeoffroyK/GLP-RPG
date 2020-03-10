@@ -14,7 +14,7 @@ public abstract class Character extends GameObject {
 	private float VelX;
 	private float VelY;
 	// 0=north, 1=west, 2=east, 3=south
-	private int direction;
+	private float direction;
 	
 	private int width;
 	private int height;
@@ -240,7 +240,7 @@ public abstract class Character extends GameObject {
 		this.y = y;
 	}
 	
-	public void setDirection(int direction) {
+	public void setDirection(float direction) {
 		this.direction = direction;
 	}
 	
@@ -252,7 +252,7 @@ public abstract class Character extends GameObject {
 		return y;
 	}
 	
-	public int getDirection() {
+	public float getDirection() {
 		return direction;
 	}
 
