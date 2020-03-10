@@ -1,22 +1,32 @@
 package dataclasses;
 
 import java.awt.Canvas;
+import java.io.BufferedReader;
+
+import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
 import inventory.InventoryKey;
+import inventory.InventoryThread;
 import java.util.Scanner;
 
 import game.GameInput;
 import playable.Character;
 import playable.Monster;
+import playable.Player;
 import playable.PlayerChoice;
 import spell.Spell;
+import loot.Consumable;
+import loot.Equipment;
+import loot.EquipmentTreatment;
 import loot.Loot;
 import map_objects.Prop;
+
+import static inventory.InventoryThread.*;
+import static inventory.InventoryKey.*;
 
 public class DataBase extends Canvas {
 

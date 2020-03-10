@@ -1,23 +1,38 @@
 package game;
 
-import static InputControl.InputData.*;
+import static InputControl.InputData.* ;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.Collection;
 import java.util.Iterator;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
+import java.io.File;
+import java.io.IOException;
+import java.text.AttributedCharacterIterator;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import GameState.GameStateManager;
 import GameState.Level1State;
 import GameState.MenuState;
+import HUD.inventory.HudInventory;
+import HUD.top.HudTop;
+import HUD.top.LifeBar;
+import HUD.top.MpBar;
 import InputControl.InputHandler;
 import dataclasses.DataBase;
 import dataclasses.GameObject;
@@ -29,6 +44,9 @@ import playable.Move;
 import playable.Player;
 import playable.PlayerChoice;
 import playable.Character;
+import dataclasses.DataBase;
+import inventory.InventoryKey;
+import playable.Player;
 
 public class Game extends Canvas implements Runnable {
 
@@ -68,8 +86,15 @@ public class Game extends Canvas implements Runnable {
 	private BufferedImage image;
 	private Graphics2D g;
 	
+	private int state ;
+	
 	private MenuState menuState;
 	private Level1State lvl1State;
+	private HudTop hTop ;
+	private HudInventory hInventory ;
+	
+	private Player p;
+	
 	
 	public Game() {
 //		setMinimumSize(new Dimension(WIDTH, HEIGHT));
@@ -103,6 +128,8 @@ public class Game extends Canvas implements Runnable {
 		
 		image = new BufferedImage (WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		g = (Graphics2D) image.getGraphics();
+		hTop = new HudTop() ;
+		hInventory = new HudInventory(this) ;
 	}
 
 	public synchronized void start() {
@@ -198,6 +225,13 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	public void inputlog() {
+		
+		if (getInventaire().isPressed()) {
+			System.out.println("Inventaire");
+			state = 1 ;
+			hInventory.clickableAreaCreation(p);
+		}
+		
 		switch(GameStateManager.getCurrentState()) {
 
 		case 0 : 
@@ -290,9 +324,22 @@ public class Game extends Canvas implements Runnable {
 		}
 		gsm.draw(g);
 		
-		Graphics g2 = bs.getDrawGraphics();
-		g2.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
+		if(state == 0) {
+			Graphics g2 = bs.getDrawGraphics();
+			g2.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
+			
+			hTop.render(p, g2);
+		}
+		
+		if(state == 1) {
+			hInventory.checking(p, g2);
+			g2.setColor(Color.BLACK);
+			g2.fillRect(0,0,getWidth(),getHeight());
+			hInventory.render(p, g2);		
+		}		
+		
 
+		
 		g2.dispose();
 		bs.show();
 	}
