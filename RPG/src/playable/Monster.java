@@ -131,10 +131,12 @@ public class Monster extends Character {
 			if (!isBlocked) {
 				move();
 			} else {
+				isBlocked = false ;
 				setVelX(0);
 				setVelY(0);
 			}
 		} else {
+			isBlocked = false ;
 			setOffSetX(0);
 			setOffSetY(0);
 			setVelX(0);
