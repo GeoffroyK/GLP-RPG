@@ -27,11 +27,11 @@ public class Player extends Character {
 		spells[3] = spell4;
 		spells[4] = spell5;
 		spells[5] = spell6;
-		super.setX(0);
-		super.setY(0);
+		super.setX(200);
+		super.setY(200);
 		super.setDirection(0);
-		super.setWidth(32);
-		super.setHeight(32);
+		super.setWidth(8);
+		super.setHeight(8);
 
 //		PlayerTreatment.initSpells(this);
 
@@ -72,10 +72,10 @@ public class Player extends Character {
 
 	public void render(Graphics g) {
 		g.setColor(Color.blue);
-		g.fillRect((int) getX(), (int) getY(), 32, 32);
+		g.fillRect((int) getX(), (int) getY(), getWidth(), getHeight());
 
 		g.setColor(Color.DARK_GRAY);
-		g.drawRect((int) (getX() - 2), (int) (getY() - 2), (int) (32 + 4), (int) (32 + 4));
+		g.drawRect((int) (getX() - 2), (int) (getY() - 2), (int) (getWidth() + 4), (int) (getHeight() + 4));
 	}
 
 	public void detection() {

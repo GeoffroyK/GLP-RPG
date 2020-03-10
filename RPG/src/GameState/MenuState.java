@@ -23,6 +23,8 @@ public class MenuState extends GameState {
 	
 	private Font font;
 	
+	private boolean isSelected = false;
+	
 	
 	
 	public MenuState(GameStateManager gsm) {
@@ -56,6 +58,9 @@ public class MenuState extends GameState {
 	public void init() {}
 	public void update() {
 		bg.update();
+		if(isSelected) {
+			select();
+		}
 	}
 	
 	public void draw(Graphics2D g) {
@@ -100,5 +105,71 @@ public class MenuState extends GameState {
 		}
 	}
 	public void keyReleased(int k) {}
+
+	public Background getBg() {
+		return bg;
+	}
+
+	public void setBg(Background bg) {
+		this.bg = bg;
+	}
+
+	public GameStateManager getGsm() {
+		return gsm;
+	}
+
+	public void setGsm(GameStateManager gsm) {
+		this.gsm = gsm;
+	}
+
+	public int getCurrentChoice() {
+		return currentChoice;
+	}
+
+	public void setCurrentChoice(int currentChoice) {
+		this.currentChoice = currentChoice;
+	}
+
+	public String[] getOptions() {
+		return options;
+	}
+
+	public void setOptions(String[] options) {
+		this.options = options;
+	}
+
+	public Color getTitleColor() {
+		return titleColor;
+	}
+
+	public void setTitleColor(Color titleColor) {
+		this.titleColor = titleColor;
+	}
+
+	public Font getTitleFont() {
+		return titleFont;
+	}
+
+	public void setTitleFont(Font titleFont) {
+		this.titleFont = titleFont;
+	}
+
+	public Font getFont() {
+		return font;
+	}
+
+	public void setFont(Font font) {
+		this.font = font;
+	}
+
+	public boolean isSelected() {
+		return isSelected;
+	}
+
+	public void setSelected(boolean isSelected) {
+		this.isSelected = isSelected;
+	}
+	
+	
 	
 }

@@ -7,12 +7,17 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import java.util.Collection;
 import java.util.Iterator;
 
 import javax.swing.JFrame;
 
+import GameState.GameStateManager;
+import GameState.Level1State;
+import GameState.MenuState;
 import InputControl.InputHandler;
 import dataclasses.DataBase;
 import dataclasses.GameObject;
@@ -38,10 +43,16 @@ public class Game extends Canvas implements Runnable {
 //		}
 //	}
 	
-	private static final long serialVersionUID = 1L;
-	private static final int WIDTH = 900;
-	private static final int HEIGHT = WIDTH / 12 * 9;
-	private static final String NAME = "Game";
+//	private static final long serialVersionUID = 1L;
+//	private static final int WIDTH = 900;
+//	private static final int HEIGHT = WIDTH / 12 * 9;
+
+	//dimension
+	public static final int WIDTH = 320;
+	public static final int HEIGHT = 240;
+	public static final int SCALE = 2;
+	
+	private static final String NAME = "GAY RPG";
 
 	public boolean running = false;
 
@@ -50,10 +61,23 @@ public class Game extends Canvas implements Runnable {
 	private InputHandler input;
 	private DataBase db;
 
+	//game state manager
+	private GameStateManager gsm;
+	
+	//image
+	private BufferedImage image;
+	private Graphics2D g;
+	
+	private MenuState menuState;
+	private Level1State lvl1State;
+	
 	public Game() {
-		setMinimumSize(new Dimension(WIDTH, HEIGHT));
-		setMaximumSize(new Dimension(WIDTH, HEIGHT));
-		setPreferredSize(new Dimension(WIDTH, HEIGHT));
+//		setMinimumSize(new Dimension(WIDTH, HEIGHT));
+//		setMaximumSize(new Dimension(WIDTH, HEIGHT));
+//		setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		
+		setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
+		
 		frame = new JFrame(NAME);
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -65,6 +89,8 @@ public class Game extends Canvas implements Runnable {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		setFocusable(true);
+		requestFocus();
 
 		init();
 		start();
@@ -73,6 +99,10 @@ public class Game extends Canvas implements Runnable {
 	public void init() {
 		input = new InputHandler(this);
 		db = new DataBase();
+		gsm = new GameStateManager();
+		
+		image = new BufferedImage (WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+		g = (Graphics2D) image.getGraphics();
 	}
 
 	public synchronized void start() {
@@ -131,11 +161,12 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void tick() {
-		Character ch1;
-		Character ch2;
 		
+		gsm.update();
+		Character ch1;
+		Character character;
 		inputlog();
-
+		
 		Collection<GameObject> valsInstances = DataBase.getInstances().values();
 		Iterator<GameObject> itInstances = valsInstances.iterator();
 		while (itInstances.hasNext()) {
@@ -165,21 +196,47 @@ public class Game extends Canvas implements Runnable {
 			go.tick();
 		}
 	}
-
+	
 	public void inputlog() {
-		move();
-		plyDirection();
+		switch(GameStateManager.getCurrentState()) {
+
+		case 0 : 
+			menuState = (MenuState) gsm.getGameStates().get(GameStateManager.getCurrentState());
+			if(getUp().isPressed()) {
+				menuState.setCurrentChoice(menuState.getCurrentChoice()-1);
+				if(menuState.getCurrentChoice() == -1) {
+					menuState.setCurrentChoice(menuState.getOptions().length -1);
+				}
+			}
+			if(getDown().isPressed()) {
+				menuState.setCurrentChoice(menuState.getCurrentChoice()+1);
+				if(menuState.getCurrentChoice() == menuState.getOptions().length) {
+					menuState.setCurrentChoice(0);
+				}
+			}
+			if(getEnter().isPressed()) {
+				menuState.setSelected(true);
+			}
+			break;
+		case 1 : 
+			move();
+			plyDirection();
+			break;
+		}
 	}
 	
 	public void move() {
+		lvl1State = (Level1State) gsm.getGameStates().get(GameStateManager.getCurrentState());
 		Player ply = PlayerChoice.selected();
 		if ((getDown().isPressed() && getUp().isPressed())) { // UP AND DOWN
 			ply.setVelY(0);
 		} else if (getUp().isPressed()) { // UP
 			ply.setVelY(-5);
+			lvl1State.getTileMap().setPosition((-1) * ply.getX(),(-1) * ply.getY() );
 			
 		} else if (getDown().isPressed()) { // DOWN
 			ply.setVelY(5);
+			lvl1State.getTileMap().setPosition((-1) * ply.getX(),(-1) * ply.getY() );
 		} else {
 			ply.setVelY(0);
 		}
@@ -188,13 +245,17 @@ public class Game extends Canvas implements Runnable {
 			ply.setVelX(0);
 		} else if (getLeft().isPressed()) { // LEFT
 			ply.setVelX(-5);
+			lvl1State.getTileMap().setPosition( (-1) *ply.getX(),(-1) * ply.getY() );
 		}
 		else if (getRight().isPressed()) { // RIGHT
 			ply.setVelX(5);
+			lvl1State.getTileMap().setPosition((-1) * ply.getX(),(-1) * ply.getY() );
 		}
 		else {
 			ply.setVelX(0);
 		}
+		
+		
 	}
 	
 	public void plyDirection() {
@@ -227,21 +288,12 @@ public class Game extends Canvas implements Runnable {
 			createBufferStrategy(3);
 			return;
 		}
+		gsm.draw(g);
+		
+		Graphics g2 = bs.getDrawGraphics();
+		g2.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
 
-		Graphics g = bs.getDrawGraphics();
-
-		g.setColor(Color.GRAY);
-		g.fillRect(0, 0, getWidth(), getHeight());
-
-		Collection<GameObject> valsInstances = DataBase.getInstances().values();
-		Iterator<GameObject> itInstances = valsInstances.iterator();
-
-		while (itInstances.hasNext()) {
-			GameObject go = itInstances.next();
-			go.render(g);
-		}
-
-		g.dispose();
+		g2.dispose();
 		bs.show();
 	}
 

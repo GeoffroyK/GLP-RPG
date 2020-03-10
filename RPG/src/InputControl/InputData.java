@@ -13,7 +13,16 @@ public class InputData {
 	private static Key spell3 = new Key() ;
 	private static Key spell4 = new Key() ;
 	private static Key spell5 = new Key() ;
+	private static Key enter = new Key() ;
 	
+	public static Key getEnter() {
+		return enter;
+	}
+
+	public static void setEnter(Key enter) {
+		InputData.enter = enter;
+	}
+
 	public static void setInventaire(Key inventaire) {
 		InputData.inventaire = inventaire;
 	}
