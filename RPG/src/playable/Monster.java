@@ -63,8 +63,8 @@ public class Monster extends Character {
 			setWidth(20);
 			setHeight(20);
 
-			setDetectionWidth(400);
-			setDetectionHeight(400);
+			setDetectionWidth(200);
+			setDetectionHeight(200);
 			break;
 
 		case "Tank":
