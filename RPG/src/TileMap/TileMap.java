@@ -11,14 +11,14 @@ import javax.imageio.ImageIO;
 
 public class TileMap {	
 	//position
-	private double x;
-	private double y;
+	private double x = 0;
+	private double y = 0;
 	
 	//bounds
 	private int xmin = 0;
-	private int ymin =0;
-	private int xmax;
-	private int ymax;
+	private int ymin = 0;
+	private int xmax = 600;
+	private int ymax = 600;
 	
 	private double tween;
 	
@@ -101,16 +101,17 @@ public class TileMap {
 		return tiles[r][c].getType();
 	}
 	
-	public void setPosition(int x, int y) {
-		this.x += (x - this.x) * tween;
-		this.y += (y - this.y) * tween;
+	public void setPosition(double x, double y) {
+		this.x += ((x - this.x) * tween);
+		this.y += ((y - this.y) * tween);
 		
-		fixBounds();
+		//fixBounds();
 		
 		colOffset = (int) - this.x / tileSize;
 		rowOffset = (int) - this.y / tileSize;
 	}
 	
+
 	private void fixBounds() {
 		if(x < xmin) x = xmin;
 		if(y < ymin) y = ymin;
@@ -140,6 +141,7 @@ public class TileMap {
 		}
 	}
 	
+	
 	public int getTileSize() {
 		return tileSize;
 	}
@@ -151,9 +153,19 @@ public class TileMap {
 	public int getY() {
 		return (int) y;
 	}
+	
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	public void setY(double y) {
+		this.y = y;
+	}
+	
 	public int getWidth() {
 		return width;
 	}
+	
 	public int getHeight() {
 		return height;
 	}

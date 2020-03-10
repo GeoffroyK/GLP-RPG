@@ -2,6 +2,7 @@ package GameState;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 
 import TileMap.*;
 import game.GamePanel;
@@ -18,9 +19,11 @@ public class Level1State extends GameState {
 	
 	public void init() {
 		tileMap = new TileMap(30);
-		tileMap.loadTiles("/Tilesets/grasstileset.gif");
-		tileMap.loadMap("/Maps/level1-1.map");
-		tileMap.setPosition(0, 0);
+		tileMap.loadTiles("/Tilesets/testtileset2.png");
+		tileMap.loadMap("/Maps/map2.map");
+		tileMap.setPosition(-400, -400);
+		System.out.println(tileMap.getX());
+	
 	}
 	public void update() {}
 	
@@ -33,7 +36,24 @@ public class Level1State extends GameState {
 		tileMap.draw(g);
 	}
 	
-	public void keyPressed(int k) {}
+	public void keyPressed(int k) {
+		
+		if(k == KeyEvent.VK_DOWN) {
+			tileMap.setPosition(tileMap.getX(), tileMap.getY() - 20);
+		}
+		
+		if(k == KeyEvent.VK_UP) {
+			tileMap.setPosition(tileMap.getX(), tileMap.getY() + 20);
+		}
+		
+		if(k == KeyEvent.VK_LEFT) {
+			tileMap.setPosition(tileMap.getX() + 20, tileMap.getY());
+		}
+		
+		if(k == KeyEvent.VK_RIGHT) {
+			tileMap.setPosition(tileMap.getX() - 20, tileMap.getY());
+		}
+	}
 	public void keyReleased(int k) {}
 	
 }
