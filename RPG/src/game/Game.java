@@ -188,39 +188,40 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void tick() {
-		
 		gsm.update();
-		Character ch1;
-		Character character;
 		inputlog();
-		
-		Collection<GameObject> valsInstances = DataBase.getInstances().values();
-		Iterator<GameObject> itInstances = valsInstances.iterator();
-		while (itInstances.hasNext()) {
-			GameObject go = itInstances.next();
+		if(state == 0) {
+			
+			Collection<GameObject> valsInstances = DataBase.getInstances().values();
+			Iterator<GameObject> itInstances = valsInstances.iterator();
+			while (itInstances.hasNext()) {
+				GameObject go = itInstances.next();
+
+				go.tick();
+			}
+// 			Character ch1;
+//			Character character;
 //			if(go.getClass().getName().matches("playable.Monster|playable.Player")){
-//				for (int ent1 = 0; ent1 < (DataBase.getCharInstances().size() - 1); ent1++) {
-//					
-//					ch1 = DataBase.getCharInstances().get(ent1);
-//					Colision colCh1 = new Colision((int) ch1.getX(), (int) ch1.getY(), ch1.getWidth(), ch1.getHeight());
-//					System.out.println("1 : " + ch1.getClass().getName() + " / " + (int) ch1.getX() + " / " + (int) ch1.getY()
-//							+ " / " + ch1.getWidth() + " / " + ch1.getHeight());
-//					
-//					for (int ent2 = ent1 + 1; ent2 < DataBase.getCharInstances().size(); ent2++) {
+//			for (int ent1 = 0; ent1 < (DataBase.getCharInstances().size() - 1); ent1++) {
+//				
+//				ch1 = DataBase.getCharInstances().get(ent1);
+//				Colision colCh1 = new Colision((int) ch1.getX(), (int) ch1.getY(), ch1.getWidth(), ch1.getHeight());
+//				System.out.println("1 : " + ch1.getClass().getName() + " / " + (int) ch1.getX() + " / " + (int) ch1.getY()
+//						+ " / " + ch1.getWidth() + " / " + ch1.getHeight());
+//				
+//				for (int ent2 = ent1 + 1; ent2 < DataBase.getCharInstances().size(); ent2++) {
 //
-//						ch2 = DataBase.getCharInstances().get(ent2);
-//						Colision colCh2 = new Colision((int) ch2.getX(), (int) ch2.getY(), ch2.getWidth(), ch2.getHeight());
-//						System.out.println("2 : " + ch2.getClass().getName() + " / " + (int) ch2.getX() + " / "
-//								+ (int) ch2.getY() + " / " + ch2.getWidth() + " / " + ch2.getHeight());
-//						
-//						ch1.detection(colCh2);
-//						ch2.detection(colCh1);
-//						
-//					}
+//					ch2 = DataBase.getCharInstances().get(ent2);
+//					Colision colCh2 = new Colision((int) ch2.getX(), (int) ch2.getY(), ch2.getWidth(), ch2.getHeight());
+//					System.out.println("2 : " + ch2.getClass().getName() + " / " + (int) ch2.getX() + " / "
+//							+ (int) ch2.getY() + " / " + ch2.getWidth() + " / " + ch2.getHeight());
+//					
+//					ch1.detection(colCh2);
+//					ch2.detection(colCh1);
+//					
 //				}
 //			}
-
-			go.tick();
+//		}
 		}
 	}
 	
@@ -229,7 +230,18 @@ public class Game extends Canvas implements Runnable {
 		if (getInventaire().isPressed()) {
 			System.out.println("Inventaire");
 			state = 1 ;
-			hInventory.clickableAreaCreation(p);
+			hInventory.clickableAreaCreation(PlayerChoice.selected());
+		}
+		if(getAutoAttack().isPressed()) {
+			InventoryKey.addLoot(DataBase.getLoots().get("C#001"), PlayerChoice.selected());
+			InventoryKey.addLoot(DataBase.getLoots().get("E#001"), PlayerChoice.selected());
+		}
+		if(getSpell1().isPressed()) {
+			state = 0;
+			hInventory.clickableZoneErase();
+		}
+		if(getSpell2().isPressed()) {
+			PlayerChoice.selected().setLifePoint(20);
 		}
 		
 		switch(GameStateManager.getCurrentState()) {
@@ -265,11 +277,11 @@ public class Game extends Canvas implements Runnable {
 		if ((getDown().isPressed() && getUp().isPressed())) { // UP AND DOWN
 			ply.setVelY(0);
 		} else if (getUp().isPressed()) { // UP
-			ply.setVelY(-5);
+			ply.setVelY(-1);
 			lvl1State.getTileMap().setPosition((-1) * ply.getX(),(-1) * ply.getY() );
 			
 		} else if (getDown().isPressed()) { // DOWN
-			ply.setVelY(5);
+			ply.setVelY(1);
 			lvl1State.getTileMap().setPosition((-1) * ply.getX(),(-1) * ply.getY() );
 		} else {
 			ply.setVelY(0);
@@ -278,11 +290,11 @@ public class Game extends Canvas implements Runnable {
 		if (getLeft().isPressed() && getRight().isPressed()) { // LEFT AND RIGHT
 			ply.setVelX(0);
 		} else if (getLeft().isPressed()) { // LEFT
-			ply.setVelX(-5);
+			ply.setVelX(-1);
 			lvl1State.getTileMap().setPosition( (-1) *ply.getX(),(-1) * ply.getY() );
 		}
 		else if (getRight().isPressed()) { // RIGHT
-			ply.setVelX(5);
+			ply.setVelX(1);
 			lvl1State.getTileMap().setPosition((-1) * ply.getX(),(-1) * ply.getY() );
 		}
 		else {
@@ -323,20 +335,24 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 		gsm.draw(g);
-		
-		if(state == 0) {
-			Graphics g2 = bs.getDrawGraphics();
-			g2.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
+		Graphics g2 = bs.getDrawGraphics();
+		g2.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
+		if(GameStateManager.getCurrentState() == 1) {
+			if(state == 0) {
+
+				g2.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
+				
+				hTop.render(PlayerChoice.selected(), g2);
+			}
 			
-			hTop.render(p, g2);
+			if(state == 1) {
+				hInventory.checking(PlayerChoice.selected(), g2);
+				g2.setColor(Color.BLACK);
+				g2.fillRect(0,0,getWidth(),getHeight());
+				hInventory.render(PlayerChoice.selected(), g2);		
+			}	
 		}
-		
-		if(state == 1) {
-			hInventory.checking(p, g2);
-			g2.setColor(Color.BLACK);
-			g2.fillRect(0,0,getWidth(),getHeight());
-			hInventory.render(p, g2);		
-		}		
+	
 		
 
 		
