@@ -24,7 +24,7 @@ public class Level1State extends GameState {
 	public void init() {
 		tileMap = new TileMap(30);
 		tileMap.loadTiles("/Tilesets/testtileset2.png");
-		tileMap.loadMap("/Maps/map2.map");
+		tileMap.loadMap("/Maps/sublime_map.map");
 		tileMap.setPosition(-400, -400);
 		System.out.println(tileMap.getX());
 	

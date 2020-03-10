@@ -19,7 +19,7 @@ public class HudTop {
 	
 	public HudTop () {
 		try {
-		    background = ImageIO.read(new File(""));
+		    background = ImageIO.read(new File("Ressources//HUD//HUDtop//TestBardevie.png"));
 		} catch (IOException e) {}
 		
 		lifeBar = new LifeBar() ;

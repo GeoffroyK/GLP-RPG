@@ -2,10 +2,15 @@ package playable;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import javax.imageio.ImageIO;
 
 import dataclasses.DataBase;
 import dataclasses.GameObject;
@@ -95,8 +100,8 @@ public class Monster extends Character {
 
 	public void move() {
 
-		setVelX(offSetX * 3);
-		setVelY(offSetY * 3);
+		setVelX(offSetX);
+		setVelY(offSetY);
 
 	}
 
@@ -131,10 +136,12 @@ public class Monster extends Character {
 			if (!isBlocked) {
 				move();
 			} else {
+				isBlocked = false;
 				setVelX(0);
 				setVelY(0);
 			}
 		} else {
+			isBlocked = false;
 			setOffSetX(0);
 			setOffSetY(0);
 			setVelX(0);
@@ -204,24 +211,32 @@ public class Monster extends Character {
 
 	public void render(Graphics g) {
 
-		switch (getType()) {
-
-		case "Guerrier":
-			g.setColor(Color.red);
-			break;
-
-		case "Archer":
-			g.setColor(Color.yellow);
-			break;
-
-		case "Tank":
-			g.setColor(Color.black);
-			break;
+//		switch (getType()) {
+//
+//		case "Guerrier":
+//			g.setColor(Color.red);
+//			break;
+//
+//		case "Archer":
+//			g.setColor(Color.yellow);
+//			break;
+//
+//		case "Tank":
+//			g.setColor(Color.black);
+//			break;
+//		}
+//		g.fillRect((int) getX(), (int) getY(), getWidth(), getHeight());
+		
+		Image ply = null;
+		try {
+			ply = ImageIO.read(new File("Ressources//HUD//SpriteCharacter//Warrior.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		g.fillRect((int) getX(), (int) getY(), getWidth(), getHeight());
+		g.drawImage(ply , (int) getX() , (int) getY(), null);
 
-		g.setColor(Color.DARK_GRAY);
-		g.drawRect((int) (getX() + offSetX), (int) (getY() + offSetY), getWidth(), getHeight());
+//		g.setColor(Color.DARK_GRAY);
+//		g.drawRect((int) (getX() + offSetX), (int) (getY() + offSetY), getWidth(), getHeight());
 
 		g.setColor(Color.green);
 		g.drawRect(getDetectionX(), getDetectionY(), getDetectionWidth(), getDetectionHeight()); // size/2 - width/2
