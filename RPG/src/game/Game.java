@@ -27,6 +27,17 @@ import playable.Character;
 
 public class Game extends Canvas implements Runnable {
 
+//	public class Game {
+//		public static void main(String[] args) {
+//			JFrame window = new JFrame("GAY RPG");
+//			window.setContentPane(new GamePanel());
+//			window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//			window.setResizable(false);
+//			window.pack();
+//			window.setVisible(true);
+//		}
+//	}
+	
 	private static final long serialVersionUID = 1L;
 	private static final int WIDTH = 900;
 	private static final int HEIGHT = WIDTH / 12 * 9;
