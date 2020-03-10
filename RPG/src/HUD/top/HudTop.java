@@ -19,7 +19,7 @@ public class HudTop {
 	
 	public HudTop () {
 		try {
-		    background = ImageIO.read(new File("C:\\Users\\Vortex\\Documents\\TestBardevie.png"));
+		    background = ImageIO.read(new File(""));
 		} catch (IOException e) {}
 		
 		lifeBar = new LifeBar() ;

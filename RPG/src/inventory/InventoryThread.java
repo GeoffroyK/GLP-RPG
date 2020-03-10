@@ -39,15 +39,9 @@ public class InventoryThread {
 		return line ;
 	}
 	
-	public static void Action (Loot lCourant, Player p){
-		
-		System.out.println("CHOSE ACTION : ('a' = Use/Equip, 'b' = Throw, 'c' = Information)");
-		
-		Scanner sc  = new Scanner(System.in) ;
-		String str = sc.nextLine();
-		
-		switch(str) {
-		case "a" : 
+	public static void Action (Loot lCourant, int choice, Player p){
+		switch(choice) {
+		case  0 : 
 			if(isConsumable(lCourant)) {
 				ConsumableTreatment.use((Consumable) lCourant, p);
 				InventoryKey.suppLoot(lCourant, p);
@@ -57,14 +51,14 @@ public class InventoryThread {
 			}
 			break ;
 		
-		case "b" :
+		case 1 :
 			if(!isConsumable(lCourant)) {
 				slotVerif((Equipment) lCourant, p) ; 
 			}
 			InventoryKey.suppLoot(lCourant, p);
 			break;
 			
-		case "c" :
+		case 2 :
 			System.out.println(lCourant.toString());
 			break;
 		}

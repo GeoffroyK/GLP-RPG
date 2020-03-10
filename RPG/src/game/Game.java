@@ -164,7 +164,7 @@ public class Game extends Canvas implements Runnable {
 		if (getInventaire().isPressed()) {
 			System.out.println("Inventaire");
 			state = 1 ;
-			hInventory.clickableZoneCreation(p);
+			hInventory.clickableAreaCreation(p);
 		}
 		if (getAutoAttack().isPressed()) {
 			System.out.println("AutoAttack");

@@ -19,6 +19,7 @@ import javax.imageio.ImageIO;
 import dataclasses.DataBase;
 import game.Game;
 import inventory.InventoryKey;
+import inventory.InventoryThread;
 import loot.Loot;
 import playable.Player;
 
@@ -27,6 +28,7 @@ public class HudInventory implements MouseListener{
 	private Image background = null ;
 	
 	private ArrayList<Rectangle> clickableArea ;
+	private ArrayList<Rectangle> ActionArea ;
 	private Rectangle selected = null ;
 	
 	private Point click ;
@@ -34,14 +36,32 @@ public class HudInventory implements MouseListener{
 	
 	public HudInventory(Game game) {
 		try {
-		    background = ImageIO.read(new File("C:\\Users\\Vortex\\Documents\\Inventory\\Background.png"));
+		    background = ImageIO.read(new File("Ressources//HUD//InventoryHUD//Background.png"));
 		} catch (IOException e) {}
 		game.addMouseListener(this);
 	}
 	
-	public void clickableZoneCreation(Player hero) {
+	public void clickableAreaCreation(Player hero) {
+		clickableActionAreaCreation();
+		clickableLootAreaCreation(hero);
+	}
+	
+	public void clickableActionAreaCreation() {
+		ActionArea = new ArrayList<Rectangle>() ;
+		Rectangle equip = new Rectangle(12, 362, 102, 32);
+		Rectangle throwAway = new Rectangle(128, 362, 102, 32);
+		Rectangle detail = new Rectangle(243, 362, 102, 32);
+		ActionArea.add(equip);
+		ActionArea.add(throwAway);
+		ActionArea.add(detail);
+		System.out.println(ActionArea.indexOf(equip));
+	}
+	
+	public void clickableLootAreaCreation(Player hero) {
 		int x = 21 ;
 		int y = 69 ;
+		
+		selected = null ;
 		
 		clickableArea = new ArrayList<Rectangle>() ;
 		for(Loot l : hero.getInventory().getDrops()) {
@@ -54,18 +74,11 @@ public class HudInventory implements MouseListener{
 				y += 26 ;
 			}
 		}
-		
-		Rectangle equip = new Rectangle(12, 362, 102, 32);
-		Rectangle throwAway = new Rectangle(128, 362, 102, 32);
-		Rectangle detail = new Rectangle(243, 362, 102, 32);
-		clickableArea.add(equip);
-		clickableArea.add(throwAway);
-		clickableArea.add
-		
 	}
 	
 	public void clickableZoneErase() {
 		clickableArea.clear();
+		ActionArea.clear();
 	}
 	
 	public void render(Player hero, Graphics g) {
@@ -90,8 +103,9 @@ public class HudInventory implements MouseListener{
 					x = 0 ;
 					y += 26 ;
 				}
-				//System.out.println("LOOP");
 			}
+			
+			System.out.println(searchState);
 			
 			if(selected != null) {
 				g.setColor(Color.RED);
@@ -101,18 +115,31 @@ public class HudInventory implements MouseListener{
 		
 	}
 	
-	public void selection(Player hero, Point e, Rectangle w, int index, Graphics g) {
+	public void selection(Player hero, Point e, Rectangle w, int index) {
 		if(w.contains(e)) {
-			System.out.println(hero.getInventory().getDrops().get(index));
 			selected = w ;
 			searchState = 0 ;
+		}
+		
+	}
+	
+	public void action(Player hero, Point e, Rectangle a, int choice) {
+		if(a.contains(e)) {
+			if(selected != null) {
+				InventoryThread.Action(hero.getInventory().getDrops().get(clickableArea.indexOf(selected)), choice, hero);
+				clickableLootAreaCreation(hero);
+				searchState=0 ;
+			}
 		}
 	}
 	
 	public void checking(Player hero, Graphics g) {
 		if(searchState == 1) {
 			for(Rectangle w : clickableArea) {
-				selection(hero, click, w, clickableArea.indexOf(w), g) ;
+				selection(hero, click, w, clickableArea.indexOf(w)) ;
+			}
+			for(Rectangle a : ActionArea) {
+				action(hero, click, a, ActionArea.indexOf(a));
 			}
 		}
 		searchState = 0 ;

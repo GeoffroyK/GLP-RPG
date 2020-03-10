@@ -33,7 +33,7 @@ public class InventoryKey {
 				System.out.println(p);
 			}
 			else if(find == 1){
-				InventoryThread.Action(tmp, p);
+				//InventoryThread.Action(tmp, p);
 			}
 			else {
 				System.out.println("ID Not Found !");
