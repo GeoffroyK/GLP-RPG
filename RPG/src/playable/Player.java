@@ -41,8 +41,8 @@ public class Player extends Character {
 		super.setX(200);
 		super.setY(200);
 		super.setDirection(0);
-		super.setWidth(8);
-		super.setHeight(8);
+		super.setWidth(10);
+		super.setHeight(20);
 
 //		PlayerTreatment.initSpells(this);
 
@@ -91,8 +91,8 @@ public class Player extends Character {
 		}
 		g.drawImage(ply , (int) getX() , (int) getY(), null);
 
-//		g.setColor(Color.DARK_GRAY);
-//		g.drawRect((int) (getX() - 2), (int) (getY() - 2), (int) (getWidth() + 4), (int) (getHeight() + 4));
+		g.setColor(Color.DARK_GRAY);
+		g.drawRect((int) (getX() - 2), (int) (getY() - 2), (int) (getWidth() + 4), (int) (getHeight() + 4));
 	}
 
 	public void detection() {
