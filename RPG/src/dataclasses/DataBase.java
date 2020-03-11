@@ -85,8 +85,8 @@ public class DataBase extends Canvas {
 		ronflex.defineArea();
 		
 		Monster monstre = (Monster) characters.get("mt3");
-		monstre.setX(300);
-		monstre.setY(600);
+		monstre.setX(120);
+		monstre.setY(120);
 		monstre.setDirection(0);
 		monstre.defineArea();
 		

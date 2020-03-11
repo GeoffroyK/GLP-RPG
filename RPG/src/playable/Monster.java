@@ -55,21 +55,21 @@ public class Monster extends Character {
 			setWidth(32);
 			setHeight(32);
 
-			setDetectionWidth(150);
-			setDetectionHeight(150);
+			setDetectionWidth(70);
+			setDetectionHeight(70);
 			break;
 
 		case "Archer":
 			setWidth(20);
 			setHeight(20);
 
-			setDetectionWidth(200);
-			setDetectionHeight(200);
+			setDetectionWidth(70);
+			setDetectionHeight(70);
 			break;
 
 		case "Tank":
-			setWidth(50);
-			setHeight(50);
+			setWidth(20);
+			setHeight(20);
 
 			setDetectionWidth(200);
 			setDetectionHeight(200);
@@ -210,33 +210,48 @@ public class Monster extends Character {
 	}
 
 	public void render(Graphics g) {
-
-//		switch (getType()) {
-//
-//		case "Guerrier":
-//			g.setColor(Color.red);
-//			break;
-//
-//		case "Archer":
-//			g.setColor(Color.yellow);
-//			break;
-//
-//		case "Tank":
-//			g.setColor(Color.black);
-//			break;
-//		}
-//		g.fillRect((int) getX(), (int) getY(), getWidth(), getHeight());
-		
 		Image ply = null;
-		try {
-			ply = ImageIO.read(new File("Ressources//HUD//SpriteCharacter//Warrior.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		g.drawImage(ply , (int) getX() , (int) getY(), null);
+		switch (getType()) {
 
-//		g.setColor(Color.DARK_GRAY);
-//		g.drawRect((int) (getX() + offSetX), (int) (getY() + offSetY), getWidth(), getHeight());
+		case "Guerrier":
+			//g.setColor(Color.red);
+
+			try {
+				ply = ImageIO.read(new File("Ressources//HUD//SpriteCharacter//Warrior.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			g.drawImage(ply , (int) getX() , (int) getY(), null);
+			break;
+
+		case "Archer":
+			//g.setColor(Color.yellow);
+			try {
+				ply = ImageIO.read(new File("Ressources//HUD//SpriteCharacter//Warrior.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			g.drawImage(ply , (int) getX() , (int) getY(), null);
+			break;
+
+		case "Tank":
+			//g.setColor(Color.black);
+			try {
+				ply = ImageIO.read(new File("Ressources//HUD//SpriteCharacter//slimu2.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			g.drawImage(ply , (int) getX() , (int) getY(), null);
+			break;
+		}
+		//g.fillRect((int) getX(), (int) getY(), getWidth(), getHeight());
+		
+
+
+		
+
+		g.setColor(Color.DARK_GRAY);
+		g.drawRect((int) (getX() + offSetX), (int) (getY() + offSetY), getWidth(), getHeight());
 
 		g.setColor(Color.green);
 		g.drawRect(getDetectionX(), getDetectionY(), getDetectionWidth(), getDetectionHeight()); // size/2 - width/2
