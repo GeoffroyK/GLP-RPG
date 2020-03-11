@@ -258,12 +258,14 @@ public class Game extends Canvas implements Runnable {
 				if(menuState.getCurrentChoice() == -1) {
 					menuState.setCurrentChoice(menuState.getOptions().length -1);
 				}
+				getUp().setPressed(false);
 			}
 			if(getDown().isPressed()) {
 				menuState.setCurrentChoice(menuState.getCurrentChoice()+1);
 				if(menuState.getCurrentChoice() == menuState.getOptions().length) {
 					menuState.setCurrentChoice(0);
 				}
+				getDown().setPressed(false);
 			}
 			if(getEnter().isPressed()) {
 				menuState.setSelected(true);

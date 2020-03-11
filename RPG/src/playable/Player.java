@@ -85,7 +85,7 @@ public class Player extends Character {
 		
 		Image ply = null;
 		try {
-			ply = ImageIO.read(new File("Ressources//HUD//SpriteCharacter//new-piskel.png"));
+			ply = ImageIO.read(new File("Ressources//HUD//SpriteCharacter//New_Piskel.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
