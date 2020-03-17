@@ -5,11 +5,11 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
+import InputControl.InputGame;
 import TileMap.Background;
 
-public class MenuState extends GameState {
+public class MenuState implements GameState {
 	private Background bg;
-	private GameStateManager gsm;
 	
 	private int currentChoice = 0;
 	private String[] options = {
@@ -27,9 +27,7 @@ public class MenuState extends GameState {
 	
 	
 	
-	public MenuState(GameStateManager gsm) {
-		this.gsm = gsm;
-		
+	public MenuState() {	
 		try {
 			bg = new Background("/Backgrounds/menu_bg.gif",1);
 			bg.setVector(-0.1, 0);
@@ -45,7 +43,7 @@ public class MenuState extends GameState {
 	
 	private void select() {
 		if(currentChoice == 0) {
-			gsm.setState(GameStateManager.LEVEL1STATE);
+			GameStateManager.setState(GameStateManager.INGAMESTATE);
 		}
 		if(currentChoice == 1) {
 			//help
@@ -55,15 +53,19 @@ public class MenuState extends GameState {
 		}
 	}
 	
-	public void init() {}
-	public void update() {
+	public void init() {
+		
+	}
+	
+	public void tick() {
 		bg.update();
+		InputGame.menu();
 		if(isSelected) {
 			select();
 		}
 	}
 	
-	public void draw(Graphics2D g) {
+	public void render(Graphics2D g) {
 		//DRAW BACKGROUND
 		bg.draw(g);
 		
@@ -84,27 +86,6 @@ public class MenuState extends GameState {
 			g.drawString(options[i], 145, 140 + i *15);
 		}
 	}
-	
-	public void keyPressed(int k) {
-		if(k == KeyEvent.VK_ENTER) {
-			select();
-		}
-		
-		if(k == KeyEvent.VK_UP) {
-			currentChoice--;
-			if(currentChoice == -1) {
-				currentChoice = options.length - 1 ;
-			}
-		}
-		
-		if(k == KeyEvent.VK_DOWN) {
-			currentChoice++;
-			if(currentChoice == options.length) {
-				currentChoice = 0;
-			}
-		}
-	}
-	public void keyReleased(int k) {}
 
 	public Background getBg() {
 		return bg;
@@ -112,14 +93,6 @@ public class MenuState extends GameState {
 
 	public void setBg(Background bg) {
 		this.bg = bg;
-	}
-
-	public GameStateManager getGsm() {
-		return gsm;
-	}
-
-	public void setGsm(GameStateManager gsm) {
-		this.gsm = gsm;
 	}
 
 	public int getCurrentChoice() {

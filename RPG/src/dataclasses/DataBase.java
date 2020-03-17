@@ -13,7 +13,6 @@ import inventory.InventoryKey;
 import inventory.InventoryThread;
 import java.util.Scanner;
 
-import game.GameInput;
 import playable.Character;
 import playable.Monster;
 import playable.Player;
