@@ -2,10 +2,15 @@ package playable;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import javax.imageio.ImageIO;
 
 import dataclasses.DataBase;
 import dataclasses.GameObject;
@@ -50,21 +55,21 @@ public class Monster extends Character {
 			setWidth(32);
 			setHeight(32);
 
-			setDetectionWidth(150);
-			setDetectionHeight(150);
+			setDetectionWidth(70);
+			setDetectionHeight(70);
 			break;
 
 		case "Archer":
 			setWidth(20);
 			setHeight(20);
 
-			setDetectionWidth(400);
-			setDetectionHeight(400);
+			setDetectionWidth(70);
+			setDetectionHeight(70);
 			break;
 
 		case "Tank":
-			setWidth(50);
-			setHeight(50);
+			setWidth(20);
+			setHeight(20);
 
 			setDetectionWidth(200);
 			setDetectionHeight(200);
@@ -95,8 +100,8 @@ public class Monster extends Character {
 
 	public void move() {
 
-		setVelX(offSetX * 3);
-		setVelY(offSetY * 3);
+		setVelX(offSetX);
+		setVelY(offSetY);
 
 	}
 
@@ -131,10 +136,12 @@ public class Monster extends Character {
 			if (!isBlocked) {
 				move();
 			} else {
+				isBlocked = false;
 				setVelX(0);
 				setVelY(0);
 			}
 		} else {
+			isBlocked = false;
 			setOffSetX(0);
 			setOffSetY(0);
 			setVelX(0);
@@ -203,22 +210,45 @@ public class Monster extends Character {
 	}
 
 	public void render(Graphics g) {
-
+		Image ply = null;
 		switch (getType()) {
 
 		case "Guerrier":
-			g.setColor(Color.red);
+			//g.setColor(Color.red);
+
+			try {
+				ply = ImageIO.read(new File("Ressources//HUD//SpriteCharacter//Warrior.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			g.drawImage(ply , (int) getX() , (int) getY(), null);
 			break;
 
 		case "Archer":
-			g.setColor(Color.yellow);
+			//g.setColor(Color.yellow);
+			try {
+				ply = ImageIO.read(new File("Ressources//HUD//SpriteCharacter//Warrior.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			g.drawImage(ply , (int) getX() , (int) getY(), null);
 			break;
 
 		case "Tank":
-			g.setColor(Color.black);
+			//g.setColor(Color.black);
+			try {
+				ply = ImageIO.read(new File("Ressources//HUD//SpriteCharacter//slimu2.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			g.drawImage(ply , (int) getX() , (int) getY(), null);
 			break;
 		}
-		g.fillRect((int) getX(), (int) getY(), getWidth(), getHeight());
+		//g.fillRect((int) getX(), (int) getY(), getWidth(), getHeight());
+		
+
+
+		
 
 		g.setColor(Color.DARK_GRAY);
 		g.drawRect((int) (getX() + offSetX), (int) (getY() + offSetY), getWidth(), getHeight());

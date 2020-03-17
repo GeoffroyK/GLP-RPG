@@ -100,12 +100,10 @@ public class HudInventory implements MouseListener{
 				
 				x += 40 ;
 				if(x > 330) {
-					x = 0 ;
+					x = 21 ;
 					y += 26 ;
 				}
 			}
-			
-			System.out.println(searchState);
 			
 			if(selected != null) {
 				g.setColor(Color.RED);
