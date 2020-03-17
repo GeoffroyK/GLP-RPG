@@ -48,7 +48,7 @@ public class InGameState implements GameState {
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 		//DRAW TILE MAP
 		tileMap.draw(g);
-		bars.render(PlayerChoice.selected(), g);
+		
 		
 		Collection<GameObject> valsInstances = DataBase.getInstances().values();
 		Iterator<GameObject> itInstances = valsInstances.iterator();
@@ -57,6 +57,7 @@ public class InGameState implements GameState {
 			GameObject go = itInstances.next();
 			go.render(g);
 		}
+		bars.render(PlayerChoice.selected(), g);
 	}
 	
 	public TileMap getTileMap() {
