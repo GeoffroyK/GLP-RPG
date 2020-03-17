@@ -71,6 +71,10 @@ public class InputHandler implements KeyListener{
 			getSpell5().setPressed(pressed);
 		}
 		
+		if(KeyIndentity == KeyEvent.VK_ENTER) {
+			getEnter().setPressed(pressed);
+		}
+		
 	}
 
 }

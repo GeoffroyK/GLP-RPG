@@ -1,22 +1,31 @@
 package dataclasses;
 
 import java.awt.Canvas;
+import java.io.BufferedReader;
+
+import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
 import inventory.InventoryKey;
+import inventory.InventoryThread;
 import java.util.Scanner;
 
-import game.GameInput;
 import playable.Character;
 import playable.Monster;
+import playable.Player;
 import playable.PlayerChoice;
 import spell.Spell;
+import loot.Consumable;
+import loot.Equipment;
+import loot.EquipmentTreatment;
 import loot.Loot;
 import map_objects.Prop;
+
+import static inventory.InventoryThread.*;
+import static inventory.InventoryKey.*;
 
 public class DataBase extends Canvas {
 
@@ -69,14 +78,14 @@ public class DataBase extends Canvas {
 		PlayerChoice.chooseClassPlayer("t");
 		
 		Monster ronflex = (Monster) characters.get("ma2");
-		ronflex.setX(500);
+		ronflex.setX(100);
 		ronflex.setY(100);
 		ronflex.setDirection(0);
 		ronflex.defineArea();
 		
 		Monster monstre = (Monster) characters.get("mt3");
-		monstre.setX(300);
-		monstre.setY(600);
+		monstre.setX(120);
+		monstre.setY(120);
 		monstre.setDirection(0);
 		monstre.defineArea();
 		
