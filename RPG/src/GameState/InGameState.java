@@ -28,8 +28,8 @@ public class InGameState implements GameState {
 		tileMap.setPosition(-400, -400);
 		bars = new HudTop() ;
 		System.out.println(tileMap.getX());
-	
 	}
+	
 	public void tick() {
 		InputGame.move();
 		Collection<GameObject> valsInstances = DataBase.getInstances().values();

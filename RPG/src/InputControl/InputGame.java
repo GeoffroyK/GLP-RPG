@@ -53,11 +53,11 @@ public class InputGame {
 		if ((getDown().isPressed() && getUp().isPressed())) { // UP AND DOWN
 			ply.setVelY(0);
 		} else if (getUp().isPressed()) { // UP
-			ply.setVelY(-1);
+			ply.setVelY(-5);
 			lvl1State.getTileMap().setPosition((-1) * ply.getX(),(-1) * ply.getY() );
 			
 		} else if (getDown().isPressed()) { // DOWN
-			ply.setVelY(1);
+			ply.setVelY(5);
 			lvl1State.getTileMap().setPosition((-1) * ply.getX(),(-1) * ply.getY() );
 		} else {
 			ply.setVelY(0);
@@ -66,11 +66,11 @@ public class InputGame {
 		if (getLeft().isPressed() && getRight().isPressed()) { // LEFT AND RIGHT
 			ply.setVelX(0);
 		} else if (getLeft().isPressed()) { // LEFT
-			ply.setVelX(-1);
+			ply.setVelX(-5);
 			lvl1State.getTileMap().setPosition( (-1) *ply.getX(),(-1) * ply.getY() );
 		}
 		else if (getRight().isPressed()) { // RIGHT
-			ply.setVelX(1);
+			ply.setVelX(5);
 			lvl1State.getTileMap().setPosition((-1) * ply.getX(),(-1) * ply.getY() );
 		}
 		else {
