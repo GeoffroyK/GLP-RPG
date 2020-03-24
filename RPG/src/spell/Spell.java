@@ -66,7 +66,7 @@ public class Spell extends GameObject {
 		
 
 	}
-	
+
 	public Spell(Spell spell) {
 		super(spell.getId(),spell.getSpritePath());
 		ply = PlayerChoice.selected();
@@ -94,7 +94,7 @@ public class Spell extends GameObject {
 		
 		direction = ply.getDirection();
 	}
-
+	
 	public void tick() {
 		mobDetection();
 		isOutRange();
@@ -190,7 +190,7 @@ public class Spell extends GameObject {
 		}
 		
 	}
-
+	
 	public String toString() {
 		return "-----------------------------------------------\n" + super.toString() + "\nname = " + name
 				+ "\neffect = " + effect + "\ntype = " + type + "\ndamage = " + damage + "\nmanaUsage = " + manaUsage
