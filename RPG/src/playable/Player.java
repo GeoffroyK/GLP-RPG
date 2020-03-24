@@ -175,10 +175,10 @@ public class Player extends Character {
 	}
 	
 	public void calculateCorners(double x, double y) {
-		int leftTile = (int) (x - cwidth / 2) / tileSize;
-		int rightTile = (int) (x + cwidth / 2) / tileSize;
-		int topTile = (int) (y - cheight / 2) / tileSize;
-		int bottomTile = (int) (y + cheight / 2 - 1) / tileSize;
+		int leftTile = (int) x / tileSize;
+		int rightTile = (int) (x + cwidth )/ tileSize;
+		int topTile = (int) y / tileSize;
+		int bottomTile = (int) (y + cheight) / tileSize;
 		
 		int tl = tileMap.getType(topTile, leftTile);
 		int tr = tileMap.getType(topTile, rightTile);
@@ -192,16 +192,16 @@ public class Player extends Character {
 	}
 	
 	public void checkTileMapCollision() {
-		currCol = (int) player.getX() / tileSize;
-		currRow = (int) player.getY() / tileSize;
+		currCol = (int) getX() / tileSize;
+		currRow = (int) getY() / tileSize;
 		
-		xdest = player.getX() + getVelX();
-		ydest = player.getY() + getVelY();
+		xdest = getX() + getVelX();
+		ydest = getY() + getVelY();
 		
-		xtemp = player.getX();
-		ytemp = player.getY();
+		xtemp = getX();
+		ytemp = getY();
 		
-		calculateCorners(player.getX(), ydest);
+		calculateCorners(getX(), ydest);
 		
 		if(getVelY() < 0) {
 			if(topLeft || topRight) {
@@ -217,7 +217,7 @@ public class Player extends Character {
 			}
 		}
 		
-		calculateCorners(xdest, player.getY());
+		calculateCorners(xdest, getY());
 		
 		if(getVelX() < 0) {
 			if(topLeft || bottomLeft) {

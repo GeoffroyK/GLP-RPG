@@ -81,7 +81,7 @@ public class DataBase extends Canvas {
 
 		PlayerChoice.chooseClassPlayer("u");
 		
-		Monster ronflex = new Monster((Monster)(Monster) characters.get("ma2"));
+	/*	Monster ronflex = new Monster((Monster)(Monster) characters.get("ma2"));
 		ronflex.setId(ronflex.getId() + "#001");
 		ronflex.setX(100);
 		ronflex.setY(100);
@@ -125,7 +125,7 @@ public class DataBase extends Canvas {
 //		InventoryKey.addLoot(loots.get("E#002"), PlayerChoice.selected());
 		//SALE ENCULE RENOMME TA METHODE RUN OU TICK PAS PTN DE GAMEINPUT
 //		new GameInput();
-//		sc.close();
+//		sc.close();*/
 
 	}
 

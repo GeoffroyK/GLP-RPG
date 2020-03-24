@@ -31,9 +31,9 @@ public class InGameState implements GameState {
 	
 	public void init() {
 		tileMap = new TileMap() ;
-		tileMap.loadTiles("/Tilesets/debug.png");
-		//tileMap.loadMap("/Maps/yoyo.map");
-		tileMap.loadMap("/Maps/debug.map");
+		tileMap.loadTiles("/Tilesets/testtileset5.png");
+		tileMap.loadMap("/Maps/point_avancement.map");
+		//tileMap.loadMap("/Maps/debug.map");
 		tileMap.setPosition(-400, -400);
 		b.clickableAreaCreation();
 		System.out.println(tileMap.getX());
