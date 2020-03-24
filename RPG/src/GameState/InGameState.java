@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.util.Collection;
 import java.util.Iterator;
 
+import HUD.inventory.inventoryButton;
 import HUD.top.HudTop;
 import InputControl.InputGame;
 import TileMap.*;
@@ -18,8 +19,11 @@ public class InGameState implements GameState {
 	
 	private TileMap tileMap;
 	private HudTop bars ;
+	private inventoryButton b ;
 	
-	public InGameState() {}
+	public InGameState(Game game) {
+		b = new inventoryButton(game);
+	}
 	
 	public void init() {
 		tileMap = new TileMap(30);
@@ -27,6 +31,7 @@ public class InGameState implements GameState {
 		tileMap.loadMap("/Maps/map2.map");
 		tileMap.setPosition(-400, -400);
 		bars = new HudTop() ;
+		b.clickableAreaCreation();
 		System.out.println(tileMap.getX());
 	}
 	
@@ -39,6 +44,7 @@ public class InGameState implements GameState {
 
 			go.tick();
 		}
+		b.checking();
 	}
 	
 	public void render(Graphics2D g) {
@@ -49,6 +55,8 @@ public class InGameState implements GameState {
 		//DRAW TILE MAP
 		tileMap.draw(g);
 		bars.render(PlayerChoice.selected(), g);
+		b.render(g);
+		
 		
 		Collection<GameObject> valsInstances = DataBase.getInstances().values();
 		Iterator<GameObject> itInstances = valsInstances.iterator();

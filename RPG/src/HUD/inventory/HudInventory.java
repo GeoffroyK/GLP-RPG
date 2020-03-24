@@ -131,7 +131,7 @@ public class HudInventory implements MouseListener{
 		}
 	}
 	
-	public void checking(Player hero, Graphics g) {
+	public void checking(Player hero) {
 		if(searchState == 1) {
 			for(Rectangle w : clickableArea) {
 				selection(hero, click, w, clickableArea.indexOf(w)) ;

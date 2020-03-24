@@ -25,6 +25,7 @@ import java.text.AttributedCharacterIterator;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import GameState.GameStateManager;
 import GameState.InGameState;
@@ -66,15 +67,16 @@ public class Game extends Canvas implements Runnable {
 //	private static final int HEIGHT = WIDTH / 12 * 9;
 
 	//dimension
-	public static final int WIDTH = 450;
-	public static final int HEIGHT = 1220;
-	public static final int SCALE = 2;
-	
+	public static final int WIDTH = 1600;
+	public static final int HEIGHT = 900;
+	public static int SCALE = 1;
+
 	private static final String NAME = "GAY RPG";
 
 	public boolean running = false;
 
 	private JFrame frame;
+	private JPanel Container ;
 
 	private InputHandler input;
 	private DataBase db;
@@ -85,8 +87,6 @@ public class Game extends Canvas implements Runnable {
 	//image
 	private BufferedImage image;
 	private Graphics2D g;
-	
-	private int state ;
 	
 	private Player p;
 	
@@ -99,6 +99,7 @@ public class Game extends Canvas implements Runnable {
 		setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		
 		frame = new JFrame(NAME);
+		Container = new JPanel();
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
@@ -109,6 +110,7 @@ public class Game extends Canvas implements Runnable {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+	
 		setFocusable(true);
 		requestFocus();
 
@@ -125,6 +127,22 @@ public class Game extends Canvas implements Runnable {
 		g = (Graphics2D) image.getGraphics();
 	}
 
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
+
+	public JPanel getContainer() {
+		return Container;
+	}
+
+	public void setContainer(JPanel container) {
+		Container = container;
+	}
+	
 	public synchronized void start() {
 		running = true;
 		new Thread(this).start();
@@ -199,5 +217,13 @@ public class Game extends Canvas implements Runnable {
 	public static void main(String[] args) {
 		Game ga = new Game();
 
+	}
+	
+	public static int getSCALE() {
+		return SCALE;
+	}
+
+	public static void setSCALE(int sCALE) {
+		SCALE = sCALE;
 	}
 }
