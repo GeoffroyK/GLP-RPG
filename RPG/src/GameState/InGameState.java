@@ -18,7 +18,7 @@ import playable.PlayerChoice;
 
 public class InGameState implements GameState {
 	
-	private TileMap tileMap;
+	private static TileMap tileMap;
 	private HudTop bars ;
 	private inventoryButton b ;
 	private ActionBar a ;
@@ -30,9 +30,9 @@ public class InGameState implements GameState {
 	}
 	
 	public void init() {
-		tileMap = new TileMap(30);
-		tileMap.loadTiles("/Tilesets/testtileset2.png");
-		tileMap.loadMap("/Maps/map2.map");
+		new TileMap();
+		tileMap.loadTiles("/Tilesets/testtileset4.png");
+		tileMap.loadMap("/Maps/underworld_sample.map");
 		tileMap.setPosition(-400, -400);
 		b.clickableAreaCreation();
 		System.out.println(tileMap.getX());
@@ -71,7 +71,7 @@ public class InGameState implements GameState {
 		}
 	}
 	
-	public TileMap getTileMap() {
+	public static TileMap getTileMap() {
 		return tileMap;
 	}
 

@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 
 import InputControl.InputGame;
 import TileMap.Background;
+import game.Game;
 
 public class MenuState implements GameState {
 	private Background bg;

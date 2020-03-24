@@ -10,18 +10,41 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import GameState.GameStateManager;
+import GameState.InGameState;
+import HUD.top.HudTop;
+import TileMap.Tile;
+import TileMap.TileMap;
 import dataclasses.DataBase;
 import game.Colision;
 import game.Game;
 import spell.Spell;
 
 public class Player extends Character {
-	private int experience;
-	private Spell[] spells;
+			private int experience;
+			private Spell[] spells;
 
-	private Colision player;
+			private Colision player;
+			private TileMap tileMap = InGameState.getTileMap();
+			private GameStateManager gsm;
+			private int tileSize = 30;
+						
+			//COLLISION BOX
+			protected int cwidth = 10;
+			protected int cheight = 20;
+			
+			//COLLISION
+			protected int currRow;
+			protected int currCol;
+			protected double xdest;
+			protected double xtemp;
+			private double ydest;
+			protected double ytemp;
+			protected boolean topLeft;
+			protected boolean topRight;
+			protected boolean bottomRight;
+			protected boolean bottomLeft;
+			
 	
-	private GameStateManager gsm;
 
 	public Player(String id, String type, int hp, int mp, int str, int dext, int intel, int def, int atk, int range,
 			int inventory, int level, int atkSpeed, int ctkChance, int dodgeChance, int exp, Spell spell1, Spell spell2,
@@ -104,18 +127,19 @@ public class Player extends Character {
 
 			Colision colChar = new Colision((int) (character.getX()), (int) (character.getY()),
 					character.getWidth(), character.getHeight());
+	
 			if (!(this == character)) {
 				if (player.isCollide(colChar)) {
 //					System.out.println("collide");
 					if(getLifePoint() > 1) {
 						setLifePoint(getLifePoint()-1);
 					}
-					
 //					setVelX(0);
 //					setVelY(0);
 				}
 			}
 		}
+		checkTileMapCollision();
 	}
 
 	private void calculateDirection() {
@@ -144,6 +168,68 @@ public class Player extends Character {
 		
 	}
 	
+	public void calculateCorners(double x, double y) {
+		int leftTile = (int) (x - cwidth / 2) / tileSize;
+		int rightTile = (int) (x + cwidth / 2 - 1) / tileSize;
+		int topTile = (int) (y - cheight / 2) / tileSize;
+		int bottomTile = (int) (y + cheight / 2 - 1) / tileSize;
+		
+		int tl = tileMap.getType(topTile, leftTile);
+		int tr = tileMap.getType(topTile, rightTile);
+		int bl = tileMap.getType(bottomTile, leftTile);
+		int br = tileMap.getType(bottomTile, rightTile);
+		
+		topLeft = tl == Tile.BLOCKED;
+		topRight = tr == Tile.BLOCKED;
+		bottomLeft = bl == Tile.BLOCKED;
+		bottomRight = br == Tile.BLOCKED;
+	}
+	
+	public void checkTileMapCollision() {
+		currCol = (int) player.getX() / tileSize;
+		currRow = (int) player.getY() / tileSize;
+		
+		xdest = player.getX() + getVelX();
+		ydest = player.getY() + getVelY();
+		
+		xtemp = player.getX();
+		ytemp = player.getY();
+		
+		calculateCorners(player.getX(), ydest);
+		
+		if(getVelY() < 0) {
+			if(topLeft || topRight) {
+				setVelY(0);
+				ytemp = currRow * tileSize + cheight / 2;
+			}
+			
+		}
+		
+		if(getVelY() > 0) {
+			if(bottomLeft || bottomRight) {
+				setVelY(0);
+				ytemp = (currRow + 1) * tileSize - cheight / 2;
+			}
+		}
+		
+		calculateCorners(xdest, player.getY());
+		
+		if(getVelX() < 0) {
+			if(topLeft || bottomLeft) {
+				setVelX(0);
+				xtemp = currCol * tileSize + cwidth / 2;
+			}
+		}
+		
+		if(getVelX() > 0) {
+			if(topRight || bottomRight) {
+				setVelX(0);
+				xtemp = (currCol + 1) * tileSize - cwidth / 2;
+			}
+		}
+	}
+	
+	
 	public GameStateManager getGsm() {
 		return gsm;
 	}
@@ -151,5 +237,5 @@ public class Player extends Character {
 	public void setGsm(GameStateManager gsm) {
 		this.gsm = gsm;
 	}
-
+	
 }
