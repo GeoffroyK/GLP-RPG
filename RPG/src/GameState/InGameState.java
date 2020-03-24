@@ -30,7 +30,7 @@ public class InGameState implements GameState {
 	}
 	
 	public void init() {
-		new TileMap();
+		tileMap = new TileMap() ;
 		tileMap.loadTiles("/Tilesets/testtileset4.png");
 		tileMap.loadMap("/Maps/underworld_sample.map");
 		tileMap.setPosition(-400, -400);

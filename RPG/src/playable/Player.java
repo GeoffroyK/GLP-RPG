@@ -30,7 +30,7 @@ public class Player extends Character {
 						
 			//COLLISION BOX
 			protected int cwidth = 10;
-			protected int cheight = 20;
+			protected int cheight = 30;
 			
 			//COLLISION
 			protected int currRow;
@@ -100,6 +100,7 @@ public class Player extends Character {
 
 	}
 
+	
 	public void render(Graphics g) {
 //		g.setColor(Color.blue);
 //		g.fillRect((int) getX(), (int) getY(), getWidth(), getHeight());
@@ -170,9 +171,9 @@ public class Player extends Character {
 	
 	public void calculateCorners(double x, double y) {
 		int leftTile = (int) (x - cwidth / 2) / tileSize;
-		int rightTile = (int) (x + cwidth / 2 - 1) / tileSize;
+		int rightTile = (int) (x + cwidth / 2) / tileSize;
 		int topTile = (int) (y - cheight / 2) / tileSize;
-		int bottomTile = (int) (y + cheight / 2 - 1) / tileSize;
+		int bottomTile = (int) (y + cheight / 2) / tileSize;
 		
 		int tl = tileMap.getType(topTile, leftTile);
 		int tr = tileMap.getType(topTile, rightTile);
