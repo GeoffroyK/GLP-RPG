@@ -31,13 +31,16 @@ public class InputGame {
 	}*/
 	
 	public static void menu() {
+		int slow = 0 ;
+		
 		System.out.println(GameStateManager.getCurrentState());
 		menuState = (MenuState) GameStateManager.getGameStates().get(GameStateManager.getCurrentState());
+		
 		if(getUp().isPressed()) {
-			menuState.setCurrentChoice(menuState.getCurrentChoice()-1);
-			if(menuState.getCurrentChoice() == -1) {
-				menuState.setCurrentChoice(menuState.getOptions().length -1);
-			}
+				menuState.setCurrentChoice(menuState.getCurrentChoice()-1);
+				if(menuState.getCurrentChoice() == -1) {
+					menuState.setCurrentChoice(menuState.getOptions().length -1);
+				}
 		}
 		if(getDown().isPressed()) {
 			menuState.setCurrentChoice(menuState.getCurrentChoice()+1);
@@ -62,6 +65,7 @@ public class InputGame {
 		} else if (getDown().isPressed()) { // DOWN
 			ply.setVelY(5);
 			lvl1State.getTileMap().setPosition((-1) * ply.getX(),(-1) * ply.getY() );
+			InventoryKey.addLoot(DataBase.getLoots().get("C#001"), PlayerChoice.selected());
 		} else {
 			ply.setVelY(0);
 		}
@@ -71,6 +75,7 @@ public class InputGame {
 		} else if (getLeft().isPressed()) { // LEFT
 			ply.setVelX(-5);
 			lvl1State.getTileMap().setPosition( (-1) *ply.getX(),(-1) * ply.getY() );
+			InventoryKey.addLoot(DataBase.getLoots().get("E#001"), PlayerChoice.selected());
 		}
 		else if (getRight().isPressed()) { // RIGHT
 			ply.setVelX(5);

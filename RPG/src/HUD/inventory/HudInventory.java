@@ -48,9 +48,9 @@ public class HudInventory implements MouseListener{
 	
 	public void clickableActionAreaCreation() {
 		ActionArea = new ArrayList<Rectangle>() ;
-		Rectangle equip = new Rectangle(12, 362, 102, 32);
-		Rectangle throwAway = new Rectangle(128, 362, 102, 32);
-		Rectangle detail = new Rectangle(243, 362, 102, 32);
+		Rectangle equip = new Rectangle(Game.WIDTH/2 - 238, Game.HEIGHT/2 + 112, 102, 32);
+		Rectangle throwAway = new Rectangle(Game.WIDTH/2 - 122, Game.HEIGHT/2 + 112, 102, 32);
+		Rectangle detail = new Rectangle(Game.WIDTH/2 - 7, Game.HEIGHT/2 + 112, 102, 32);
 		ActionArea.add(equip);
 		ActionArea.add(throwAway);
 		ActionArea.add(detail);
@@ -58,8 +58,8 @@ public class HudInventory implements MouseListener{
 	}
 	
 	public void clickableLootAreaCreation(Player hero) {
-		int x = 21 ;
-		int y = 69 ;
+		int x = Game.WIDTH/2 - 229 ;
+		int y = Game.HEIGHT/2 - 181 ;
 		
 		selected = null ;
 		
@@ -69,8 +69,8 @@ public class HudInventory implements MouseListener{
 			clickableArea.add(rDs);
 			
 			x += 40 ;
-			if(x > 330) {
-				x = 0 ;
+			if(x > Game.WIDTH/2 + 80) {
+				x = Game.WIDTH/2 - 229 ;
 				y += 26 ;
 			}
 		}
@@ -82,11 +82,12 @@ public class HudInventory implements MouseListener{
 	}
 	
 	public void render(Player hero, Graphics g) {
-			int x = 21 ;
-			int y = 69 ;
+			int x = Game.WIDTH/2 - 229 ;
+			int y = Game.HEIGHT/2 - 181 ;
 
-	
-			g.drawImage(background, 0, 0, null) ;
+			g.setColor(Color.BLACK);
+			//g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+			g.drawImage(background, Game.WIDTH/2 -250, Game.HEIGHT/2 - 250, null) ;
 		
 			for(Loot l : hero.getInventory().getDrops()) {
 				Image lootSprite = null ;
@@ -99,8 +100,8 @@ public class HudInventory implements MouseListener{
 				g.drawString("x" + Integer.toString(l.getItemCounter()), x+20, y+20);
 				
 				x += 40 ;
-				if(x > 330) {
-					x = 21 ;
+				if(x > Game.WIDTH/2 + 80) {
+					x = Game.WIDTH/2 - 229 ;
 					y += 26 ;
 				}
 			}
