@@ -136,7 +136,7 @@ public class InputGame {
 	
 	public static void other(HudInventory inv) {
 		if(GameStateManager.getCurrentState() != 1) {
-			if(getSpell1().isPressed()) {
+			if(getEnter().isPressed()) {
 				inv.clickableZoneErase();
 				GameStateManager.setState(GameStateManager.INGAMESTATE);
 			}

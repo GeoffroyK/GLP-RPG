@@ -3,6 +3,8 @@ package TileMap;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import game.*;
@@ -63,6 +65,7 @@ public class TileMap {
 	public void loadMap(String s) {
 		try {
 			InputStream in = getClass().getResourceAsStream(s);
+			
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			
 			numCols = Integer.parseInt(br.readLine());

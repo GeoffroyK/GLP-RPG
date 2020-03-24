@@ -29,8 +29,8 @@ public class Player extends Character {
 			private int tileSize = 30;
 						
 			//COLLISION BOX
-			protected int cwidth = 10;
-			protected int cheight = 30;
+			protected int cwidth = 20;
+			protected int cheight = 28;
 			
 			//COLLISION
 			protected int currRow;
@@ -62,8 +62,8 @@ public class Player extends Character {
 		super.setX(200);
 		super.setY(200);
 		super.setDirection(3);
-		super.setWidth(10);
-		super.setHeight(20);
+		super.setWidth(20);
+		super.setHeight(28);
 
 //		PlayerTreatment.initSpells(this);
 
@@ -146,9 +146,8 @@ public class Player extends Character {
 			e.printStackTrace();
 		}
 		g.drawImage(sprite , (int) getX() , (int) getY(), null);
-
-//		g.setColor(Color.DARK_GRAY);
-//		g.drawRect((int) (getX() - 2), (int) (getY() - 2), (int) (getWidth() + 4), (int) (getHeight() + 4));
+		g.setColor(Color.DARK_GRAY);
+		g.drawRect((int) (getX()), (int) (getY()), (int) (getWidth()), (int) (getHeight()));
 	}
 
 	public void detection() {
@@ -179,7 +178,7 @@ public class Player extends Character {
 		int leftTile = (int) (x - cwidth / 2) / tileSize;
 		int rightTile = (int) (x + cwidth / 2) / tileSize;
 		int topTile = (int) (y - cheight / 2) / tileSize;
-		int bottomTile = (int) (y + cheight / 2) / tileSize;
+		int bottomTile = (int) (y + cheight / 2 - 1) / tileSize;
 		
 		int tl = tileMap.getType(topTile, leftTile);
 		int tr = tileMap.getType(topTile, rightTile);
@@ -209,7 +208,6 @@ public class Player extends Character {
 				setVelY(0);
 				ytemp = currRow * tileSize + cheight / 2;
 			}
-			
 		}
 		
 		if(getVelY() > 0) {
