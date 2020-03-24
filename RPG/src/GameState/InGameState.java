@@ -31,12 +31,17 @@ public class InGameState implements GameState {
 	}
 	public void tick() {
 		InputGame.move();
+		InputGame.spells();
 		Collection<GameObject> valsInstances = DataBase.getInstances().values();
 		Iterator<GameObject> itInstances = valsInstances.iterator();
 		while (itInstances.hasNext()) {
 			GameObject go = itInstances.next();
-
+			if(DataBase.getToBeRemoved().contains(go.getId())) {
+				itInstances.remove();
+				DataBase.getToBeRemoved().remove(go.getId());
+			}
 			go.tick();
+
 		}
 	}
 	

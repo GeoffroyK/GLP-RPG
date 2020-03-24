@@ -5,172 +5,204 @@ import map.Map;
 import playable.Monster;
 import playable.MoveTreatment;
 import playable.Player;
+import playable.PlayerChoice;
 
 public class SpellTreatment {
 
-	public static void spellUsed(Spell spell, Player ply, Map map) {
-		switch (spell.getType()) {
+	private static int buffTime[] = { 0, 0, 0, 0 }; // 0 = RageBuff, 1 = SpeedBuff, 2 = DodgeBuff, 3 = CritBuff
+	private static int preBuff[] = new int[4]; // 0 = RageBuff, 1 = SpeedBuff, 2 = DodgeBuff, 3 = CritBuff
+	private static int cooldown[] = { 0, 0, 0, 0, 0, 0 };
+	
+	private static int cpt = 1;
 
-		case "Dmg":
-			int cptRange = 1;
-			boolean state = true;
-//			switch (ply.getDirection()) {
-//
-//			/* Haut */ case 0:
-//				while (cptRange <= spell.getRange() && state) {
-//					if (map.isOccupied((int)ply.getX(),(int) ply.getY() - cptRange)) {
-//						System.out.println("MONSTER FOUND");
-//						String monsterId = map.getMonsterIdByPos((int)ply.getX(),(int) ply.getY() - cptRange);
-//						Monster monster = (Monster) DataBase.getInstances().get(monsterId);
-//						int previousMonsterHP = monster.getLifePoint();
-//						monster.setLifePoint(monster.getLifePoint() - spell.getDamage());
-//						System.out.println("Damage Dealt : " + spell.getDamage() + "\nMonsterLife : From "
-//								+ previousMonsterHP + " to " + monster.getLifePoint());
-//						if (monster.getLifePoint() <= 0) {
-//							map.suppMonster(monster);
-//							System.out.println("MONSTER IS DEAD");
-//						}
-//						state = false;
-//					}
-//					cptRange++;
-//				}
-//				if (state) {
-//					System.out.println("MONSTER NOT FOUND");
-//				}
-//				break;
-//
-//			/* Gauche */ case 1:
-//				while (cptRange <= spell.getRange() && state) {
-//					if (map.isOccupied((int)ply.getX() - cptRange, (int)ply.getY())) {
-//						System.out.println("MONSTER FOUND");
-//						String monsterId = map.getMonsterIdByPos((int)ply.getX() - cptRange, (int)ply.getY());
-//						Monster monster = (Monster) DataBase.getInstances().get(monsterId);
-//						int previousMonsterHP = monster.getLifePoint();
-//						monster.setLifePoint(monster.getLifePoint() - spell.getDamage());
-//						System.out.println("Damage Dealt : " + spell.getDamage() + "\nMonsterLife : From "
-//								+ previousMonsterHP + " to " + monster.getLifePoint());
-//						if (monster.getLifePoint() <= 0) {
-//							map.suppMonster(monster);
-//							System.out.println("MONSTER IS DEAD");
-//						}
-//						state = false;
-//					}
-//					cptRange++;
-//				}
-//				if (state) {
-//					System.out.println("MONSTER NOT FOUND");
-//				}
-//				break;
-//
-//			/* Droite */ case 2:
-//				while (cptRange <= spell.getRange() && state) {
-//					if (map.isOccupied((int)ply.getX() + cptRange,(int)ply.getY())) {
-//						System.out.println("MONSTER FOUND");
-//						String monsterId = map.getMonsterIdByPos((int)ply.getX() + cptRange,(int) ply.getY());
-//						Monster monster = (Monster) DataBase.getInstances().get(monsterId);
-//						int previousMonsterHP = monster.getLifePoint();
-//						monster.setLifePoint(monster.getLifePoint() - spell.getDamage());
-//						System.out.println("Damage Dealt : " + spell.getDamage() + "\nMonsterLife : From "
-//								+ previousMonsterHP + " to " + monster.getLifePoint());
-//						if (monster.getLifePoint() <= 0) {
-//							map.suppMonster(monster);
-//							System.out.println("MONSTER IS DEAD");
-//						}
-//						state = false;
-//					}
-//					cptRange++;
-//				}
-//				if (state) {
-//					System.out.println("MONSTER NOT FOUND");
-//				}
-//				break;
-//
-//			/* Bas */ case 3:
-//				while (cptRange <= spell.getRange() && state) {
-//					if (map.isOccupied((int)ply.getX(),(int) ply.getY() + cptRange)) {
-//						System.out.println("MONSTER FOUND");
-//						String monsterId = map.getMonsterIdByPos((int)ply.getX(), (int)ply.getY() + cptRange);
-//						Monster monster = (Monster) DataBase.getInstances().get(monsterId);
-//						int previousMonsterHP = monster.getLifePoint();
-//						monster.setLifePoint(monster.getLifePoint() - spell.getDamage());
-//						System.out.println("Damage Dealt : " + spell.getDamage() + "\nMonsterLife : From "
-//								+ previousMonsterHP + " to " + monster.getLifePoint());
-//						if (monster.getLifePoint() <= 0) {
-//							map.suppMonster(monster);
-//							System.out.println("MONSTER IS DEAD");
-//						}
-//						state = false;
-//					}
-//					cptRange++;
-//				}
-//				if (state) {
-//					System.out.println("MONSTER NOT FOUND");
-//				}
-//				break;
-//			}
-//			break;
-//
-//		case "Mvt":
-//			switch (ply.getDirection()) {
-//
-//			/* Haut */ case 0:
-//				MoveTreatment.reposition(ply, 0, spell.getDamage(), map);
-//				break;
-//
-//			/* Gauche */ case 1:
-//				MoveTreatment.reposition(ply, 1, spell.getDamage(), map);
-//				break;
-//
-//			/* Droite */ case 2:
-//				MoveTreatment.reposition(ply, 2, spell.getDamage(), map);
-//				break;
-//
-//			/* Bas */ case 3:
-//				MoveTreatment.reposition(ply, 3, spell.getDamage(), map);
-//				break;
-//			}
-//			break;
-//
-//		case "Crit":
-//			ply.setCriticalChance(ply.getCriticalChance() + spell.getDamage());
-//			System.out.println("CRIT : +" + spell.getDamage() + "%" + " --> Crit% now : " + ply.getCriticalChance());
-//			break;
-//
-//		case "HP":
-//			if (ply.getLifePoint() + spell.getDamage() < ply.getLifePointMax()) {
-//				ply.setLifePoint(ply.getLifePoint() + spell.getDamage());
-//			} else {
-//				ply.setLifePoint(ply.getLifePointMax());
-//			}
-//			System.out.println("Heal : " + spell.getDamage() + " -->  HP now : " + ply.getLifePoint());
-//			break;
-//
-//		case "MP":
-//			if (ply.getManaPoint() + spell.getDamage() < ply.getManaPointMax()) {
-//				ply.setManaPoint(ply.getManaPoint() + spell.getDamage());
-//			} else {
-//				ply.setManaPoint(ply.getManaPointMax());
-//			}
-//			System.out.println("MP-UP : " + spell.getDamage() + " --> MP now" + ply.getManaPoint());
-//			break;
-//
-//		case "Rage":
-//			ply.setAttack(ply.getAttack() + spell.getDamage());
-//			System.out.println("Dmg : +" + spell.getDamage() + " --> Dmg now : " + ply.getAttack());
-//			break;
-//
-//		case "Spd":
-//			ply.setAttackSpeed(ply.getAttackSpeed() + spell.getDamage());
-//			System.out.println("Speed : +" + spell.getDamage() + " --> Speed now : " + ply.getAttackSpeed());
-//			break;
-//
-//		case "Dodge":
-//			ply.setDodgeChance(ply.getDodgeChance() + spell.getDamage());
-//			System.out.println("Dodge : +" + spell.getDamage() + "%" + " --> Dodge% now : " + ply.getDodgeChance());
-//			break;
-//
-//		case "Aoe":
-//
+	public static void spellUsed(Spell spell, int number) {
+		Player ply = PlayerChoice.selected();
+		int direction = ply.getDirection();
+		if (cooldown[number] == 0 && ply.getManaPoint() >= spell.getManaUsage()) {
+			switch (spell.getType()) {
+
+			case "Dmg":
+				Spell tmpSpell = new Spell(spell); // Create copy of Spell => new instance
+				while(DataBase.getInstances().get(tmpSpell.getId() + "#" + cpt) != null) {
+					cpt++;
+				}
+				tmpSpell.setId(tmpSpell.getId() + "#" + cpt);
+				DataBase.getInstances().put(tmpSpell.getId(), tmpSpell);
+				
+				switch (direction) {
+
+				case 0: // NORD
+					tmpSpell.setVelY(-5);
+					tmpSpell.setVelX(0);
+					break;
+
+				case 1: // OUEST
+					tmpSpell.setVelX(-5);
+					tmpSpell.setVelY(0);
+					break;
+
+				case 2: // EST
+					tmpSpell.setVelX(5);
+					tmpSpell.setVelY(0);
+					break;
+
+				case 3: // SUD
+					tmpSpell.setVelY(5);
+					tmpSpell.setVelX(0);
+					break;
+					
+				case 10: // NORD/OUEST
+					tmpSpell.setVelY(-5);
+					tmpSpell.setVelX(-5);
+					break;
+
+				case 20: // NORD/EST
+					tmpSpell.setVelY(-5);
+					tmpSpell.setVelX(5);
+					break;
+
+				case 31: // SUD/OUEST
+					tmpSpell.setVelY(5);
+					tmpSpell.setVelX(-5);
+					break;
+
+				case 32: // SUD/EST
+					tmpSpell.setVelY(5);
+					tmpSpell.setVelX(5);
+					break;
+				}
+				
+				break;
+
+			case "Aoe":
+				break;
+
+			case "Mvt":
+				switch (direction) {
+
+				case 0: // NORD
+					ply.setY(ply.getY() - spell.getDamage());
+					break;
+
+				case 1: // OUEST
+					ply.setX(ply.getX() - spell.getDamage());
+					break;
+
+				case 2: // EST
+					ply.setX(ply.getX() + spell.getDamage());
+					break;
+
+				case 3: // SUD
+					ply.setY(ply.getY() + spell.getDamage());
+					break;
+					
+				case 10: // NORD/OUEST
+					ply.setX(ply.getX() - spell.getDamage());
+					ply.setY(ply.getY() - spell.getDamage());
+					break;
+
+				case 20: // NORD/EST
+					ply.setX(ply.getX() + spell.getDamage());
+					ply.setY(ply.getY() - spell.getDamage());
+					break;
+
+				case 31: // SUD/OUEST
+					ply.setX(ply.getX() - spell.getDamage());
+					ply.setY(ply.getY() + spell.getDamage());
+					break;
+
+				case 32: // SUD/EST
+					ply.setX(ply.getX() + spell.getDamage());
+					ply.setY(ply.getY() + spell.getDamage());
+					break;
+
+				}
+
+			case "HP":
+				if (ply.getLifePoint() + spell.getDamage() >= ply.getLifePointMax()) {
+					ply.setLifePoint(ply.getLifePointMax());
+				} else {
+					ply.setLifePoint(ply.getLifePoint() + spell.getDamage());
+				}
+				break;
+
+			case "MP":
+				if (ply.getManaPoint() + spell.getDamage() >= ply.getManaPointMax()) {
+					ply.setManaPoint(ply.getManaPointMax());
+				} else {
+					ply.setManaPoint(ply.getManaPoint() + spell.getDamage());
+				}
+				break;
+
+			case "Rage":
+				preBuff[0] = ply.getAttack();
+				ply.setAttack(ply.getAttack() + spell.getDamage());
+				buffTime[0] = spell.getDuration();
+				break;
+
+			case "Spd":
+				preBuff[1] = ply.getSpeed();
+				ply.setSpeed(ply.getSpeed() + spell.getDamage());
+				buffTime[1] = spell.getDuration();
+				break;
+
+			case "Dodge":
+				preBuff[2] = ply.getDodgeChance();
+				ply.setDodgeChance(ply.getDodgeChance() + spell.getDamage());
+				buffTime[2] = spell.getDuration();
+				break;
+
+			case "Crit":
+				preBuff[3] = ply.getCriticalChance();
+				ply.setCriticalChance(ply.getCriticalChance() + spell.getDamage());
+				buffTime[3] = spell.getDuration();
+				break;
+
+			}
+			ply.setManaPoint(ply.getManaPoint() - spell.getManaUsage());
+			cooldown[number] = spell.getCooldown();
 		}
+
+	}
+
+	public static void spellTimer() {
+		Player ply = PlayerChoice.selected();
+		for (int i = 0; i < cooldown.length; i++) {
+			if (cooldown[i] > 0) {
+				cooldown[i]--;
+			}
+		}
+		for (int i = 0; i < buffTime.length; i++) {
+			if (buffTime[i] > 0) {
+				buffTime[i]--;
+			}
+			if (buffTime[i] == 0) {
+				switch (i) {
+
+				case 0:
+					ply.setAttack(preBuff[0]);
+					break;
+
+				case 1:
+					ply.setSpeed(preBuff[1]);
+					break;
+
+				case 2:
+					ply.setDodgeChance(preBuff[2]);
+					break;
+
+				case 3:
+					ply.setCriticalChance(preBuff[3]);
+					break;
+
+				}
+			}
+		}
+		System.out.println("\nMana left : " + ply.getManaPoint());
+		System.out.println("CoolDown : Spell1 = " + cooldown[0] + " / Spell2 = " + cooldown[1] + " / Spell3 = "
+				+ cooldown[2] + " / Spell4 = " + cooldown[3] + " / Spell5 = " + cooldown[4] + " / AutoAttack = "
+				+ cooldown[5]);
+		System.out.println("Buff : Rage = " + buffTime[0] + " / Speed = " + buffTime[1] + " / Dodge = " + buffTime[2]
+				+ " / Crit = " + buffTime[3] + "\n");
 	}
 }
