@@ -43,6 +43,7 @@ import playable.Monster;
 import playable.Move;
 import playable.Player;
 import playable.PlayerChoice;
+import spell.SpellTreatment;
 import playable.Character;
 import dataclasses.DataBase;
 import inventory.InventoryKey;
@@ -170,6 +171,7 @@ public class Game extends Canvas implements Runnable {
 			}
 
 			if (System.currentTimeMillis() - lastTimer >= 1000) {
+				SpellTreatment.spellTimer();
 				lastTimer += 1000;
 				System.out.println(ticks + " ticks / " + frames + " frames");
 				frames = 0;

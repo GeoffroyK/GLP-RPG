@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import java.util.Collection;
 import java.util.Iterator;
 
-import HUD.ActionBar;
+import HUD.* ;
 import HUD.inventory.inventoryButton;
 import HUD.top.HudTop;
 import InputControl.InputGame;
@@ -40,11 +40,15 @@ public class InGameState implements GameState {
 	
 	public void tick() {
 		InputGame.move();
+		InputGame.spells();
 		Collection<GameObject> valsInstances = DataBase.getInstances().values();
 		Iterator<GameObject> itInstances = valsInstances.iterator();
 		while (itInstances.hasNext()) {
 			GameObject go = itInstances.next();
-
+			if(DataBase.getToBeRemoved().contains(go.getId())) {
+				itInstances.remove();
+				DataBase.getToBeRemoved().remove(go.getId());
+			}
 			go.tick();
 		}
 		b.checking();

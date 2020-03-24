@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -38,6 +39,8 @@ public class DataBase extends Canvas {
 	private static HashMap<String, Loot> loots;
 	private static HashMap<String,GameObject> instances;
 	private static HashMap<String, Character> charInstances;
+	
+	private static ArrayList<String> toBeRemoved;
 
 	private Scanner sc;
 
@@ -53,6 +56,7 @@ public class DataBase extends Canvas {
 		characters = new HashMap<String, Character>();
 		instances = new HashMap<String, GameObject>();
 		charInstances = new HashMap<String, Character>();
+		toBeRemoved = new ArrayList<String>();
 
 		try {
 			DataBaseInit.loadCsvSpell(csvGameObjectPaths[2]);
@@ -75,21 +79,24 @@ public class DataBase extends Canvas {
 
 	private void initGame() {
 
-		PlayerChoice.chooseClassPlayer("t");
+		PlayerChoice.chooseClassPlayer("u");
 		
-		Monster ronflex = (Monster) characters.get("ma2");
+		Monster ronflex = new Monster((Monster)(Monster) characters.get("ma2"));
+		ronflex.setId(ronflex.getId() + "#001");
 		ronflex.setX(100);
 		ronflex.setY(100);
 		ronflex.setDirection(0);
 		ronflex.defineArea();
 		
-		Monster monstre = (Monster) characters.get("mt3");
+		Monster monstre = new Monster((Monster)(Monster) characters.get("mt3"));
+		monstre.setId(monstre.getId() + "#002");
 		monstre.setX(120);
 		monstre.setY(120);
 		monstre.setDirection(0);
 		monstre.defineArea();
 		
-		Monster guerrier = (Monster) characters.get("mg1");
+		Monster guerrier = new Monster((Monster) characters.get("mg1"));
+		guerrier.setId(guerrier.getId() + "#003");
 		guerrier.setX(500);
 		guerrier.setY(30);
 		guerrier.setDirection(0);
@@ -105,9 +112,9 @@ public class DataBase extends Canvas {
 		instances.put(monstre.getId(),monstre);
 		instances.put(guerrier.getId(),guerrier);
 		
-		charInstances.put(ronflex.getId() + "#001",ronflex);
-		charInstances.put(monstre.getId() + "#002",monstre);
-		charInstances.put(guerrier.getId() + "#003",guerrier);
+		charInstances.put(ronflex.getId(),ronflex);
+		charInstances.put(monstre.getId(),monstre);
+		charInstances.put(guerrier.getId(),guerrier);
 		
 //		sc = new Scanner(System.in);
 //		System.out.println("CHOOSE CLASS OF CHARACTER : 't' = WARRIOR / 'y' = ARCHER / 'u' = MAGE\n OR EXIT = 'e'");
@@ -195,7 +202,15 @@ public class DataBase extends Canvas {
 	public static HashMap<String, Character> getCharInstances() {
 		return charInstances;
 	}
+	
 
+	public static ArrayList<String> getToBeRemoved() {
+		return toBeRemoved;
+	}
+
+	public static void setToBeRemoved(ArrayList<String> toBeRemoved) {
+		DataBase.toBeRemoved = toBeRemoved;
+	}
 
 	public static void main(String[] args) {
 		new DataBase();

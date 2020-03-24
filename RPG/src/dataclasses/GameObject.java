@@ -17,7 +17,7 @@ public abstract class GameObject{
 	public abstract void render(Graphics g);
 	
 	public String toString() {
-		return "id = " + id + " ";
+		return id;
 	}
 
 	public GameObject(String id, String spritePath) {

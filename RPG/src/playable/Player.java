@@ -48,9 +48,9 @@ public class Player extends Character {
 
 	public Player(String id, String type, int hp, int mp, int str, int dext, int intel, int def, int atk, int range,
 			int inventory, int level, int atkSpeed, int ctkChance, int dodgeChance, int exp, Spell spell1, Spell spell2,
-			Spell spell3, Spell spell4, Spell spell5, Spell spell6) {
+			Spell spell3, Spell spell4, Spell spell5, Spell spell6, String spritePath) {
 
-		super(id, type, hp, mp, str, dext, intel, def, atk, range, inventory, level, atkSpeed, ctkChance, dodgeChance);
+		super(id, type, hp, mp, str, dext, intel, def, atk, range, inventory, level, atkSpeed, ctkChance, dodgeChance,spritePath);
 		experience = exp;
 		spells = new Spell[6];
 		spells[0] = spell1;
@@ -61,7 +61,7 @@ public class Player extends Character {
 		spells[5] = spell6;
 		super.setX(200);
 		super.setY(200);
-		super.setDirection(0);
+		super.setDirection(3);
 		super.setWidth(10);
 		super.setHeight(20);
 
@@ -102,25 +102,58 @@ public class Player extends Character {
 
 	
 	public void render(Graphics g) {
-//		g.setColor(Color.blue);
-//		g.fillRect((int) getX(), (int) getY(), getWidth(), getHeight());
-		
-		Image ply = null;
+		Image sprite = null;
+		String spritePath = null;
+		switch (getDirection()) {
+
+		case 0: // NORD
+			spritePath = getSpritePath()+"N.png";
+			break;
+
+		case 1: // OUEST
+			spritePath = getSpritePath()+"O.png";
+			break;
+
+		case 2: // EST
+			spritePath = getSpritePath()+"E.png";
+			break;
+
+		case 3: // SUD
+			spritePath = getSpritePath()+"S.png";
+			break;
+			
+		case 10: // NORD/OUEST
+			spritePath = getSpritePath()+"NO.png";
+			break;
+
+		case 20: // NORD/EST
+			spritePath = getSpritePath()+"NE.png";
+			break;
+
+		case 31: // SUD/OUEST
+			spritePath = getSpritePath()+"SO.png";
+			break;
+
+		case 32: // SUD/EST
+			spritePath = getSpritePath()+"SE.png";
+			break;
+
+		}
+		//System.out.println(spritePath);
 		try {
-			ply = ImageIO.read(new File("Ressources//HUD//SpriteCharacter//New_Piskel.png"));
+			sprite = ImageIO.read(new File(spritePath));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		g.drawImage(ply , (int) getX() , (int) getY(), null);
+		g.drawImage(sprite , (int) getX() , (int) getY(), null);
 
-		g.setColor(Color.DARK_GRAY);
-		g.drawRect((int) (getX() - 2), (int) (getY() - 2), (int) (getWidth() + 4), (int) (getHeight() + 4));
+//		g.setColor(Color.DARK_GRAY);
+//		g.drawRect((int) (getX() - 2), (int) (getY() - 2), (int) (getWidth() + 4), (int) (getHeight() + 4));
 	}
 
 	public void detection() {
 		
-		calculateDirection();
-		player = new Colision(getX(), getY(), 32, 32);
+		player = new Colision(getX(), getY(), getWidth(), getHeight());
 
 		for (Map.Entry<String, Character> item : DataBase.getCharInstances().entrySet()) {
 			String key = item.getKey();
@@ -131,7 +164,6 @@ public class Player extends Character {
 	
 			if (!(this == character)) {
 				if (player.isCollide(colChar)) {
-//					System.out.println("collide");
 					if(getLifePoint() > 1) {
 						setLifePoint(getLifePoint()-1);
 					}
@@ -141,32 +173,6 @@ public class Player extends Character {
 			}
 		}
 		checkTileMapCollision();
-	}
-
-	private void calculateDirection() {
-		if(getVelY() == -5) { //HAUT
-			if(getVelX() == -5) { // HAUT-GAUCHE
-				setDirection(3.5f);
-			}
-			else if(getVelY() == 5) { // HAUT-DROITE
-				setDirection(0.5f);
-			}
-			else {
-				setDirection(0);
-			}
-		}
-		else if(getVelY() == 5) { // BAS
-			if(getVelX() == -5) { // BAS-GAUCHEddzdd
-				setDirection(2.5f);
-			}
-			else if(getVelY() == 5) { // BAS-DROITE
-				setDirection(0.5f);
-			}
-			else {
-				setDirection(0);
-			}
-		}
-		
 	}
 	
 	public void calculateCorners(double x, double y) {

@@ -51,23 +51,23 @@ public class InputHandler implements KeyListener{
 			getAutoAttack().setPressed(pressed);
 		}
 
-		if(KeyIndentity == KeyEvent.VK_1) {
+		if(KeyIndentity == KeyEvent.VK_H) {
 			getSpell1().setPressed(pressed);
 		}
 
-		if(KeyIndentity == KeyEvent.VK_2) {
+		if(KeyIndentity == KeyEvent.VK_J) {
 			getSpell2().setPressed(pressed);
 		}
 
-		if(KeyIndentity == KeyEvent.VK_3) {
+		if(KeyIndentity == KeyEvent.VK_K) {
 			getSpell3().setPressed(pressed);
 		}
 
-		if(KeyIndentity == KeyEvent.VK_4) {
+		if(KeyIndentity == KeyEvent.VK_L) {
 			getSpell4().setPressed(pressed);
 		}
 
-		if(KeyIndentity == KeyEvent.VK_5) {
+		if(KeyIndentity == KeyEvent.VK_M) {
 			getSpell5().setPressed(pressed);
 		}
 		

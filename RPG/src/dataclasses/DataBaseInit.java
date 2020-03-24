@@ -32,7 +32,7 @@ public class DataBaseInit {
             spellFloatCSV[0] = Float.parseFloat(spellFields[9]);
             spellFloatCSV[1] = Float.parseFloat(spellFields[10]);
             Spell tmp = new Spell(spellFields[0], spellFields[1], spellFields[2], spellFields[3], spellIntCSV[0],
-                    spellIntCSV[1], spellIntCSV[2], spellIntCSV[3], spellIntCSV[4], spellFloatCSV[0], spellFloatCSV[1]);
+                    spellIntCSV[1], spellIntCSV[2], spellIntCSV[3], spellIntCSV[4], spellFloatCSV[0], spellFloatCSV[1],  spellFields[11]);
             DataBase.getSpells().put(tmp.getId(), tmp);
         }
 
@@ -114,7 +114,7 @@ public class DataBaseInit {
 				for (int i = 1; i <= 6; i++) {
 					String key = "sg" + i;
 					playerSpells[i - 1] = DataBase.getSpells().get(key);
-				}
+					}
 				break;
 
 			case "Archer":
@@ -136,7 +136,7 @@ public class DataBaseInit {
 					playerIntCSV[3], playerIntCSV[4], playerIntCSV[5], playerIntCSV[6], playerIntCSV[7],
 					playerIntCSV[8], playerIntCSV[9], playerIntCSV[10], playerIntCSV[11], playerIntCSV[12],
 					playerIntCSV[13], playerSpells[0], playerSpells[1], playerSpells[2], playerSpells[3],
-					playerSpells[4], playerSpells[5]);
+					playerSpells[4], playerSpells[5],playerFields[16]);
 
 			DataBase.getCharacters().put(tmp.getId(), tmp);
 
@@ -163,7 +163,7 @@ public class DataBaseInit {
 			Monster tmp = new Monster(monsterFields[0], monsterFields[1], monsterIntCSV[0], monsterIntCSV[1],
 					monsterIntCSV[2], monsterIntCSV[3], monsterIntCSV[4], monsterIntCSV[5], monsterIntCSV[6],
 					monsterIntCSV[7], monsterIntCSV[8], monsterIntCSV[9], monsterIntCSV[10], monsterIntCSV[11],
-					monsterIntCSV[12], monsterIntCSV[13], monsterIntCSV[14]);
+					monsterIntCSV[12], monsterIntCSV[13], monsterIntCSV[14],null);
 			DataBase.getCharacters().put(tmp.getId(), tmp);
 		}
 
