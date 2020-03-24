@@ -66,8 +66,8 @@ public class Game extends Canvas implements Runnable {
 //	private static final int HEIGHT = WIDTH / 12 * 9;
 
 	//dimension
-	public static final int WIDTH = 450;
-	public static final int HEIGHT = 1220;
+	public static final int WIDTH = 1600;
+	public static final int HEIGHT = 900;
 	public static final int SCALE = 2;
 	
 	private static final String NAME = "GAY RPG";

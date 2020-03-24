@@ -2,7 +2,6 @@ package GameState;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -16,16 +15,14 @@ import playable.PlayerChoice;
 
 public class InGameState implements GameState {
 	
-	private TileMap tileMap;
+	private static TileMap tileMap;
 	private HudTop bars ;
-	
-	public InGameState() {}
-	
+		
 	public void init() {
-		tileMap = new TileMap(30);
-		tileMap.loadTiles("/Tilesets/testtileset2.png");
-		tileMap.loadMap("/Maps/map2.map");
-		tileMap.setPosition(-400, -400);
+		tileMap = new TileMap();
+		tileMap.loadTiles("/Tilesets/testtileset4.png");
+		tileMap.loadMap("/Maps/underworld_sample.map");
+		tileMap.setPosition(0, 0);
 		bars = new HudTop() ;
 		System.out.println(tileMap.getX());
 	}
@@ -48,7 +45,7 @@ public class InGameState implements GameState {
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 		//DRAW TILE MAP
 		tileMap.draw(g);
-		bars.render(PlayerChoice.selected(), g);
+		
 		
 		Collection<GameObject> valsInstances = DataBase.getInstances().values();
 		Iterator<GameObject> itInstances = valsInstances.iterator();
@@ -57,9 +54,10 @@ public class InGameState implements GameState {
 			GameObject go = itInstances.next();
 			go.render(g);
 		}
+		bars.render(PlayerChoice.selected(), g);
 	}
 	
-	public TileMap getTileMap() {
+	public static TileMap getTileMap() {
 		return tileMap;
 	}
 

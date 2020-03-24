@@ -2,11 +2,13 @@ package dataclasses;
 
 import java.awt.Graphics;
 
+import TileMap.TileMap;
+
 public abstract class GameObject{
 
 	private String id;
 	private String spritePath;
-
+	
 	public GameObject(String id) {
 		this.id = id;
 	}

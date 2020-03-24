@@ -11,8 +11,8 @@ import javax.imageio.ImageIO;
 
 public class TileMap {	
 	//position
-	private double x = 0;
-	private double y = 0;
+	private static double x = 0;
+	private static double y = 0;
 	
 	//bounds
 	private int xmin = 0;
@@ -20,11 +20,11 @@ public class TileMap {
 	private int xmax = 600;
 	private int ymax = 600;
 	
-	private double tween;
+	private double tween = 0.07;
 	
 	//map
-	private int[][] rcMap;
-	private int tileSize;
+	private static int[][] rcMap;
+	private int tileSize = 30;
 	private int numRows;
 	private int numCols;
 	private int width;
@@ -32,25 +32,16 @@ public class TileMap {
 	
 	//tileset
 	private BufferedImage tileset;
-	private int numTilesAccross;
-	private Tile[][] tiles;
+	private static int numTilesAccross;
+	private static Tile[][] tiles;
 	
 	//drawing
 	private int rowOffset;
 	private int colOffset;
-	private int numRowsToDraw;
-	private int numColsToDraw;
-	
-	
-	public TileMap(int tileSize) {
-		this.tileSize = tileSize;
-		numRowsToDraw = Game.HEIGHT / tileSize + 2;
-		numColsToDraw = Game.WIDTH / tileSize + 2;
-		tween = 0.07;
-	}
+	private int numRowsToDraw = Game.HEIGHT / tileSize + 2;
+	private int numColsToDraw = Game.WIDTH / tileSize + 2;
 	
 	public void loadTiles(String s) {
-		
 		try {
 			tileset = ImageIO.read(getClass().getResourceAsStream(s));
 			numTilesAccross = tileset.getWidth() / tileSize;
@@ -94,7 +85,7 @@ public class TileMap {
 		}
 	}
 	
-	public int getType(int row, int col) {
+	public static int getType(int row, int col) {
 		int rc = rcMap[row][col];
 		int r = rc / numTilesAccross;
 		int c = rc % numTilesAccross;
@@ -105,7 +96,7 @@ public class TileMap {
 		this.x += ((x - this.x) * tween);
 		this.y += ((y - this.y) * tween);
 		
-		//fixBounds();
+		fixBounds();
 		
 		colOffset = (int) - this.x / tileSize;
 		rowOffset = (int) - this.y / tileSize;
@@ -146,11 +137,11 @@ public class TileMap {
 		return tileSize;
 	}
 	
-	public int getX() {
+	public static int getX() {
 		return (int) x;
 	}
 	
-	public int getY() {
+	public static int getY() {
 		return (int) y;
 	}
 	

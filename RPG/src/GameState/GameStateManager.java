@@ -57,6 +57,10 @@ public class GameStateManager {
 		return INGAMESTATE;
 	}
 
+	public static GameState getGameState() {
+		return gameStates.get(INGAMESTATE);
+	}
+	
 	public static void setCurrentState(int currentState) {
 		GameStateManager.currentState = currentState;
 	}
