@@ -2,9 +2,11 @@ package GameState;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.util.Collection;
 import java.util.Iterator;
 
+import HUD.inventory.inventoryButton;
 import HUD.top.HudTop;
 import InputControl.InputGame;
 import TileMap.*;

@@ -6,6 +6,9 @@ import GameState.GameStateManager;
 import GameState.InGameState;
 import GameState.MenuState;
 import HUD.inventory.HudInventory;
+import dataclasses.DataBase;
+import inventory.InventoryKey;
+import inventory.InventoryThread;
 import playable.Player;
 import playable.PlayerChoice;
 
@@ -86,7 +89,7 @@ public class InputGame {
 		if(GameStateManager.getCurrentState() != 1) {
 			if(getSpell1().isPressed()) {
 				inv.clickableZoneErase();
-				GameStateManager.setCurrentState(GameStateManager.INGAMESTATE);
+				GameStateManager.setState(GameStateManager.INGAMESTATE);
 			}
 		}
 	}

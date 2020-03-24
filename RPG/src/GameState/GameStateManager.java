@@ -20,7 +20,7 @@ public class GameStateManager {
 		
 		currentState = MENUSTATE;
 		gameStates.add(new MenuState());
-		gameStates.add(new InGameState());
+		gameStates.add(new InGameState(game));
 		gameStates.add(new InventoryState(game));
 	}
 	

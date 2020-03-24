@@ -23,11 +23,11 @@ public class InventoryState implements GameState{
 	@Override
 	public void tick() {
 		InputGame.other(inv);
+		inv.checking(PlayerChoice.selected());
 	}
 
 	@Override
 	public void render(Graphics2D g) {
-		inv.checking(PlayerChoice.selected(), g);
 		inv.render(PlayerChoice.selected(), g);	
 	}
 
