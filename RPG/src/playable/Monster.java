@@ -12,6 +12,10 @@ import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
 
+import GameState.GameStateManager;
+import GameState.InGameState;
+import TileMap.Tile;
+import TileMap.TileMap;
 import dataclasses.DataBase;
 import dataclasses.GameObject;
 import game.Colision;
@@ -39,6 +43,25 @@ public class Monster extends Character {
 	private boolean isBlocked = false;
 
 	private boolean alive = true;
+	
+	//COLLISION BOX
+	protected int cwidth = 10;
+	protected int cheight = 30;
+	
+	//COLLISION
+	protected int currRow;
+	protected int currCol;
+	protected double xdest;
+	protected double xtemp;
+	private double ydest;
+	protected double ytemp;
+	protected boolean topLeft;
+	protected boolean topRight;
+	protected boolean bottomRight;
+	protected boolean bottomLeft;
+	
+	private TileMap tileMap = InGameState.getTileMap();
+	private int tileSize = 30;
 
 	public Monster(String id, String type, int hp, int mp, int str, int dext, int intel, int def, int atk, int range,
 			int inventory, int level, int atkSpeed, int ctkChance, int dodgeChance, int lootChance, int lootPrice,String spritePath) {
@@ -158,13 +181,78 @@ public class Monster extends Character {
 				setVelY(0);
 			}
 		}
+		checkTileMapCollision();
 
+	}
+	
+	public void calculateCorners(double x, double y) {
+		int leftTile = (int) (x - cwidth / 2) / tileSize;
+		int rightTile = (int) (x + cwidth / 2) / tileSize;
+		int topTile = (int) (y - cheight / 2) / tileSize;
+		int bottomTile = (int) (y + cheight / 2) / tileSize;
+		
+		int tl = tileMap.getType(topTile, leftTile);
+		int tr = tileMap.getType(topTile, rightTile);
+		int bl = tileMap.getType(bottomTile, leftTile);
+		int br = tileMap.getType(bottomTile, rightTile);
+		
+		topLeft = tl == Tile.BLOCKED;
+		topRight = tr == Tile.BLOCKED;
+		bottomLeft = bl == Tile.BLOCKED;
+		bottomRight = br == Tile.BLOCKED;
+	}
+	
+	public void checkTileMapCollision() {
+		monster = new Colision((int) getX() + offSetX * 2, (int) getY() + offSetY * 2, (int) (getWidth()),
+				(int) (getHeight()));
+		currCol = (int) monster.getX() / tileSize;
+		currRow = (int) monster.getY() / tileSize;
+		
+		xdest = monster.getX() + getVelX();
+		ydest = monster.getY() + getVelY();
+		
+		xtemp = monster.getX();
+		ytemp = monster.getY();
+		
+		calculateCorners(monster.getX(), ydest);
+		
+		if(getVelY() < 0) {
+			if(topLeft || topRight) {
+				setVelY(0);
+				ytemp = currRow * tileSize + cheight / 2;
+			}
+			
+		}
+		
+		if(getVelY() > 0) {
+			if(bottomLeft || bottomRight) {
+				setVelY(0);
+				ytemp = (currRow + 1) * tileSize - cheight / 2;
+			}
+		}
+		
+		calculateCorners(xdest, player.getY());
+		
+		if(getVelX() < 0) {
+			if(topLeft || bottomLeft) {
+				setVelX(0);
+				xtemp = currCol * tileSize + cwidth / 2;
+			}
+		}
+		
+		if(getVelX() > 0) {
+			if(topRight || bottomRight) {
+				setVelX(0);
+				xtemp = (currCol + 1) * tileSize - cwidth / 2;
+			}
+		}
 	}
 
 	public void gotHit(int damage) {
 		if (getLifePoint() - damage > 0) {
 			setLifePoint(getLifePoint() - damage);
-			knockback();
+			//knockback();
+			//checkTileMapCollision();
 		} else {
 			alive = false;
 			DataBase.getToBeRemoved().add(getId());
