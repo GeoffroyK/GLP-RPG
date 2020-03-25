@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 
 import game.Game;
 import playable.PlayerChoice;
+import spell.Spell;
 
 public class ActionBar {
 	private Image background = null ;
@@ -27,9 +28,9 @@ public class ActionBar {
 		g.drawImage(background, Game.WIDTH/2 - 180 , Game.HEIGHT - 60, null) ;
 		for(int i = 0 ; i < PlayerChoice.selected().getSpells().length; i++) {
 			Image SpellSprite = null ;
-			
+			Spell tmp = PlayerChoice.selected().getSpells()[i];
 			try {
-				SpellSprite = ImageIO.read(new File("Ressources//HUD//InventoryHUD//Chestplate.png"));//PlayerChoice.selected().getSpritePath())) ;
+				SpellSprite = ImageIO.read(new File(tmp.getIconPath()));//PlayerChoice.selected().getSpritePath())) ;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -37,6 +38,15 @@ public class ActionBar {
 			g.drawImage(SpellSprite, x, Game.HEIGHT - 50, null);
 			x += 50 ;
 		}
+		Image SpellSprite = null ;
+		try {
+			SpellSprite = ImageIO.read(new File("Ressources\\HUD\\iconSpell\\life_potion.png"));//PlayerChoice.selected().getSpritePath())) ;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		g.drawImage(SpellSprite, x, Game.HEIGHT - 50, null);
+		
 	}
 
 }

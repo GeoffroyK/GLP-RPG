@@ -21,6 +21,8 @@ import spell.Spell;
 
 public class Player extends Character {
 			private int experience;
+			private int expMax;
+
 			private Spell[] spells;
 
 			private Colision player;
@@ -66,7 +68,7 @@ public class Player extends Character {
 		super.setHeight(28);
 
 //		PlayerTreatment.initSpells(this);
-
+		expMax = 100;
 	}
 
 	public String toString() {
@@ -81,6 +83,14 @@ public class Player extends Character {
 		return experience;
 	}
 
+	public int getExpMax() {
+		return expMax;
+	}
+
+	public void setExpMax(int expMax) {
+		this.expMax = expMax;
+	}
+	
 	public void setExperience(int experience) {
 		this.experience = experience;
 	}
@@ -94,6 +104,10 @@ public class Player extends Character {
 	}
 
 	public void tick() {
+		if(experience >= 100) {
+			experience = 0;
+			spells[2].setIconPath("Ressources\\HUD\\iconSpell\\tp.png");
+		}
 		detection();
 		this.setX(getX() + getVelX());
 		this.setY(getY() + getVelY());

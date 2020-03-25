@@ -32,7 +32,7 @@ public class DataBaseInit {
             spellFloatCSV[0] = Float.parseFloat(spellFields[9]);
             spellFloatCSV[1] = Float.parseFloat(spellFields[10]);
             Spell tmp = new Spell(spellFields[0], spellFields[1], spellFields[2], spellFields[3], spellIntCSV[0],
-                    spellIntCSV[1], spellIntCSV[2], spellIntCSV[3], spellIntCSV[4], spellFloatCSV[0], spellFloatCSV[1],  spellFields[11]);
+                    spellIntCSV[1], spellIntCSV[2], spellIntCSV[3], spellIntCSV[4], spellFloatCSV[0], spellFloatCSV[1],  spellFields[11], spellFields[12] );
             DataBase.getSpells().put(tmp.getId(), tmp);
         }
 

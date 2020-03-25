@@ -30,6 +30,8 @@ public class Spell extends GameObject {
 	private float lvlScaling;
 	private float statScaling;
 	
+	private String iconPath;
+	
 	private boolean launched = false;
 	private boolean buffed = false;
 	
@@ -51,7 +53,7 @@ public class Spell extends GameObject {
 	private Player ply;
 
 	public Spell(String id, String name, String effect, String type, int dmg, int mana, int range, int duration, int cd,
-			float lvlS, float statS, String spritePath) {
+			float lvlS, float statS, String spritePath,String iconPath) {
 		super(id,spritePath);
 		this.name = name;
 		this.effect = effect;
@@ -63,6 +65,7 @@ public class Spell extends GameObject {
 		cooldown = cd;
 		lvlScaling = lvlS;
 		statScaling = statS;
+		this.iconPath = iconPath;
 		
 
 	}
@@ -334,5 +337,14 @@ public class Spell extends GameObject {
 	public void setCooldown(int cooldown) {
 		this.cooldown = cooldown;
 	}
+	
+	public String getIconPath() {
+		return iconPath;
+	}
+
+	public void setIconPath(String iconPath) {
+		this.iconPath = iconPath;
+	}
+
 
 }

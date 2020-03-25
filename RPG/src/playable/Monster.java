@@ -89,24 +89,24 @@ public class Monster extends Character {
 			setWidth(32);
 			setHeight(32);
 
-			setDetectionWidth(70);
-			setDetectionHeight(70);
+			setDetectionWidth(200);
+			setDetectionHeight(200);
 			break;
 
 		case "Archer":
 			setWidth(20);
 			setHeight(20);
 
-			setDetectionWidth(70);
-			setDetectionHeight(70);
+			setDetectionWidth(200);
+			setDetectionHeight(200);
 			break;
 
 		case "Tank":
 			setWidth(20);
 			setHeight(20);
 
-			setDetectionWidth(200);
-			setDetectionHeight(200);
+			setDetectionWidth(300);
+			setDetectionHeight(300);
 			break;
 		}
 
@@ -115,7 +115,7 @@ public class Monster extends Character {
 	}
 
 	public void tick() {
-
+		checkTileMapCollision();
 		detection();
 
 		this.setX(getX() + getVelX());
@@ -186,10 +186,10 @@ public class Monster extends Character {
 	}
 	
 	public void calculateCorners(double x, double y) {
-		int leftTile = (int) (x - cwidth / 2) / tileSize;
-		int rightTile = (int) (x + cwidth / 2) / tileSize;
-		int topTile = (int) (y - cheight / 2) / tileSize;
-		int bottomTile = (int) (y + cheight / 2) / tileSize;
+		int leftTile = (int) (x) / tileSize;
+		int rightTile = (int) (x + cwidth) / tileSize;
+		int topTile = (int) (y) / tileSize;
+		int bottomTile = (int) (y + cheight) / tileSize;
 		
 		int tl = tileMap.getType(topTile, leftTile);
 		int tr = tileMap.getType(topTile, rightTile);
@@ -231,7 +231,7 @@ public class Monster extends Character {
 			}
 		}
 		
-		calculateCorners(xdest, player.getY());
+		calculateCorners(xdest, monster.getY());
 		
 		if(getVelX() < 0) {
 			if(topLeft || bottomLeft) {
@@ -255,6 +255,8 @@ public class Monster extends Character {
 			//checkTileMapCollision();
 		} else {
 			alive = false;
+			ply = PlayerChoice.selected();
+			ply.setExperience(ply.getExperience() + 10);
 			DataBase.getToBeRemoved().add(getId());
 			DataBase.getCharInstances().remove(getId());
 		}
@@ -366,8 +368,8 @@ public class Monster extends Character {
 				break;
 			}
 
-//			g.setColor(Color.DARK_GRAY);
-//			g.drawRect((int) (getX() + offSetX), (int) (getY() + offSetY), getWidth(), getHeight());
+			g.setColor(Color.DARK_GRAY);
+			g.drawRect((int) (getX() + offSetX), (int) (getY() + offSetY), getWidth(), getHeight());
 //
 //			g.setColor(Color.green);
 //			g.drawRect(getDetectionX(), getDetectionY(), getDetectionWidth(), getDetectionHeight()); // size/2 - width/2
