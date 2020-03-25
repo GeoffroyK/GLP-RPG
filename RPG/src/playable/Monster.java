@@ -368,8 +368,8 @@ public class Monster extends Character {
 				break;
 			}
 
-			g.setColor(Color.DARK_GRAY);
-			g.drawRect((int) (getX() + offSetX), (int) (getY() + offSetY), getWidth(), getHeight());
+//			g.setColor(Color.DARK_GRAY);
+//			g.drawRect((int) (getX() + offSetX), (int) (getY() + offSetY), getWidth(), getHeight());
 //
 //			g.setColor(Color.green);
 //			g.drawRect(getDetectionX(), getDetectionY(), getDetectionWidth(), getDetectionHeight()); // size/2 - width/2

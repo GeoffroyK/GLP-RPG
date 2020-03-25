@@ -4,7 +4,7 @@ ss2,FireBreath,Fire a cone of fire dealing aoe damage,Dmg,15,25,60,1,5,2,2,&,Res
 ss3,Teleportation,Teleports the player to a certain distance of 30pxÿ,Mvt,80,12,1,1,8,3,3,&,Ressources\HUD\iconSpell\lock.png
 ss4,MoreCrit,Gain +25% Crit,Crit,0,13,1,10,15,4,4,&,Ressources\HUD\iconSpell\lock.png
 ss5,ManaUp,Gain Mana but big cooldown,MP,50,0,1,1,30,5,5,&,Ressources\HUD\iconSpell\lock.png
-ss6,AutoAttack,Deals attack single,Dmg,15,0,80,1,0,6,6,Ressources\Sprite\Spells\fireBallBig,Ressources\HUD\iconSpell\auto_attack.png
+ss6,AutoAttack,Deals attack single,Dmg,15,0,80,1,0,6,6,Ressources\Sprite\Spells\fireBall,Ressources\HUD\iconSpell\auto_attack.png
 sg1,GroundSlam,Aoe Attack around the player. Deals 15*StatScaling*LvLScaling,Dmg,15,17,50,1,4,7,7,&,a
 sg2,Heal,Heals up to 10*LvlScaling*StatsScaling,HP,20,18,1,1,15,8,8,&,a
 sg3,Pierce,Strike Enemy with powerful hitÿ: 20*StatScaling*LvLScaling,Dmg,30,19,60,1,5,9,9,&,a
