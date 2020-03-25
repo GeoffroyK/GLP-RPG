@@ -27,7 +27,6 @@ public class Player extends Character {
 
 			private Colision player;
 			private TileMap tileMap = InGameState.getTileMap();
-			private GameStateManager gsm;
 			private int tileSize = 30;
 						
 			//COLLISION BOX
@@ -246,15 +245,6 @@ public class Player extends Character {
 				xtemp = (currCol + 1) * tileSize - cwidth / 2;
 			}
 		}
-	}
-	
-	
-	public GameStateManager getGsm() {
-		return gsm;
-	}
-
-	public void setGsm(GameStateManager gsm) {
-		this.gsm = gsm;
 	}
 	
 }
