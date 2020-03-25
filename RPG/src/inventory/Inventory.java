@@ -26,7 +26,7 @@ public class Inventory {
 		weapon = null ;
 		this.size = size ;
 		this.sizeMax = sizeMax ;
-		gold = 0 ;
+		gold = 1 ;
 	}
 
 	public int getGold() {
