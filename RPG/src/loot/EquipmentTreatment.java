@@ -18,7 +18,9 @@ public class EquipmentTreatment {
 	
 	public static void unquip(Equipment e, Player p) {
 		p.setLifePointMax(p.getLifePointMax() - e.getHpMax());
+		p.setLifePoint(p.getLifePointMax());
 		p.setManaPointMax(p.getManaPointMax() - e.getMpMax());
+		p.setManaPoint(p.getManaPointMax());
 		p.setDefense(p.getDefense() - e.getArmor());
 		p.setDodgeChance(p.getDodgeChance() - e.getDodge());
 		p.setStrength(p.getStrength() - e.getStrengh());

@@ -14,13 +14,14 @@ public class GameStateManager {
 	public static final int MENUSTATE = 0;
 	public static final int INGAMESTATE = 1;
 	public static final int INVENTORYSTATE = 2 ;
+	public static final int SELECTIONSTATE = 3 ;
 	
 	public GameStateManager(Game game) {
 		gameStates = new ArrayList<GameState>();
 		
 		currentState = MENUSTATE;
 		gameStates.add(new MenuState());
-		gameStates.add(new InGameState());
+		gameStates.add(new InGameState(game));
 		gameStates.add(new InventoryState(game));
 	}
 	
@@ -57,6 +58,10 @@ public class GameStateManager {
 		return INGAMESTATE;
 	}
 
+	public static GameState getGameState() {
+		return gameStates.get(INGAMESTATE);
+	}
+	
 	public static void setCurrentState(int currentState) {
 		GameStateManager.currentState = currentState;
 	}

@@ -43,6 +43,7 @@ import playable.Monster;
 import playable.Move;
 import playable.Player;
 import playable.PlayerChoice;
+import spell.SpellTreatment;
 import playable.Character;
 import dataclasses.DataBase;
 import inventory.InventoryKey;
@@ -65,11 +66,11 @@ public class Game extends Canvas implements Runnable {
 //	private static final int WIDTH = 900;
 //	private static final int HEIGHT = WIDTH / 12 * 9;
 
-	//dimension
-	public static final int WIDTH = 320;
-	public static final int HEIGHT = 240;
-	public static final int SCALE = 2;
-	
+	//dimension	
+	public static final int WIDTH = 1600;
+	public static final int HEIGHT = 900;
+	public static int SCALE = 1;
+
 	private static final String NAME = "GAY RPG";
 
 	public boolean running = false;
@@ -170,6 +171,7 @@ public class Game extends Canvas implements Runnable {
 			}
 
 			if (System.currentTimeMillis() - lastTimer >= 1000) {
+				SpellTreatment.spellTimer();
 				lastTimer += 1000;
 				System.out.println(ticks + " ticks / " + frames + " frames");
 				frames = 0;

@@ -12,6 +12,10 @@ import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
 
+import GameState.GameStateManager;
+import GameState.InGameState;
+import TileMap.Tile;
+import TileMap.TileMap;
 import dataclasses.DataBase;
 import dataclasses.GameObject;
 import game.Colision;
@@ -38,14 +42,44 @@ public class Monster extends Character {
 
 	private boolean isBlocked = false;
 
-	public Monster(String id, String type, int hp, int mp, int str, int dext, int intel, int def, int atk, int range,
-			int inventory, int level, int atkSpeed, int ctkChance, int dodgeChance, int lootChance, int lootPrice) {
+	private boolean alive = true;
+	
+	//COLLISION BOX
+	protected int cwidth = 10;
+	protected int cheight = 30;
+	
+	//COLLISION
+	protected int currRow;
+	protected int currCol;
+	protected double xdest;
+	protected double xtemp;
+	private double ydest;
+	protected double ytemp;
+	protected boolean topLeft;
+	protected boolean topRight;
+	protected boolean bottomRight;
+	protected boolean bottomLeft;
+	
+	private TileMap tileMap = InGameState.getTileMap();
+	private int tileSize = 30;
 
-		super(id, type, hp, mp, str, dext, intel, def, atk, range, inventory, level, atkSpeed, ctkChance, dodgeChance);
+	public Monster(String id, String type, int hp, int mp, int str, int dext, int intel, int def, int atk, int range,
+			int inventory, int level, int atkSpeed, int ctkChance, int dodgeChance, int lootChance, int lootPrice,String spritePath) {
+
+		super(id, type, hp, mp, str, dext, intel, def, atk, range, inventory, level, atkSpeed, ctkChance, dodgeChance,spritePath);
 		this.lootChance = lootChance;
 		this.lootPrice = lootPrice;
 
 		// defineArea();
+	}
+
+	public Monster(Monster monster) {
+		super(monster.getId(), monster.getType(), monster.getLifePoint(), monster.getManaPoint(), monster.getStrength(),
+				monster.getDexterity(), monster.getIntelligence(), monster.getDefense(), monster.getAttack(),
+				monster.getRange(), monster.getInventoryStatus(), monster.getLevel(), monster.getAttackSpeed(),
+				monster.getCriticalChance(), monster.getDodgeChance(), monster.getSpritePath());
+		this.lootChance = monster.lootChance;
+		this.lootPrice = monster.lootPrice;
 	}
 
 	public void defineArea() {
@@ -55,24 +89,24 @@ public class Monster extends Character {
 			setWidth(32);
 			setHeight(32);
 
-			setDetectionWidth(70);
-			setDetectionHeight(70);
+			setDetectionWidth(200);
+			setDetectionHeight(200);
 			break;
 
 		case "Archer":
 			setWidth(20);
 			setHeight(20);
 
-			setDetectionWidth(70);
-			setDetectionHeight(70);
+			setDetectionWidth(200);
+			setDetectionHeight(200);
 			break;
 
 		case "Tank":
 			setWidth(20);
 			setHeight(20);
 
-			setDetectionWidth(200);
-			setDetectionHeight(200);
+			setDetectionWidth(300);
+			setDetectionHeight(300);
 			break;
 		}
 
@@ -81,7 +115,7 @@ public class Monster extends Character {
 	}
 
 	public void tick() {
-
+		checkTileMapCollision();
 		detection();
 
 		this.setX(getX() + getVelX());
@@ -111,74 +145,165 @@ public class Monster extends Character {
 		ply = PlayerChoice.selected();
 		player = new Colision((int) ply.getX(), (int) ply.getY(), ply.getWidth(), ply.getHeight());
 		monsterVision = new Colision(getDetectionX(), getDetectionY(), getDetectionWidth(), getDetectionHeight()); // size/2
-																													// //
-																													// -
-																													// width/2
+																													// -width/2
 
-		if (monsterVision.isCollide(player)) {
-			calculateOffSet();
-			monster = new Colision((int) getX() + offSetX * 2, (int) getY() + offSetY * 2,(int) (getWidth()), (int) (getHeight()));
-			for (Map.Entry<String, Character> item : DataBase.getCharInstances().entrySet()) {
-				String key = item.getKey();
-				Character character = item.getValue();
+		if (alive) {
+			if (monsterVision.isCollide(player)) {
+				calculateOffSet();
+				monster = new Colision((int) getX() + offSetX * 2, (int) getY() + offSetY * 2, (int) (getWidth()),
+						(int) (getHeight()));
+				for (Map.Entry<String, Character> item : DataBase.getCharInstances().entrySet()) {
+					String key = item.getKey();
+					Character character = item.getValue();
 
-				Colision colChar = new Colision((int) character.getX(),
-						(int) character.getY(), character.getWidth(), character.getHeight());
-				if (!(this == character)) {
-//					System.out.println(character.getType());
-					if (monster.isCollide(colChar)) {
-						isBlocked = true;
-						break;
+					Colision colChar = new Colision((int) character.getX(), (int) character.getY(),
+							character.getWidth(), character.getHeight());
+					if (!(this == character)) {
+						if (monster.isCollide(colChar)) {
+							isBlocked = true;
+							break;
+						}
 					}
 				}
-			}
 
-			if (!isBlocked) {
-				move();
+				if (!isBlocked) {
+					move();
+				} else {
+					isBlocked = false;
+					setVelX(0);
+					setVelY(0);
+				}
 			} else {
 				isBlocked = false;
+				setOffSetX(0);
+				setOffSetY(0);
 				setVelX(0);
 				setVelY(0);
 			}
+		}
+		checkTileMapCollision();
+
+	}
+	
+	public void calculateCorners(double x, double y) {
+		int leftTile = (int) (x) / tileSize;
+		int rightTile = (int) (x + cwidth) / tileSize;
+		int topTile = (int) (y) / tileSize;
+		int bottomTile = (int) (y + cheight) / tileSize;
+		
+		int tl = tileMap.getType(topTile, leftTile);
+		int tr = tileMap.getType(topTile, rightTile);
+		int bl = tileMap.getType(bottomTile, leftTile);
+		int br = tileMap.getType(bottomTile, rightTile);
+		
+		topLeft = tl == Tile.BLOCKED;
+		topRight = tr == Tile.BLOCKED;
+		bottomLeft = bl == Tile.BLOCKED;
+		bottomRight = br == Tile.BLOCKED;
+	}
+	
+	public void checkTileMapCollision() {
+		monster = new Colision((int) getX() + offSetX * 2, (int) getY() + offSetY * 2, (int) (getWidth()),
+				(int) (getHeight()));
+		currCol = (int) monster.getX() / tileSize;
+		currRow = (int) monster.getY() / tileSize;
+		
+		xdest = monster.getX() + getVelX();
+		ydest = monster.getY() + getVelY();
+		
+		xtemp = monster.getX();
+		ytemp = monster.getY();
+		
+		calculateCorners(monster.getX(), ydest);
+		
+		if(getVelY() < 0) {
+			if(topLeft || topRight) {
+				setVelY(0);
+				ytemp = currRow * tileSize + cheight / 2;
+			}
+			
+		}
+		
+		if(getVelY() > 0) {
+			if(bottomLeft || bottomRight) {
+				setVelY(0);
+				ytemp = (currRow + 1) * tileSize - cheight / 2;
+			}
+		}
+		
+		calculateCorners(xdest, monster.getY());
+		
+		if(getVelX() < 0) {
+			if(topLeft || bottomLeft) {
+				setVelX(0);
+				xtemp = currCol * tileSize + cwidth / 2;
+			}
+		}
+		
+		if(getVelX() > 0) {
+			if(topRight || bottomRight) {
+				setVelX(0);
+				xtemp = (currCol + 1) * tileSize - cwidth / 2;
+			}
+		}
+	}
+
+	public void gotHit(int damage) {
+		if (getLifePoint() - damage > 0) {
+			setLifePoint(getLifePoint() - damage);
+			//knockback();
+			//checkTileMapCollision();
 		} else {
-			isBlocked = false;
-			setOffSetX(0);
-			setOffSetY(0);
-			setVelX(0);
-			setVelY(0);
+			alive = false;
+			ply = PlayerChoice.selected();
+			ply.setExperience(ply.getExperience() + 10);
+			DataBase.getToBeRemoved().add(getId());
+			DataBase.getCharInstances().remove(getId());
 		}
 
-//		defineArea();
-//		ply = PlayerChoice.selected();
-//
-//		player = new Colision(ply.getX(), ply.getY(), 32, 32);
-//		monster = new Colision((int) getX(),(int) getY(), getWidth(), getHeight());
-//		monsterVision = new Colision(getDetectionX(),getDetectionY(), getDetectionWidth(), getDetectionHeight()); // size/2 - width/2
-//		
-//		if(monsterVision.isCollide(player)) {
-//			if(!monster.isCollide(player)) {
-//				move();
-//			}
-//			else {
-//				setVelX(0);
-//				setVelY(0);
-//			}
-//		}
-//		else {
-//			setVelX(0);
-//			setVelY(0);
-//		}
+	}
 
-//		monster = new Colision(getX()-84,getY()-84,200);
-//		if(monster.mobDetectionCircle(player)) {
-//			System.out.println("detected");
-////			move();
-//		}
-//		else {
-//			setVelX(0);
-//			setVelY(0);
-//		}
+	public void knockback() {
+		ply = PlayerChoice.selected();
+		int direction = ply.getDirection();
+		switch (direction) {
 
+		case 0: // NORD
+			setY(getY()-20);
+			break;
+
+		case 1: // OUEST
+			setX(getX()-20);
+			break;
+
+		case 2: // EST
+			setX(getX()+20);
+			break;
+
+		case 3: // SUD
+			setY(getY()+20);
+			break;
+
+		case 10: // NORD/OUEST
+			setX(getY()-20);
+			setY(getY()-20);
+			break;
+
+		case 20: // NORD/EST
+			setX(getY()+20);
+			setY(getY()-20);
+			break;
+
+		case 31: // SUD/OUEST
+			setX(getY()-20);
+			setY(getY()+20);
+			break;
+
+		case 32: // SUD/EST
+			setX(getX()+20);
+			setY(getY()+20);
+			break;
+		}
 	}
 
 	public void setPly(Player ply) {
@@ -210,55 +335,46 @@ public class Monster extends Character {
 	}
 
 	public void render(Graphics g) {
-		Image ply = null;
-		switch (getType()) {
+		if (alive) {
+			Image ply = null;
+			switch (getType()) {
 
-		case "Guerrier":
-			//g.setColor(Color.red);
+			case "Guerrier":
 
-			try {
-				ply = ImageIO.read(new File("Ressources//HUD//SpriteCharacter//Warrior.png"));
-			} catch (IOException e) {
-				e.printStackTrace();
+				try {
+					ply = ImageIO.read(new File("Ressources//HUD//SpriteCharacter//Warrior.png"));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				g.drawImage(ply, (int) getX(), (int) getY(), null);
+				break;
+
+			case "Archer":
+				try {
+					ply = ImageIO.read(new File("Ressources//HUD//SpriteCharacter//Warrior.png"));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				g.drawImage(ply, (int) getX(), (int) getY(), null);
+				break;
+
+			case "Tank":
+				try {
+					ply = ImageIO.read(new File("Ressources//HUD//SpriteCharacter//slimu2.png"));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				g.drawImage(ply, (int) getX(), (int) getY(), null);
+				break;
 			}
-			g.drawImage(ply , (int) getX() , (int) getY(), null);
-			break;
 
-		case "Archer":
-			//g.setColor(Color.yellow);
-			try {
-				ply = ImageIO.read(new File("Ressources//HUD//SpriteCharacter//Warrior.png"));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			g.drawImage(ply , (int) getX() , (int) getY(), null);
-			break;
+//			g.setColor(Color.DARK_GRAY);
+//			g.drawRect((int) (getX() + offSetX), (int) (getY() + offSetY), getWidth(), getHeight());
+//
+//			g.setColor(Color.green);
+//			g.drawRect(getDetectionX(), getDetectionY(), getDetectionWidth(), getDetectionHeight()); // size/2 - width/2
 
-		case "Tank":
-			//g.setColor(Color.black);
-			try {
-				ply = ImageIO.read(new File("Ressources//HUD//SpriteCharacter//slimu2.png"));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			g.drawImage(ply , (int) getX() , (int) getY(), null);
-			break;
 		}
-		//g.fillRect((int) getX(), (int) getY(), getWidth(), getHeight());
-		
-
-
-		
-
-		g.setColor(Color.DARK_GRAY);
-		g.drawRect((int) (getX() + offSetX), (int) (getY() + offSetY), getWidth(), getHeight());
-
-		g.setColor(Color.green);
-		g.drawRect(getDetectionX(), getDetectionY(), getDetectionWidth(), getDetectionHeight()); // size/2 - width/2
-
-//		g.setColor(Color.green);
-//		g.drawOval((int) getX() - 85,(int) getY() - 85, 200, 200);
-
 	}
 
 	public int getDetectionX() {

@@ -78,6 +78,7 @@ public class InputData {
 	public static Key getSpell5() {
 		return spell5;
 	}
+	
 
 	public static Key getUp() {
 		return up;

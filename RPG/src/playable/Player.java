@@ -10,24 +10,48 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import GameState.GameStateManager;
+import GameState.InGameState;
+import HUD.top.HudTop;
+import TileMap.Tile;
+import TileMap.TileMap;
 import dataclasses.DataBase;
 import game.Colision;
 import game.Game;
 import spell.Spell;
 
 public class Player extends Character {
-	private int experience;
-	private Spell[] spells;
+			private int experience;
+			private int expMax;
 
-	private Colision player;
+			private Spell[] spells;
+
+			private Colision player;
+			private TileMap tileMap = InGameState.getTileMap();
+			private int tileSize = 30;
+						
+			//COLLISION BOX
+			protected int cwidth = 20;
+			protected int cheight = 28;
+			
+			//COLLISION
+			protected int currRow;
+			protected int currCol;
+			protected double xdest;
+			protected double xtemp;
+			private double ydest;
+			protected double ytemp;
+			protected boolean topLeft;
+			protected boolean topRight;
+			protected boolean bottomRight;
+			protected boolean bottomLeft;
+			
 	
-	private GameStateManager gsm;
 
 	public Player(String id, String type, int hp, int mp, int str, int dext, int intel, int def, int atk, int range,
 			int inventory, int level, int atkSpeed, int ctkChance, int dodgeChance, int exp, Spell spell1, Spell spell2,
-			Spell spell3, Spell spell4, Spell spell5, Spell spell6) {
+			Spell spell3, Spell spell4, Spell spell5, Spell spell6, String spritePath) {
 
-		super(id, type, hp, mp, str, dext, intel, def, atk, range, inventory, level, atkSpeed, ctkChance, dodgeChance);
+		super(id, type, hp, mp, str, dext, intel, def, atk, range, inventory, level, atkSpeed, ctkChance, dodgeChance,spritePath);
 		experience = exp;
 		spells = new Spell[6];
 		spells[0] = spell1;
@@ -38,12 +62,12 @@ public class Player extends Character {
 		spells[5] = spell6;
 		super.setX(200);
 		super.setY(200);
-		super.setDirection(0);
-		super.setWidth(10);
-		super.setHeight(20);
+		super.setDirection(3);
+		super.setWidth(20);
+		super.setHeight(28);
 
 //		PlayerTreatment.initSpells(this);
-
+		expMax = 100;
 	}
 
 	public String toString() {
@@ -58,6 +82,14 @@ public class Player extends Character {
 		return experience;
 	}
 
+	public int getExpMax() {
+		return expMax;
+	}
+
+	public void setExpMax(int expMax) {
+		this.expMax = expMax;
+	}
+	
 	public void setExperience(int experience) {
 		this.experience = experience;
 	}
@@ -71,32 +103,69 @@ public class Player extends Character {
 	}
 
 	public void tick() {
+		if(experience >= 100) {
+			experience = 0;
+			spells[2].setIconPath("Ressources\\HUD\\iconSpell\\tp.png");
+		}
 		detection();
 		this.setX(getX() + getVelX());
 		this.setY(getY() + getVelY());
 
 	}
 
+	
 	public void render(Graphics g) {
-//		g.setColor(Color.blue);
-//		g.fillRect((int) getX(), (int) getY(), getWidth(), getHeight());
-		
-		Image ply = null;
+		Image sprite = null;
+		String spritePath = null;
+		switch (getDirection()) {
+
+		case 0: // NORD
+			spritePath = getSpritePath()+"N.png";
+			break;
+
+		case 1: // OUEST
+			spritePath = getSpritePath()+"O.png";
+			break;
+
+		case 2: // EST
+			spritePath = getSpritePath()+"E.png";
+			break;
+
+		case 3: // SUD
+			spritePath = getSpritePath()+"S.png";
+			break;
+			
+		case 10: // NORD/OUEST
+			spritePath = getSpritePath()+"NO.png";
+			break;
+
+		case 20: // NORD/EST
+			spritePath = getSpritePath()+"NE.png";
+			break;
+
+		case 31: // SUD/OUEST
+			spritePath = getSpritePath()+"SO.png";
+			break;
+
+		case 32: // SUD/EST
+			spritePath = getSpritePath()+"SE.png";
+			break;
+
+		}
+		//System.out.println(spritePath);
 		try {
-			ply = ImageIO.read(new File("Ressources//HUD//SpriteCharacter//New_Piskel.png"));
+			sprite = ImageIO.read(new File(spritePath));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		g.drawImage(ply , (int) getX() , (int) getY(), null);
-
+		g.drawImage(sprite , (int) getX() , (int) getY(), null);
 		g.setColor(Color.DARK_GRAY);
-		g.drawRect((int) (getX() - 2), (int) (getY() - 2), (int) (getWidth() + 4), (int) (getHeight() + 4));
+		g.drawRect((int) (getX()), (int) (getY()), (int) (getWidth()), (int) (getHeight()));
 	}
 
 	public void detection() {
 		
-		calculateDirection();
-		player = new Colision(getX(), getY(), 32, 32);
+		player = new Colision(getX(), getY(), getWidth(), getHeight());
 
 		for (Map.Entry<String, Character> item : DataBase.getCharInstances().entrySet()) {
 			String key = item.getKey();
@@ -104,52 +173,78 @@ public class Player extends Character {
 
 			Colision colChar = new Colision((int) (character.getX()), (int) (character.getY()),
 					character.getWidth(), character.getHeight());
+	
 			if (!(this == character)) {
 				if (player.isCollide(colChar)) {
-//					System.out.println("collide");
 					if(getLifePoint() > 1) {
 						setLifePoint(getLifePoint()-1);
 					}
-					
 //					setVelX(0);
 //					setVelY(0);
 				}
 			}
 		}
+		checkTileMapCollision();
 	}
-
-	private void calculateDirection() {
-		if(getVelY() == -5) { //HAUT
-			if(getVelX() == -5) { // HAUT-GAUCHE
-				setDirection(3.5f);
-			}
-			else if(getVelY() == 5) { // HAUT-DROITE
-				setDirection(0.5f);
-			}
-			else {
-				setDirection(0);
-			}
-		}
-		else if(getVelY() == 5) { // BAS
-			if(getVelX() == -5) { // BAS-GAUCHEddzdd
-				setDirection(2.5f);
-			}
-			else if(getVelY() == 5) { // BAS-DROITE
-				setDirection(0.5f);
-			}
-			else {
-				setDirection(0);
+	
+	public void calculateCorners(double x, double y) {
+		int leftTile = (int) x / tileSize;
+		int rightTile = (int) (x + cwidth )/ tileSize;
+		int topTile = (int) y / tileSize;
+		int bottomTile = (int) (y + cheight) / tileSize;
+		
+		int tl = tileMap.getType(topTile, leftTile);
+		int tr = tileMap.getType(topTile, rightTile);
+		int bl = tileMap.getType(bottomTile, leftTile);
+		int br = tileMap.getType(bottomTile, rightTile);
+		
+		topLeft = tl == Tile.BLOCKED;
+		topRight = tr == Tile.BLOCKED;
+		bottomLeft = bl == Tile.BLOCKED;
+		bottomRight = br == Tile.BLOCKED;
+	}
+	
+	public void checkTileMapCollision() {
+		currCol = (int) getX() / tileSize;
+		currRow = (int) getY() / tileSize;
+		
+		xdest = getX() + getVelX();
+		ydest = getY() + getVelY();
+		
+		xtemp = getX();
+		ytemp = getY();
+		
+		calculateCorners(getX(), ydest);
+		
+		if(getVelY() < 0) {
+			if(topLeft || topRight) {
+				setVelY(0);
+				ytemp = currRow * tileSize + cheight / 2;
 			}
 		}
 		
+		if(getVelY() > 0) {
+			if(bottomLeft || bottomRight) {
+				setVelY(0);
+				ytemp = (currRow + 1) * tileSize - cheight / 2;
+			}
+		}
+		
+		calculateCorners(xdest, getY());
+		
+		if(getVelX() < 0) {
+			if(topLeft || bottomLeft) {
+				setVelX(0);
+				xtemp = currCol * tileSize + cwidth / 2;
+			}
+		}
+		
+		if(getVelX() > 0) {
+			if(topRight || bottomRight) {
+				setVelX(0);
+				xtemp = (currCol + 1) * tileSize - cwidth / 2;
+			}
+		}
 	}
 	
-	public GameStateManager getGsm() {
-		return gsm;
-	}
-
-	public void setGsm(GameStateManager gsm) {
-		this.gsm = gsm;
-	}
-
 }

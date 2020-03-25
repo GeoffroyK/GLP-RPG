@@ -6,6 +6,8 @@ import java.awt.event.KeyEvent;
 import java.util.Collection;
 import java.util.Iterator;
 
+import HUD.* ;
+import HUD.inventory.inventoryButton;
 import HUD.top.HudTop;
 import InputControl.InputGame;
 import TileMap.*;
@@ -16,29 +18,41 @@ import playable.PlayerChoice;
 
 public class InGameState implements GameState {
 	
-	private TileMap tileMap;
+	private static TileMap tileMap;
 	private HudTop bars ;
+	private inventoryButton b ;
+	private ActionBar a ;
 	
-	public InGameState() {}
+	public InGameState(Game game) {
+		b = new inventoryButton(game);
+		bars = new HudTop() ;
+		a = new ActionBar() ;
+	}
 	
 	public void init() {
-		tileMap = new TileMap(30);
-		tileMap.loadTiles("/Tilesets/testtileset2.png");
-		tileMap.loadMap("/Maps/map2.map");
+		tileMap = new TileMap() ;
+		tileMap.loadTiles("/Tilesets/testtileset5.png");
+		tileMap.loadMap("/Maps/point_avancement.map");
+		//tileMap.loadMap("/Maps/debug.map");
 		tileMap.setPosition(-400, -400);
-		bars = new HudTop() ;
+		b.clickableAreaCreation();
 		System.out.println(tileMap.getX());
-	
 	}
+	
 	public void tick() {
 		InputGame.move();
+		InputGame.spells();
 		Collection<GameObject> valsInstances = DataBase.getInstances().values();
 		Iterator<GameObject> itInstances = valsInstances.iterator();
 		while (itInstances.hasNext()) {
 			GameObject go = itInstances.next();
-
+			if(DataBase.getToBeRemoved().contains(go.getId())) {
+				itInstances.remove();
+				DataBase.getToBeRemoved().remove(go.getId());
+			}
 			go.tick();
 		}
+		b.checking();
 	}
 	
 	public void render(Graphics2D g) {
@@ -48,7 +62,9 @@ public class InGameState implements GameState {
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 		//DRAW TILE MAP
 		tileMap.draw(g);
-		
+		bars.render(PlayerChoice.selected(), g);
+		b.render(g);
+		a.render(g) ;
 		
 		Collection<GameObject> valsInstances = DataBase.getInstances().values();
 		Iterator<GameObject> itInstances = valsInstances.iterator();
@@ -57,10 +73,9 @@ public class InGameState implements GameState {
 			GameObject go = itInstances.next();
 			go.render(g);
 		}
-		bars.render(PlayerChoice.selected(), g);
 	}
 	
-	public TileMap getTileMap() {
+	public static TileMap getTileMap() {
 		return tileMap;
 	}
 

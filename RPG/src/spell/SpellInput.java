@@ -41,26 +41,26 @@ public class SpellInput /* extends inputAdapter */ {
 	}
 
 	public void isUsable(int number) {
-		Spell spell = ply.getSpells()[number];
-		System.out.println("NAME : " + spell.getName());
-		if (ply.getManaPoint() > spell.getManaUsage()) {
-			if (cooldown[number] == 0) {
-				SpellTreatment.spellUsed(spell, ply, map);
-				int manaConsumed = ply.getManaPoint() - spell.getManaUsage();
-				ply.setManaPoint(manaConsumed);
-				System.out.println("ManaUsage : " + spell.getManaUsage() + " / ManaLeft : " + ply.getManaPoint());
-				cooldown[number] = spell.getCooldown();
-			} else {
-				for(int i = 0; i<6; i++) {
-					if(cooldown[i] > 0) {
-						cooldown[i]--;
-					}
-				}
-				System.out.println("WAIT COOLDOWN : " + cooldown[number] + " sec left");
-			}
-		} else {
-			System.out.println("PAS ASSEZ DE MANA \nManaUsage : " + spell.getManaUsage() + " / Mana actuel : " + ply.getManaPoint());
-		}
+//		Spell spell = ply.getSpells()[number];
+//		System.out.println("NAME : " + spell.getName());
+//		if (ply.getManaPoint() > spell.getManaUsage()) {
+//			if (cooldown[number] == 0) {
+//				SpellTreatment.spellUsed(spell, ply, map);
+//				int manaConsumed = ply.getManaPoint() - spell.getManaUsage();
+//				ply.setManaPoint(manaConsumed);
+//				System.out.println("ManaUsage : " + spell.getManaUsage() + " / ManaLeft : " + ply.getManaPoint());
+//				cooldown[number] = spell.getCooldown();
+//			} else {
+//				for(int i = 0; i<6; i++) {
+//					if(cooldown[i] > 0) {
+//						cooldown[i]--;
+//					}
+//				}
+//				System.out.println("WAIT COOLDOWN : " + cooldown[number] + " sec left");
+//			}
+//		} else {
+//			System.out.println("PAS ASSEZ DE MANA \nManaUsage : " + spell.getManaUsage() + " / Mana actuel : " + ply.getManaPoint());
+//		}
 
 	}
 

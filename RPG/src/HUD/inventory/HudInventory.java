@@ -7,6 +7,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.AreaAveragingScaleFilter;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,12 +17,14 @@ import java.util.Iterator;
 
 import javax.imageio.ImageIO;
 
+import GameState.GameStateManager;
 import dataclasses.DataBase;
 import game.Game;
 import inventory.InventoryKey;
 import inventory.InventoryThread;
 import loot.Loot;
 import playable.Player;
+import playable.PlayerChoice;
 
 public class HudInventory implements MouseListener{
 	
@@ -29,6 +32,7 @@ public class HudInventory implements MouseListener{
 	
 	private ArrayList<Rectangle> clickableArea ;
 	private ArrayList<Rectangle> ActionArea ;
+	private Rectangle echap ;
 	private Rectangle selected = null ;
 	
 	private Point click ;
@@ -48,30 +52,32 @@ public class HudInventory implements MouseListener{
 	
 	public void clickableActionAreaCreation() {
 		ActionArea = new ArrayList<Rectangle>() ;
-		Rectangle equip = new Rectangle(12, 362, 102, 32);
-		Rectangle throwAway = new Rectangle(128, 362, 102, 32);
-		Rectangle detail = new Rectangle(243, 362, 102, 32);
+		Rectangle equip = new Rectangle(Game.WIDTH/2 - 238, Game.HEIGHT/2 + 112, 102, 32);
+		Rectangle throwAway = new Rectangle(Game.WIDTH/2 - 122, Game.HEIGHT/2 + 112, 102, 32);
+		Rectangle detail = new Rectangle(Game.WIDTH/2 - 7, Game.HEIGHT/2 + 112, 102, 32);
+		echap = new Rectangle(Game.WIDTH/2 + 220, Game.HEIGHT/2 - 250, 30, 13);
 		ActionArea.add(equip);
 		ActionArea.add(throwAway);
 		ActionArea.add(detail);
+		ActionArea.add(echap);
 		System.out.println(ActionArea.indexOf(equip));
 	}
 	
 	public void clickableLootAreaCreation(Player hero) {
-		int x = 21 ;
-		int y = 69 ;
+		int x = Game.WIDTH/2 - 229 ;
+		int y = Game.HEIGHT/2 - 181 ;
 		
 		selected = null ;
 		
 		clickableArea = new ArrayList<Rectangle>() ;
 		for(Loot l : hero.getInventory().getDrops()) {
-			Rectangle rDs = new Rectangle(x, y, 19, 19) ;
+			Rectangle rDs = new Rectangle(x, y, 39, 39) ;
 			clickableArea.add(rDs);
 			
-			x += 40 ;
-			if(x > 330) {
-				x = 0 ;
-				y += 26 ;
+			x += 60 ;
+			if(x > Game.WIDTH/2 + 80) {
+				x = Game.WIDTH/2 - 229 ;
+				y += 56 ;
 			}
 		}
 	}
@@ -79,14 +85,19 @@ public class HudInventory implements MouseListener{
 	public void clickableZoneErase() {
 		clickableArea.clear();
 		ActionArea.clear();
+		echap = null; 
 	}
 	
 	public void render(Player hero, Graphics g) {
-			int x = 21 ;
-			int y = 69 ;
+			int x = Game.WIDTH/2 - 229 ;
+			int y = Game.HEIGHT/2 - 181 ;
 
-	
-			g.drawImage(background, 0, 0, null) ;
+			g.setColor(Color.BLACK);
+			//g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+			g.drawImage(background, Game.WIDTH/2 -250, Game.HEIGHT/2 - 250, null) ;
+			
+			g.setColor(Color.WHITE);
+			g.drawString(Integer.toString(PlayerChoice.selected().getInventory().getGold()), Game.WIDTH/2 + 180, Game.HEIGHT/2 + 132);
 		
 			for(Loot l : hero.getInventory().getDrops()) {
 				Image lootSprite = null ;
@@ -96,12 +107,12 @@ public class HudInventory implements MouseListener{
 				} catch (IOException e) {}
 				
 				g.drawImage(lootSprite, x, y, null) ;
-				g.drawString("x" + Integer.toString(l.getItemCounter()), x+20, y+20);
+				g.drawString("x" + Integer.toString(l.getItemCounter()), x+40, y+40);
 				
-				x += 40 ;
-				if(x > 330) {
-					x = 21 ;
-					y += 26 ;
+				x += 60 ;
+				if(x > Game.WIDTH/2 + 230) {
+					x = Game.WIDTH/2 - 229 ;
+					y += 56 ;
 				}
 			}
 			
@@ -110,7 +121,6 @@ public class HudInventory implements MouseListener{
 				g.drawRect(selected.x, selected.y, selected.width, selected.height);
 			}
 			
-		
 	}
 	
 	public void selection(Player hero, Point e, Rectangle w, int index) {
@@ -131,13 +141,23 @@ public class HudInventory implements MouseListener{
 		}
 	}
 	
-	public void checking(Player hero, Graphics g) {
+	public void echap() {
+		clickableZoneErase();
+		GameStateManager.setState(GameStateManager.INGAMESTATE);
+		searchState = 0 ;
+		
+	}
+	
+	public void checking(Player hero) {
 		if(searchState == 1) {
 			for(Rectangle w : clickableArea) {
 				selection(hero, click, w, clickableArea.indexOf(w)) ;
 			}
 			for(Rectangle a : ActionArea) {
 				action(hero, click, a, ActionArea.indexOf(a));
+			}
+			if(echap.contains(click)) {
+				echap() ;
 			}
 		}
 		searchState = 0 ;

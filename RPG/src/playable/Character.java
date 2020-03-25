@@ -14,7 +14,8 @@ public abstract class Character extends GameObject {
 	private float VelX;
 	private float VelY;
 	// 0=north, 1=west, 2=east, 3=south
-	private float direction;
+	// 10 = NW, 20 = NE, 32 = SE, 31 = SW
+	private int direction;
 	
 	private int width;
 	private int height;
@@ -40,9 +41,9 @@ public abstract class Character extends GameObject {
 	private Inventory inventory ;
 	
 	public Character(String id, String type, int hp, int mp, int str, int dext, int intel, int def, int atk, int range,
-			int inventory, int level, int atkSpeed, int ctkChance, int dodgeChance) {
+			int inventory, int level, int atkSpeed, int ctkChance, int dodgeChance,String spritePath) {
 
-		super(id);
+		super(id,spritePath);
 		lifePointMax = hp ;
 		lifePoint = lifePointMax ;
 		manaPointMax = mp;
@@ -240,7 +241,7 @@ public abstract class Character extends GameObject {
 		this.y = y;
 	}
 	
-	public void setDirection(float direction) {
+	public void setDirection(int direction) {
 		this.direction = direction;
 	}
 	
@@ -252,7 +253,7 @@ public abstract class Character extends GameObject {
 		return y;
 	}
 	
-	public float getDirection() {
+	public int getDirection() {
 		return direction;
 	}
 
