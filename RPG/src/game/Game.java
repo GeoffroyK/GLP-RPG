@@ -100,8 +100,8 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void init() {
-		input = new InputHandler(this);
 		db = new DataBase();
+		input = new InputHandler(this);
 		gsm = new GameStateManager(this);
 		
 		image = new BufferedImage (WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);

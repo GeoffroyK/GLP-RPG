@@ -106,6 +106,7 @@ public class Spell extends GameObject {
 	}
 
 	public void render(Graphics g) {
+		
 		if(launched) {
 			Image sprite = null;
 			String spritePath = null;;
