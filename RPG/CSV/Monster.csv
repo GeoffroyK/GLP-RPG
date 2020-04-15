@@ -2,3 +2,4 @@ ID,Class,HP,MP,STR,DXT,INT,DEF,ATK,Range,Inventory,LVL,atkSpeed,CTKChance,DodgeC
 mg1,Guerrier,100,0,0,0,0,30,40,10,0,1,2,0,0,60,50
 ma2,Archer,60,0,0,0,0,20,20,60,0,1,2,0,0,50,40
 mt3,Tank,150,0,0,0,0,40,30,10,0,1,2,0,0,80,70
+mb1,Boss,500,0,0,0,0,80,50,40,0,1,2,0,0,0,0

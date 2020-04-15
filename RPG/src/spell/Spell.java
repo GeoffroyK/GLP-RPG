@@ -87,6 +87,8 @@ public class Spell extends GameObject {
 		setX(ply.getX() + (ply.getWidth() / 2));
 		setY(ply.getY() + (ply.getHeight() / 2));
 		
+		
+		
 		xMaxPos = x + range;
 		xMaxNeg = x - range;
 		
@@ -97,9 +99,43 @@ public class Spell extends GameObject {
 		
 		direction = ply.getDirection();
 	}
+	
+	public Spell(Spell spell, Monster monster) {
+		super(spell.getId(),spell.getSpritePath());
+		ply = PlayerChoice.selected();
+		this.name = spell.name;
+		this.effect = spell.effect;
+		this.type = spell.type;
+		damage = spell.damage;
+		manaUsage = spell.manaUsage;
+		this.range = spell.range;
+		this.duration = spell.duration;
+		cooldown = spell.cooldown;
+		lvlScaling = spell.lvlScaling;
+		statScaling = spell.statScaling;
+		
+		setX(monster.getX() + (monster.getWidth() / 2));
+		setY(monster.getY() + (monster.getHeight() / 2));
+		
+		
+		xMaxPos = x + range;
+		xMaxNeg = x - range;
+		
+		yMaxPos = y + range;
+		yMaxNeg = y - range;
+		
+		launched = true;
+		
+		direction = 3;
+	}
 
 	public void tick() {
-		mobDetection();
+		if(name.equals("SpellMonster")) {
+			playerDetection();
+		}
+		else {
+			mobDetection();
+		}
 		isOutRange();
 		this.setX(getX() + getVelX());
 		this.setY(getY() + getVelY());
@@ -152,8 +188,8 @@ public class Spell extends GameObject {
 			}
 			
 			g.drawImage(sprite , (int) getX() , (int) getY(), null);
-//			g.setColor(Color.DARK_GRAY);
-//			g.drawRect((int) getX(), (int) getY(), (int) getWidth(), (int)getHeight());
+			//g.setColor(Color.DARK_GRAY);
+			//g.drawRect((int) getX(), (int) getY(), (int) getWidth(), (int)getHeight());
 		}
 		else if(buffed) {
 			
@@ -194,6 +230,26 @@ public class Spell extends GameObject {
 		}
 		
 	}
+	
+	private void playerDetection() {
+			
+			Colision spell = new Colision(getX(), getY(), getWidth(), getHeight());
+			
+			ply = PlayerChoice.selected();
+			Colision colChar = new Colision((int) (ply.getX()), (int) (ply.getY()),
+					ply.getWidth(), ply.getHeight());
+			
+			if (spell.isCollide(colChar)) {
+				System.out.println("hit");
+				launched = false;
+				setVelX(0);
+				setVelY(0);
+				
+				ply.gotHit(getDamage());
+				DataBase.getToBeRemoved().add(getId());
+			}
+			
+		}
 
 	public String toString() {
 		return "-----------------------------------------------\n" + super.toString() + "\nname = " + name

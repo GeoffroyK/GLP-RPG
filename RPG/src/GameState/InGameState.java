@@ -42,6 +42,15 @@ public class InGameState implements GameState {
 	public void tick() {
 		InputGame.move();
 		InputGame.spells();
+		
+		Iterator<GameObject> itToBeAdded = DataBase.getToBeAdded().iterator();
+		while (itToBeAdded.hasNext()) {
+			GameObject go = itToBeAdded.next();
+			DataBase.getInstances().put(go.getId(),go);
+		}
+		DataBase.getToBeAdded().clear();
+		
+		
 		Collection<GameObject> valsInstances = DataBase.getInstances().values();
 		Iterator<GameObject> itInstances = valsInstances.iterator();
 		while (itInstances.hasNext()) {

@@ -5,11 +5,11 @@ ss3,Teleportation,Teleports the player to a certain distance of 30pxÿ,Mvt,80,12,
 ss4,MoreCrit,Gain +25% Crit,Crit,0,13,1,10,15,4,4,null,Ressources\HUD\iconSpell\lock.png
 ss5,ManaUp,Gain Mana but big cooldown,MP,50,0,1,1,30,5,5,null,Ressources\HUD\iconSpell\lock.png
 ss6,AutoAttack,Deals attack single,Dmg,15,0,80,1,0,6,6,Ressources\Sprite\Spells\fireBall,Ressources\HUD\iconSpell\auto_attack.png
-sg1,GroundSlam,Aoe Attack around the player. Deals 15*StatScaling*LvLScaling,Dmg,15,17,1,1,4,7,7,Ressources\Sprite\Spells\sword,Ressources\HUD\iconSpell\lock.png
+sg1,GroundSlam,Aoe Attack around the player. Deals 15*StatScaling*LvLScaling,Dmg,15,17,20,1,4,7,7,Ressources\Sprite\Spells\sword,Ressources\HUD\iconSpell\lock.png
 sg2,Heal,Heals up to 10*LvlScaling*StatsScaling,HP,20,18,1,1,15,8,8,null,Ressources\HUD\iconSpell\lock.png
 sg3,Pierce,Strike Enemy with powerful hitÿ: 20*StatScaling*LvLScaling,Dmg,30,19,20,1,5,9,9,Ressources\Sprite\Spells\sword,Ressources\HUD\iconSpell\lock.png
 sg4,Rage,Damage buff the player +20dmg*StatScaling*LvlScaling for 5 sec,Rage,10,20,1,10,20,10,10,null,Ressources\HUD\iconSpell\lock.png
-sg5,DoubleStrike,Attack 10 times the ennemy in front of you,Dmg,12,21,1,1,10,11,11,Ressources\Sprite\Spells\sword,Ressources\HUD\iconSpell\lock.png
+sg5,DoubleStrike,Attack 10 times the ennemy in front of you,Dmg,12,21,10,1,10,11,11,Ressources\Sprite\Spells\sword,Ressources\HUD\iconSpell\lock.png
 sg6,AutoAttack,Deals attack single,Dmg,15,0,1,1,0,12,12,Ressources\Sprite\Spells\sword,Ressources\HUD\iconSpell\lock.png
 sa1,MultiShot,10*Scaling*LvlScaling,Dmg,15,23,120,1,3,13,13,Ressources\Sprite\Spells\arrow,Ressources\HUD\iconSpell\lock.png
 sa2,FrostArrow,10*Scaling*LvlScaling,Dmg,30,24,130,1,4,14,14,Ressources\Sprite\Spells\frostArrow,Ressources\HUD\iconSpell\lock.png
@@ -17,3 +17,4 @@ sa3,SpeedUp,+5Vpx,Spd,20,25,1,10,15,15,15,null,Ressources\HUD\iconSpell\lock.png
 sa4,DodgeUp,Gain +10 % Dodge chance,Dodge,10,26,1,10,20,16,16,null,Ressources\HUD\iconSpell\lock.png
 sa5,FireArrow,Fires a single arrow that deals a lot of damage,Dmg,35,27,150,1,5,17,17,Ressources\Sprite\Spells\fireArrow,Ressources\HUD\iconSpell\lock.png
 sa6,AutoAttack,Deals attack single,Dmg,15,0,100,1,0,18,18,Ressources\Sprite\Spells\arrow,Ressources\HUD\iconSpell\lock.png
+sm1,SpellMonster,monsters attack,Dmg,10,0,200,1,0,1,1,Ressources\Sprite\Spells\fireBall,null

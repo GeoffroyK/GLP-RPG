@@ -179,8 +179,6 @@ public class Player extends Character {
 					if(getLifePoint() > 1) {
 						setLifePoint(getLifePoint()-1);
 					}
-//					setVelX(0);
-//					setVelY(0);
 				}
 			}
 		}
@@ -247,4 +245,17 @@ public class Player extends Character {
 		}
 	}
 	
+	
+	public void gotHit(int damage) {
+		setLifePoint(getLifePoint() - damage);
+//		if (getLifePoint() - damage > 0) {
+//			setLifePoint(getLifePoint() - damage);
+//		} else {
+//			death();
+//		}
+	}
+	
+	public void death() {
+		
+	}
 }

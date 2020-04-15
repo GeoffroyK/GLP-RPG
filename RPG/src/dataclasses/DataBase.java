@@ -41,6 +41,7 @@ public class DataBase extends Canvas {
 	private static HashMap<String, Character> charInstances;
 	
 	private static ArrayList<String> toBeRemoved;
+	private static ArrayList<GameObject> toBeAdded;
 
 	private Scanner sc;
 
@@ -57,7 +58,7 @@ public class DataBase extends Canvas {
 		instances = new HashMap<String, GameObject>();
 		charInstances = new HashMap<String, Character>();
 		toBeRemoved = new ArrayList<String>();
-
+		toBeAdded = new ArrayList<GameObject>();
 		try {
 			DataBaseInit.loadCsvSpell(csvGameObjectPaths[2]);
 			DataBaseInit.loadCsvPlayer(csvGameObjectPaths[5]);
@@ -79,7 +80,7 @@ public class DataBase extends Canvas {
 
 	private void initGame() {
 
-		PlayerChoice.chooseClassPlayer("u");
+		PlayerChoice.chooseClassPlayer("t");
 		
 		Monster ronflex = new Monster((Monster)(Monster) characters.get("ma2"));
 		ronflex.setId(ronflex.getId() + "#001");
@@ -178,6 +179,13 @@ public class DataBase extends Canvas {
 		guerrier.setY(500);
 		guerrier.setDirection(0);
 		guerrier.defineArea();
+		
+		Monster boss = new Monster((Monster) characters.get("mb1"));
+		boss.setId(boss.getId() + "#014");
+		boss.setX(1300);
+		boss.setY(500);
+		boss.setDirection(0);
+		boss.defineArea();
 
 		Prop coffre = new Prop("id", "coffre", 1, "null");
 		coffre.setX(5);
@@ -199,6 +207,7 @@ public class DataBase extends Canvas {
 		instances.put(monstre6.getId(),monstre6);
 		instances.put(monstre7.getId(),monstre7);
 		instances.put(guerrier.getId(),guerrier);
+		instances.put(boss.getId(),boss);
 		
 		charInstances.put(ronflex.getId(),ronflex);
 		charInstances.put(ronflex2.getId(),ronflex2);
@@ -214,6 +223,7 @@ public class DataBase extends Canvas {
 		charInstances.put(monstre6.getId(),monstre6);
 		charInstances.put(monstre7.getId(),monstre7);
 		charInstances.put(guerrier.getId(),guerrier);
+		charInstances.put(boss.getId(),boss);
 		
 //		sc = new Scanner(System.in);
 //		System.out.println("CHOOSE CLASS OF CHARACTER : 't' = WARRIOR / 'y' = ARCHER / 'u' = MAGE\n OR EXIT = 'e'");
@@ -309,5 +319,13 @@ public class DataBase extends Canvas {
 
 	public static void setToBeRemoved(ArrayList<String> toBeRemoved) {
 		DataBase.toBeRemoved = toBeRemoved;
+	}
+	
+	public static ArrayList<GameObject> getToBeAdded() {
+		return toBeAdded;
+	}
+
+	public static void setToBeAdded(ArrayList<GameObject> toBeAdded) {
+		DataBase.toBeAdded = toBeAdded;
 	}
 }
