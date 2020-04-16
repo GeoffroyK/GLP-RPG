@@ -36,7 +36,7 @@ public class InGameState implements GameState {
 		//tileMap.loadMap("/Maps/debug.map");
 		tileMap.setPosition(-400, -400);
 		b.clickableAreaCreation();
-		System.out.println(tileMap.getX());
+		//System.out.println(tileMap.getX());
 	}
 	
 	public void tick() {

@@ -182,8 +182,8 @@ public class DataBase extends Canvas {
 		
 		Monster boss = new Monster((Monster) characters.get("mb1"));
 		boss.setId(boss.getId() + "#014");
-		boss.setX(1300);
-		boss.setY(500);
+		boss.setX(900);
+		boss.setY(400);
 		boss.setDirection(0);
 		boss.defineArea();
 

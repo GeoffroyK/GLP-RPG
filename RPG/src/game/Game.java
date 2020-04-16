@@ -153,6 +153,19 @@ public class Game extends Canvas implements Runnable {
 
 			if (System.currentTimeMillis() - lastTimer >= 1000) {
 				SpellTreatment.spellTimer();
+				p = PlayerChoice.selected();
+				if(p.getLifePoint()+1 >= p.getLifePointMax()) {
+					p.setLifePoint(p.getLifePointMax());
+				}
+				else {
+					p.setLifePoint(p.getLifePoint()+1);
+				}
+				if(p.getManaPoint()+1 >= p.getManaPointMax()) {
+					p.setManaPoint(p.getManaPointMax());
+				}
+				else {
+					p.setManaPoint(p.getManaPoint()+1);
+				}
 				lastTimer += 1000;
 				System.out.println(ticks + " ticks / " + frames + " frames");
 				frames = 0;

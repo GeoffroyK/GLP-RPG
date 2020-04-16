@@ -28,11 +28,11 @@ public class Monster extends Character {
 	private int lootPrice;
 
 	private Player ply;
-	
+
 	private Spell[] circleBossAttacks = new Spell[8];
 	private int cptAttack = 1;
-	
-	
+	private int cptMvt = 1;
+
 	private Spell attackMonster;
 	private boolean attackable = false;
 	private Random rand;
@@ -54,12 +54,8 @@ public class Monster extends Character {
 	private boolean isBlocked = false;
 
 	private boolean alive = true;
-	
-	//COLLISION BOX
-	protected int cwidth = 10;
-	protected int cheight = 30;
-	
-	//COLLISION
+
+	// COLLISION
 	protected int currRow;
 	protected int currCol;
 	protected double xdest;
@@ -70,21 +66,24 @@ public class Monster extends Character {
 	protected boolean topRight;
 	protected boolean bottomRight;
 	protected boolean bottomLeft;
-	
+
 	private TileMap tileMap = InGameState.getTileMap();
 	private int tileSize = 30;
+	
+	private Image[] img;
+	private int iRender = 0;
 
 	public Monster(String id, String type, int hp, int mp, int str, int dext, int intel, int def, int atk, int range,
-			int inventory, int level, int atkSpeed, int ctkChance, int dodgeChance, int lootChance, int lootPrice,String spritePath) {
+			int inventory, int level, int atkSpeed, int ctkChance, int dodgeChance, int lootChance, int lootPrice,
+			String spritePath) {
 
-		super(id, type, hp, mp, str, dext, intel, def, atk, range, inventory, level, atkSpeed, ctkChance, dodgeChance,spritePath);
+		super(id, type, hp, mp, str, dext, intel, def, atk, range, inventory, level, atkSpeed, ctkChance, dodgeChance,
+				spritePath);
 		this.lootChance = lootChance;
 		this.lootPrice = lootPrice;
 
 		init();
 	}
-
-
 
 	public Monster(Monster monster) {
 		super(monster.getId(), monster.getType(), monster.getLifePoint(), monster.getManaPoint(), monster.getStrength(),
@@ -100,7 +99,9 @@ public class Monster extends Character {
 	private void init() {
 		attackMonster = DataBase.getSpells().get("sm1");
 		rand = new Random();
+		img = new Image[21];
 	}
+
 	public void defineArea() {
 		switch (getType()) {
 
@@ -115,7 +116,6 @@ public class Monster extends Character {
 		case "Archer":
 			setWidth(20);
 			setHeight(20);
-
 			setDetectionWidth(200);
 			setDetectionHeight(200);
 			break;
@@ -127,10 +127,10 @@ public class Monster extends Character {
 			setDetectionWidth(300);
 			setDetectionHeight(300);
 			break;
-			
+
 		case "Boss":
-			setWidth(100);
-			setHeight(100);
+			setWidth(200);
+			setHeight(200);
 
 			setDetectionWidth(500);
 			setDetectionHeight(500);
@@ -142,156 +142,168 @@ public class Monster extends Character {
 	}
 
 	public void tick() {
-		checkTileMapCollision();
-		if(getType().equals("Boss")) {					
+		if (getType().equals("Boss")) {
 			bossActions();
 
-		}
-		else {
+		} else {
 			detection();
 		}
-
+		checkTileMapCollision();
 		this.setX(getX() + getVelX());
 		this.setY(getY() + getVelY());
 	}
 
-	private void randomMvt() {
-		
-		int n = rand.nextInt(8);
-
-			switch (n) {
-
-			case 0: // NORD
-				setVelY(-5);
-				setVelX(0);
-				break;
-
-			case 1: // OUEST
-				setVelX(-5);
-				setVelY(0);
-				break;
-
-			case 2: // EST
-				setVelX(5);
-				setVelY(0);
-				break;
-
-			case 3: // SUD
-				setVelY(5);
-				setVelX(0);
-				break;
-				
-			case 4: // NORD/OUEST
-				setVelY(-5);
-				setVelX(-5);
-				break;
-
-			case 5: // NORD/EST
-				setVelY(-5);
-				setVelX(5);
-				break;
-
-			case 6: // SUD/OUEST
-				setVelY(5);
-				setVelX(-5);
-				break;
-
-			case 7: // SUD/EST
-				setVelY(5);
-				setVelX(5);
-				break;
-			}
-			checkTileMapCollision();	
-		
-	}
-	
 	private void bossActions() {
-		if (System.currentTimeMillis() - lastTimer >= 500) {
+		defineArea();
+		if (System.currentTimeMillis() - lastTimer >= 100) {
 			bossNormalAttacks();
-			
-			if((cptAttack % 2) != 0) {
+
+			if ((cptAttack % 10) != 0) {
 				cptAttack++;
 			} else {
 				bossFollowAttack();
 				cptAttack = 1;
 			}
+
+			if ((cptMvt % 30) != 0) {
+				cptMvt++;
+			} else {
+				randomMvt();
+				move();
+				cptMvt = 1;
+			}
+			
 			lastTimer = System.currentTimeMillis();
 		}
+
 	}
-	
+
+	private void randomMvt() {
+		int n = rand.nextInt(8);
+		switch (n) {
+
+		case 0: // NORD
+			offSetX = 0;
+			offSetY = -1;
+			break;
+
+		case 1: // OUEST
+			offSetX = -1;
+			offSetY = 0;
+			break;
+
+		case 2: // EST
+			offSetX = 1;
+			offSetY = 0;
+			break;
+
+		case 3: // SUD
+			offSetX = 0;
+			offSetY = 1;
+			break;
+
+		case 4: // NORD/OUEST
+			offSetX = -1;
+			offSetY = -1;
+			break;
+
+		case 5: // NORD/EST
+			offSetX = 1;
+			offSetY = -1;
+			break;
+
+		case 6: // SUD/OUEST
+			offSetX = -1;
+			offSetY = 1;
+			break;
+
+		case 7: // SUD/EST
+			offSetX = 1;
+			offSetY = 1;
+			break;
+		}
+
+	}
+
 	public void bossNormalAttacks() {
 		int cptId = 1;
-		for(int i = 0; i<8; i++) {
+		for (int i = 0; i < 8; i++) {
 
 			Spell tmpAttack = new Spell(attackMonster, this); // Create copy of Spell => new instance
-			
-			while(DataBase.getInstances().get(tmpAttack.getId() + "#" + cptId) != null) {
+
+			while (DataBase.getInstances().get(tmpAttack.getId() + "#" + cptId) != null) {
 				cptId++;
 			}
-			tmpAttack.setId(tmpAttack.getId() + "#" + cptId);	
-			System.out.println(cptId);
+			tmpAttack.setId(tmpAttack.getId() + "#" + cptId);
 			switch (i) {
 
 			case 0: // NORD
-				tmpAttack.setVelY(-5);
+				tmpAttack.setVelY(-2);
 				tmpAttack.setVelX(0);
+
 				break;
 
 			case 1: // OUEST
-				tmpAttack.setVelX(-5);
+				tmpAttack.setVelX(-2);
 				tmpAttack.setVelY(0);
+
 				break;
 
 			case 2: // EST
-				tmpAttack.setVelX(5);
+				tmpAttack.setVelX(2);
 				tmpAttack.setVelY(0);
+
 				break;
 
 			case 3: // SUD
-				tmpAttack.setVelY(5);
+				tmpAttack.setVelY(2);
 				tmpAttack.setVelX(0);
+
 				break;
-				
+
 			case 4: // NORD/OUEST
-				tmpAttack.setVelY(-5);
-				tmpAttack.setVelX(-5);
+				tmpAttack.setVelY(-2);
+				tmpAttack.setVelX(-2);
+
 				break;
 
 			case 5: // NORD/EST
-				tmpAttack.setVelY(-5);
-				tmpAttack.setVelX(5);
+				tmpAttack.setVelY(-2);
+				tmpAttack.setVelX(2);
+
 				break;
 
 			case 6: // SUD/OUEST
-				tmpAttack.setVelY(5);
-				tmpAttack.setVelX(-5);
+				tmpAttack.setVelY(2);
+				tmpAttack.setVelX(-2);
+
 				break;
 
 			case 7: // SUD/EST
-				tmpAttack.setVelY(5);
-				tmpAttack.setVelX(5);
+				tmpAttack.setVelY(2);
+				tmpAttack.setVelX(2);
+
 				break;
 			}
-			System.out.println("Adding " + tmpAttack.getId());
 			DataBase.getToBeAdded().add(tmpAttack);
 			cptId++;
 		}
-	
+
 	}
-	
+
 	public void bossFollowAttack() {
-			int cpt2 = 1;
-			
-			Spell tmpAttack = new Spell(attackMonster, this); // Create copy of Spell => new instance
-			
-			while(DataBase.getInstances().get(tmpAttack.getId() + "#" + cpt2) != null) {
-				cpt2++;
-			}
-			calculateOffSet();
-			tmpAttack.setId(tmpAttack.getId() + "#" + cpt2);	
-			tmpAttack.setVelX(5*offSetX);
-			tmpAttack.setVelY(5*offSetY);
-			DataBase.getToBeAdded().add(tmpAttack);
+		int cpt2 = 1;
+
+		Spell tmpAttack = new Spell(attackMonster, this); // Create copy of Spell => new instance
+
+		while (DataBase.getInstances().get(tmpAttack.getId() + "#" + cpt2) != null) {
+			cpt2++;
+		}
+		calculateOffSet();
+		tmpAttack.setId(tmpAttack.getId() + "#" + cpt2);
+		tmpAttack.setVelX(5 * offSetX);
+		tmpAttack.setVelY(5 * offSetY);
+		DataBase.getToBeAdded().add(tmpAttack);
 	}
 
 	public void calculateOffSet() {
@@ -325,7 +337,7 @@ public class Monster extends Character {
 				attacking();
 				monster = new Colision((int) getX() + offSetX * 2, (int) getY() + offSetY * 2, (int) (getWidth()),
 						(int) (getHeight()));
-				
+
 				for (Map.Entry<String, Character> item : DataBase.getCharInstances().entrySet()) {
 					String key = item.getKey();
 					Character character = item.getValue();
@@ -359,87 +371,86 @@ public class Monster extends Character {
 		checkTileMapCollision();
 
 	}
-	
+
 	public void attacking() {
 		if (System.currentTimeMillis() - lastTimer >= 1000) {
 			int cpt = 1;
-			
+
 			Spell tmpAttack = new Spell(attackMonster, this); // Create copy of Spell => new instance
-			
-			while(DataBase.getInstances().get(tmpAttack.getId() + "#" + cpt) != null) {
+
+			while (DataBase.getInstances().get(tmpAttack.getId() + "#" + cpt) != null) {
 				cpt++;
 			}
-			
-			tmpAttack.setId(tmpAttack.getId() + "#" + cpt);	
-			tmpAttack.setVelX(5*offSetX);
-			tmpAttack.setVelY(5*offSetY);
+
+			tmpAttack.setId(tmpAttack.getId() + "#" + cpt);
+			tmpAttack.setVelX(2 * offSetX);
+			tmpAttack.setVelY(2 * offSetY);
 			DataBase.getToBeAdded().add(tmpAttack);
 
-			
 			lastTimer = System.currentTimeMillis();
 		}
-		
+
 	}
 
 	public void calculateCorners(double x, double y) {
 		int leftTile = (int) (x) / tileSize;
-		int rightTile = (int) (x + cwidth) / tileSize;
+		int rightTile = (int) (x + getWidth()) / tileSize;
 		int topTile = (int) (y) / tileSize;
-		int bottomTile = (int) (y + cheight) / tileSize;
-		
+		int bottomTile = (int) (y + getHeight()) / tileSize;
+
 		int tl = tileMap.getType(topTile, leftTile);
 		int tr = tileMap.getType(topTile, rightTile);
 		int bl = tileMap.getType(bottomTile, leftTile);
 		int br = tileMap.getType(bottomTile, rightTile);
-		
+
 		topLeft = tl == Tile.BLOCKED;
 		topRight = tr == Tile.BLOCKED;
 		bottomLeft = bl == Tile.BLOCKED;
 		bottomRight = br == Tile.BLOCKED;
 	}
-	
+
 	public void checkTileMapCollision() {
 		monster = new Colision((int) getX() + offSetX * 2, (int) getY() + offSetY * 2, (int) (getWidth()),
 				(int) (getHeight()));
 		currCol = (int) monster.getX() / tileSize;
 		currRow = (int) monster.getY() / tileSize;
-		
+
 		xdest = monster.getX() + getVelX();
 		ydest = monster.getY() + getVelY();
-		
+
 		xtemp = monster.getX();
 		ytemp = monster.getY();
-		
+
 		calculateCorners(monster.getX(), ydest);
-		
-		if(getVelY() < 0) {
-			if(topLeft || topRight) {
+
+		if (getVelY() < 0) {
+			if (topLeft || topRight) {
 				setVelY(0);
-				ytemp = currRow * tileSize + cheight / 2;
+				ytemp = currRow * tileSize + getHeight() / 2;
 			}
-			
+
 		}
-		
-		if(getVelY() > 0) {
-			if(bottomLeft || bottomRight) {
+
+		if (getVelY() > 0) {
+			if (bottomLeft || bottomRight) {
 				setVelY(0);
-				ytemp = (currRow + 1) * tileSize - cheight / 2;
+				ytemp = (currRow + 1) * tileSize - getHeight() / 2;
 			}
 		}
-		
+
 		calculateCorners(xdest, monster.getY());
-		
-		if(getVelX() < 0) {
-			if(topLeft || bottomLeft) {
+
+		if (getVelX() < 0) {
+			if (topLeft || bottomLeft) {
 				setVelX(0);
-				xtemp = currCol * tileSize + cwidth / 2;
+				xtemp = currCol * tileSize + getWidth() / 2;
 			}
 		}
-		
-		if(getVelX() > 0) {
-			if(topRight || bottomRight) {
+
+		if (getVelX() > 0) {
+			if (topRight || bottomRight) {
 				setVelX(0);
-				xtemp = (currCol + 1) * tileSize - cwidth / 2;
+				xtemp = (currCol + 1) * tileSize - getWidth() / 2;
 			}
 		}
 	}
@@ -463,39 +474,39 @@ public class Monster extends Character {
 		switch (direction) {
 
 		case 0: // NORD
-			setY(getY()-20);
+			setY(getY() - 20);
 			break;
 
 		case 1: // OUEST
-			setX(getX()-20);
+			setX(getX() - 20);
 			break;
 
 		case 2: // EST
-			setX(getX()+20);
+			setX(getX() + 20);
 			break;
 
 		case 3: // SUD
-			setY(getY()+20);
+			setY(getY() + 20);
 			break;
 
 		case 10: // NORD/OUEST
-			setX(getY()-20);
-			setY(getY()-20);
+			setX(getY() - 20);
+			setY(getY() - 20);
 			break;
 
 		case 20: // NORD/EST
-			setX(getY()+20);
-			setY(getY()-20);
+			setX(getY() + 20);
+			setY(getY() - 20);
 			break;
 
 		case 31: // SUD/OUEST
-			setX(getY()-20);
-			setY(getY()+20);
+			setX(getY() - 20);
+			setY(getY() + 20);
 			break;
 
 		case 32: // SUD/EST
-			setX(getX()+20);
-			setY(getY()+20);
+			setX(getX() + 20);
+			setY(getY() + 20);
 			break;
 		}
 	}
@@ -532,10 +543,26 @@ public class Monster extends Character {
 				}
 				g.drawImage(ply, (int) getX(), (int) getY(), null);
 				break;
+			case "Boss":
+				String key;
+					try {
+						key = "Ressources//HUD//SpriteCharacter//soleil" + iRender + ".png";
+						img[iRender] = ImageIO.read(new File(key));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					g.drawImage(img[iRender], (int) getX(), (int) getY(), null);
+					if(iRender == 20 ) {
+						iRender = 0;
+					}
+					else {
+						iRender++;
+					}
+				break;
 			}
 
-			g.setColor(Color.DARK_GRAY);
-			g.drawRect((int) (getX() + offSetX), (int) (getY() + offSetY), getWidth(), getHeight());
+//			g.setColor(Color.DARK_GRAY);
+//			g.drawRect((int) (getX() + offSetX), (int) (getY() + offSetY), getWidth(), getHeight());
 //
 //			g.setColor(Color.green);
 //			g.drawRect(getDetectionX(), getDetectionY(), getDetectionWidth(), getDetectionHeight()); // size/2 - width/2
@@ -595,7 +622,7 @@ public class Monster extends Character {
 	public void setLootPrice(int lootPrice) {
 		this.lootPrice = lootPrice;
 	}
-	
+
 	public void setPly(Player ply) {
 		this.ply = ply;
 	}

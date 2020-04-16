@@ -240,7 +240,6 @@ public class Spell extends GameObject {
 					ply.getWidth(), ply.getHeight());
 			
 			if (spell.isCollide(colChar)) {
-				System.out.println("hit");
 				launched = false;
 				setVelX(0);
 				setVelY(0);
