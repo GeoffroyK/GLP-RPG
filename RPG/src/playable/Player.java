@@ -60,8 +60,6 @@ public class Player extends Character {
 		spells[3] = spell4;
 		spells[4] = spell5;
 		spells[5] = spell6;
-		super.setX(200);
-		super.setY(200);
 		super.setDirection(3);
 		super.setWidth(20);
 		super.setHeight(28);

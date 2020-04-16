@@ -155,9 +155,9 @@ public class Monster extends Character {
 
 	private void bossActions() {
 		defineArea();
+
 		if (System.currentTimeMillis() - lastTimer >= 100) {
 			bossNormalAttacks();
-
 			if ((cptAttack % 10) != 0) {
 				cptAttack++;
 			} else {

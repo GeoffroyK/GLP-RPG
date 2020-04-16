@@ -32,7 +32,7 @@ import static inventory.InventoryKey.*;
 
 public class DataBase extends Canvas {
 
-
+	private Player ply;
 
 	private static final long serialVersionUID = 1L;
 
@@ -86,6 +86,9 @@ public class DataBase extends Canvas {
 	private void initGame() {
 
 		PlayerChoice.chooseClassPlayer("u");
+		ply = PlayerChoice.selected();
+		ply.setX(30);
+		ply.setY(450);
 		
 		Monster ronflex = new Monster((Monster)(Monster) characters.get("ma2"));
 		ronflex.setId(ronflex.getId() + "#001");
@@ -197,7 +200,7 @@ public class DataBase extends Canvas {
 		coffre.setY(0);
 		instances.put(coffre.getId(), coffre);*/
 		
-		Chest c = new Chest("c", "isi","Ressources//Sprite//Props//Chest.png", 150, 150, "E#001", 250) ;
+		Chest c = new Chest("c", "isi","Ressources//Sprite//Props//Chest.png", 300, 400, "E#001", 250) ;
 		instances.put(c.getId(), c);
 		propInstance.add(c) ;
 		
@@ -209,7 +212,7 @@ public class DataBase extends Canvas {
 			list.add(l) ;
 		}
 		
-		Seller s = new Seller("s", "isi", "Ressources//Sprite//Props//Seller.png", 200, 150, list);
+		Seller s = new Seller("s", "isi", "Ressources//Sprite//Props//Seller.png", 300, 500, list);
 		instances.put(s.getId(), s) ;
 		propInstance.add(s) ;
 		

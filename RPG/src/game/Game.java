@@ -160,11 +160,11 @@ public class Game extends Canvas implements Runnable {
 				else {
 					p.setLifePoint(p.getLifePoint()+1);
 				}
-				if(p.getManaPoint()+1 >= p.getManaPointMax()) {
+				if(p.getManaPoint()+5 >= p.getManaPointMax()) {
 					p.setManaPoint(p.getManaPointMax());
 				}
 				else {
-					p.setManaPoint(p.getManaPoint()+1);
+					p.setManaPoint(p.getManaPoint()+5);
 				}
 				lastTimer += 1000;
 				System.out.println(ticks + " ticks / " + frames + " frames");

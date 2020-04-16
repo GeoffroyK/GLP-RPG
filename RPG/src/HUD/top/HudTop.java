@@ -24,7 +24,7 @@ public class HudTop {
 		ply = PlayerChoice.selected();
 		switch(ply.getType()) {
 		
-		case "Mage" :
+		case "Sorcier" :
 			key = "Ressources//HUD//HUDtop//BarresMage.png";
 			break;
 		
@@ -37,6 +37,7 @@ public class HudTop {
 			break;
 		}
 		try {
+			System.out.println(ply.getType());
 		    background = ImageIO.read(new File(key));
 		} catch (IOException e) {}
 		
