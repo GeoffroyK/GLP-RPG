@@ -60,7 +60,7 @@ public class HudInventory implements MouseListener{
 		ActionArea.add(throwAway);
 		ActionArea.add(detail);
 		ActionArea.add(echap);
-		System.out.println(ActionArea.indexOf(equip));
+		//System.out.println(ActionArea.indexOf(equip));
 	}
 	
 	public void clickableLootAreaCreation(Player hero) {

@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import HUD.inventory.HudInventory;
 import InputControl.InputGame;
 import game.Game;
+import map_objects.Seller;
 import playable.PlayerChoice;
 
 public class InventoryState implements GameState{

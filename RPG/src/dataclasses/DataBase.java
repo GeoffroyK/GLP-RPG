@@ -25,6 +25,7 @@ import loot.EquipmentTreatment;
 import loot.Loot;
 import map_objects.Chest;
 import map_objects.Prop;
+import map_objects.Seller;
 
 import static inventory.InventoryThread.*;
 import static inventory.InventoryKey.*;
@@ -191,6 +192,18 @@ public class DataBase extends Canvas {
 		Chest c = new Chest("c", "isi","Ressources//Sprite//Props//Chest.png", 150, 150, "E#001", 250) ;
 		instances.put(c.getId(), c);
 		propInstance.add(c) ;
+		
+		ArrayList<Loot> list = new ArrayList<Loot>() ;
+		Collection i = DataBase.getLoots().values() ;
+		Iterator<Loot> r = i.iterator() ;
+		while(r.hasNext()){
+			Loot l = r.next() ;
+			list.add(l) ;
+		}
+		
+		Seller s = new Seller("s", "isi", "Ressources//Sprite//Props//Seller.png", 200, 150, list);
+		instances.put(s.getId(), s) ;
+		propInstance.add(s) ;
 		
 
 	
