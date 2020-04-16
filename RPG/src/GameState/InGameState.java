@@ -39,12 +39,21 @@ public class InGameState implements GameState {
 		tileMap.setPosition(-400, -400);
 		f = new Font("Arial", Font.PLAIN, 10);
 		b.clickableAreaCreation();
-		System.out.println(tileMap.getX());
+		//System.out.println(tileMap.getX());
 	}
 	
 	public void tick() {
 		InputGame.move();
 		InputGame.spells();
+		
+		Iterator<GameObject> itToBeAdded = DataBase.getToBeAdded().iterator();
+		while (itToBeAdded.hasNext()) {
+			GameObject go = itToBeAdded.next();
+			DataBase.getInstances().put(go.getId(),go);
+		}
+		DataBase.getToBeAdded().clear();
+		
+		
 		Collection<GameObject> valsInstances = DataBase.getInstances().values();
 		Iterator<GameObject> itInstances = valsInstances.iterator();
 		while (itInstances.hasNext()) {
@@ -69,7 +78,6 @@ public class InGameState implements GameState {
 		bars.render(PlayerChoice.selected(), g);
 		b.render(g);
 		a.render(g) ;
-		
 		
 		Collection<GameObject> valsInstances = DataBase.getInstances().values();
 		Iterator<GameObject> itInstances = valsInstances.iterator();

@@ -22,10 +22,10 @@ import spell.Spell;
 import loot.Consumable;
 import loot.Equipment;
 import loot.EquipmentTreatment;
-import loot.Loot;
 import map_objects.Chest;
-import map_objects.Prop;
 import map_objects.Seller;
+import loot.Loot;
+import map_objects.Prop;
 
 import static inventory.InventoryThread.*;
 import static inventory.InventoryKey.*;
@@ -45,6 +45,7 @@ public class DataBase extends Canvas {
 	
 
 	private static ArrayList<String> toBeRemoved;
+	private static ArrayList<GameObject> toBeAdded;
 
 	private Scanner sc;
 
@@ -62,7 +63,7 @@ public class DataBase extends Canvas {
 		charInstances = new HashMap<String, Character>();
 		propInstance = new ArrayList<Prop>() ;
 		toBeRemoved = new ArrayList<String>();
-
+		toBeAdded = new ArrayList<GameObject>();
 		try {
 			DataBaseInit.loadCsvSpell(csvGameObjectPaths[2]);
 			DataBaseInit.loadCsvPlayer(csvGameObjectPaths[5]);
@@ -183,6 +184,13 @@ public class DataBase extends Canvas {
 		guerrier.setY(500);
 		guerrier.setDirection(0);
 		guerrier.defineArea();
+		
+		Monster boss = new Monster((Monster) characters.get("mb1"));
+		boss.setId(boss.getId() + "#014");
+		boss.setX(900);
+		boss.setY(400);
+		boss.setDirection(0);
+		boss.defineArea();
 
 	/*	//Prop coffre = new Prop("id", "coffre", 1, "null");
 		coffre.setX(5);
@@ -221,6 +229,7 @@ public class DataBase extends Canvas {
 		instances.put(monstre6.getId(),monstre6);
 		instances.put(monstre7.getId(),monstre7);
 		instances.put(guerrier.getId(),guerrier);
+		instances.put(boss.getId(),boss);
 		
 		charInstances.put(ronflex.getId(),ronflex);
 		charInstances.put(ronflex2.getId(),ronflex2);
@@ -236,6 +245,7 @@ public class DataBase extends Canvas {
 		charInstances.put(monstre6.getId(),monstre6);
 		charInstances.put(monstre7.getId(),monstre7);
 		charInstances.put(guerrier.getId(),guerrier);
+		charInstances.put(boss.getId(),boss);
 		
 //		sc = new Scanner(System.in);
 //		System.out.println("CHOOSE CLASS OF CHARACTER : 't' = WARRIOR / 'y' = ARCHER / 'u' = MAGE\n OR EXIT = 'e'");
@@ -341,4 +351,12 @@ public class DataBase extends Canvas {
 		DataBase.propInstance = propInstance;
 	}
 	
+	
+	public static ArrayList<GameObject> getToBeAdded() {
+		return toBeAdded;
+	}
+
+	public static void setToBeAdded(ArrayList<GameObject> toBeAdded) {
+		DataBase.toBeAdded = toBeAdded;
+	}
 }

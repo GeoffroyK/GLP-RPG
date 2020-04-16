@@ -51,22 +51,7 @@ import playable.Player;
 
 public class Game extends Canvas implements Runnable {
 
-//	public class Game {
-//		public static void main(String[] args) {
-//			JFrame window = new JFrame("GAY RPG");
-//			window.setContentPane(new GamePanel());
-//			window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//			window.setResizable(false);
-//			window.pack();
-//			window.setVisible(true);
-//		}
-//	}
-	
-//	private static final long serialVersionUID = 1L;
-//	private static final int WIDTH = 900;
-//	private static final int HEIGHT = WIDTH / 12 * 9;
-
-	//dimension
+	//dimension	
 	public static final int WIDTH = 1600;
 	public static final int HEIGHT = 900;
 	public static int SCALE = 1;
@@ -93,9 +78,6 @@ public class Game extends Canvas implements Runnable {
 	
 	
 	public Game() {
-//		setMinimumSize(new Dimension(WIDTH, HEIGHT));
-//		setMaximumSize(new Dimension(WIDTH, HEIGHT));
-//		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		
 		setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		
@@ -118,8 +100,8 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void init() {
-		input = new InputHandler(this);
 		db = new DataBase();
+		input = new InputHandler(this);
 		gsm = new GameStateManager(this);
 		
 		image = new BufferedImage (WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -161,7 +143,6 @@ public class Game extends Canvas implements Runnable {
 			try {
 				Thread.sleep(2);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -172,6 +153,19 @@ public class Game extends Canvas implements Runnable {
 
 			if (System.currentTimeMillis() - lastTimer >= 1000) {
 				SpellTreatment.spellTimer();
+				p = PlayerChoice.selected();
+				if(p.getLifePoint()+1 >= p.getLifePointMax()) {
+					p.setLifePoint(p.getLifePointMax());
+				}
+				else {
+					p.setLifePoint(p.getLifePoint()+1);
+				}
+				if(p.getManaPoint()+1 >= p.getManaPointMax()) {
+					p.setManaPoint(p.getManaPointMax());
+				}
+				else {
+					p.setManaPoint(p.getManaPoint()+1);
+				}
 				lastTimer += 1000;
 				System.out.println(ticks + " ticks / " + frames + " frames");
 				frames = 0;

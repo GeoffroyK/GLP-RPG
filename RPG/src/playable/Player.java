@@ -159,8 +159,8 @@ public class Player extends Character {
 			e.printStackTrace();
 		}
 		g.drawImage(sprite , (int) getX() , (int) getY(), null);
-		g.setColor(Color.DARK_GRAY);
-		g.drawRect((int) (getX()), (int) (getY()), (int) (getWidth()), (int) (getHeight()));
+		//g.setColor(Color.DARK_GRAY);
+		//g.drawRect((int) (getX()), (int) (getY()), (int) (getWidth()), (int) (getHeight()));
 	}
 
 	public void detection() {
@@ -179,8 +179,6 @@ public class Player extends Character {
 					if(getLifePoint() > 1) {
 						setLifePoint(getLifePoint()-1);
 					}
-//					setVelX(0);
-//					setVelY(0);
 				}
 			}
 		}
@@ -247,4 +245,17 @@ public class Player extends Character {
 		}
 	}
 	
+	
+	public void gotHit(int damage) {
+		setLifePoint(getLifePoint() - damage);
+//		if (getLifePoint() - damage > 0) {
+//			setLifePoint(getLifePoint() - damage);
+//		} else {
+//			death();
+//		}
+	}
+	
+	public void death() {
+		
+	}
 }

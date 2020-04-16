@@ -1,4 +1,4 @@
 ID,Class,HP,MP,STR,DXT,INT,DEF,ATK,Range,Inventory,LVL,atkSpeed,CTKChance,DodgeChance,Exp,spritePath
-pg1,Guerrier,100,100,60,40,5,50,35,10,1,1,2,20,10,0,&
-pa2,Archer,100,100,20,60,20,30,25,60,1,1,2,10,30,0,&
+pg1,Guerrier,100,100,60,40,5,50,35,10,1,1,2,20,10,0,Ressources\Sprite\Player\guerrier
+pa2,Archer,100,100,20,60,20,30,25,60,1,1,2,10,30,0,Ressources\Sprite\Player\archer
 ps3,Sorcier,100,100,10,20,70,20,50,40,1,1,2,30,5,0,Ressources\Sprite\Player\mage

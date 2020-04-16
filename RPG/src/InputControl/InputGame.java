@@ -18,6 +18,7 @@ public class InputGame {
 	
 	private static MenuState menuState;
 	private static InGameState lvl1State;
+	private static boolean pressed = true;
 	
 /*	public void inputLog(GameStateManager gsm) {
 		switch(GameStateManager.getCurrentState()) {
@@ -32,8 +33,6 @@ public class InputGame {
 		}	
 	}*/
 	
-	private static boolean pressed = true;
-
 	public static void menu() {
 	        int slow = 0 ;
 

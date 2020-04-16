@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -19,6 +20,7 @@ import TileMap.TileMap;
 import dataclasses.DataBase;
 import dataclasses.GameObject;
 import game.Colision;
+import spell.Spell;
 
 public class Monster extends Character {
 
@@ -26,6 +28,15 @@ public class Monster extends Character {
 	private int lootPrice;
 
 	private Player ply;
+
+	private Spell[] circleBossAttacks = new Spell[8];
+	private int cptAttack = 1;
+	private int cptMvt = 1;
+
+	private Spell attackMonster;
+	private boolean attackable = false;
+	private Random rand;
+	private long lastTimer = System.currentTimeMillis();
 
 	private Colision monsterVision;
 	private Colision monster;
@@ -37,18 +48,14 @@ public class Monster extends Character {
 	private int detectionX;
 	private int detectionY;
 
-	private float offSetX;
-	private float offSetY;
+	private static float offSetX;
+	private static float offSetY;
 
 	private boolean isBlocked = false;
 
 	private boolean alive = true;
-	
-	//COLLISION BOX
-	protected int cwidth = 10;
-	protected int cheight = 30;
-	
-	//COLLISION
+
+	// COLLISION
 	protected int currRow;
 	protected int currCol;
 	protected double xdest;
@@ -59,18 +66,23 @@ public class Monster extends Character {
 	protected boolean topRight;
 	protected boolean bottomRight;
 	protected boolean bottomLeft;
-	
+
 	private TileMap tileMap = InGameState.getTileMap();
 	private int tileSize = 30;
+	
+	private Image[] img;
+	private int iRender = 0;
 
 	public Monster(String id, String type, int hp, int mp, int str, int dext, int intel, int def, int atk, int range,
-			int inventory, int level, int atkSpeed, int ctkChance, int dodgeChance, int lootChance, int lootPrice,String spritePath) {
+			int inventory, int level, int atkSpeed, int ctkChance, int dodgeChance, int lootChance, int lootPrice,
+			String spritePath) {
 
-		super(id, type, hp, mp, str, dext, intel, def, atk, range, inventory, level, atkSpeed, ctkChance, dodgeChance,spritePath);
+		super(id, type, hp, mp, str, dext, intel, def, atk, range, inventory, level, atkSpeed, ctkChance, dodgeChance,
+				spritePath);
 		this.lootChance = lootChance;
 		this.lootPrice = lootPrice;
 
-		// defineArea();
+		init();
 	}
 
 	public Monster(Monster monster) {
@@ -80,6 +92,14 @@ public class Monster extends Character {
 				monster.getCriticalChance(), monster.getDodgeChance(), monster.getSpritePath());
 		this.lootChance = monster.lootChance;
 		this.lootPrice = monster.lootPrice;
+
+		init();
+	}
+
+	private void init() {
+		attackMonster = DataBase.getSpells().get("sm1");
+		rand = new Random();
+		img = new Image[21];
 	}
 
 	public void defineArea() {
@@ -96,7 +116,6 @@ public class Monster extends Character {
 		case "Archer":
 			setWidth(20);
 			setHeight(20);
-
 			setDetectionWidth(200);
 			setDetectionHeight(200);
 			break;
@@ -108,6 +127,14 @@ public class Monster extends Character {
 			setDetectionWidth(300);
 			setDetectionHeight(300);
 			break;
+
+		case "Boss":
+			setWidth(200);
+			setHeight(200);
+
+			setDetectionWidth(500);
+			setDetectionHeight(500);
+			break;
 		}
 
 		setDetectionX((int) (getX() - ((getDetectionWidth() / 2) - (getWidth() / 2)))); // size/2 - width/2
@@ -115,11 +142,168 @@ public class Monster extends Character {
 	}
 
 	public void tick() {
-		checkTileMapCollision();
-		detection();
+		if (getType().equals("Boss")) {
+			bossActions();
 
+		} else {
+			detection();
+		}
+		checkTileMapCollision();
 		this.setX(getX() + getVelX());
 		this.setY(getY() + getVelY());
+	}
+
+	private void bossActions() {
+		defineArea();
+		if (System.currentTimeMillis() - lastTimer >= 100) {
+			bossNormalAttacks();
+
+			if ((cptAttack % 10) != 0) {
+				cptAttack++;
+			} else {
+				bossFollowAttack();
+				cptAttack = 1;
+			}
+
+			if ((cptMvt % 30) != 0) {
+				cptMvt++;
+			} else {
+				randomMvt();
+				move();
+				cptMvt = 1;
+			}
+			
+			lastTimer = System.currentTimeMillis();
+		}
+
+	}
+
+	private void randomMvt() {
+		int n = rand.nextInt(8);
+		switch (n) {
+
+		case 0: // NORD
+			offSetX = 0;
+			offSetY = -1;
+			break;
+
+		case 1: // OUEST
+			offSetX = -1;
+			offSetY = 0;
+			break;
+
+		case 2: // EST
+			offSetX = 1;
+			offSetY = 0;
+			break;
+
+		case 3: // SUD
+			offSetX = 0;
+			offSetY = 1;
+			break;
+
+		case 4: // NORD/OUEST
+			offSetX = -1;
+			offSetY = -1;
+			break;
+
+		case 5: // NORD/EST
+			offSetX = 1;
+			offSetY = -1;
+			break;
+
+		case 6: // SUD/OUEST
+			offSetX = -1;
+			offSetY = 1;
+			break;
+
+		case 7: // SUD/EST
+			offSetX = 1;
+			offSetY = 1;
+			break;
+		}
+
+	}
+
+	public void bossNormalAttacks() {
+		int cptId = 1;
+		for (int i = 0; i < 8; i++) {
+
+			Spell tmpAttack = new Spell(attackMonster, this); // Create copy of Spell => new instance
+
+			while (DataBase.getInstances().get(tmpAttack.getId() + "#" + cptId) != null) {
+				cptId++;
+			}
+			tmpAttack.setId(tmpAttack.getId() + "#" + cptId);
+			switch (i) {
+
+			case 0: // NORD
+				tmpAttack.setVelY(-2);
+				tmpAttack.setVelX(0);
+
+				break;
+
+			case 1: // OUEST
+				tmpAttack.setVelX(-2);
+				tmpAttack.setVelY(0);
+
+				break;
+
+			case 2: // EST
+				tmpAttack.setVelX(2);
+				tmpAttack.setVelY(0);
+
+				break;
+
+			case 3: // SUD
+				tmpAttack.setVelY(2);
+				tmpAttack.setVelX(0);
+
+				break;
+
+			case 4: // NORD/OUEST
+				tmpAttack.setVelY(-2);
+				tmpAttack.setVelX(-2);
+
+				break;
+
+			case 5: // NORD/EST
+				tmpAttack.setVelY(-2);
+				tmpAttack.setVelX(2);
+
+				break;
+
+			case 6: // SUD/OUEST
+				tmpAttack.setVelY(2);
+				tmpAttack.setVelX(-2);
+
+				break;
+
+			case 7: // SUD/EST
+				tmpAttack.setVelY(2);
+				tmpAttack.setVelX(2);
+
+				break;
+			}
+			DataBase.getToBeAdded().add(tmpAttack);
+			cptId++;
+		}
+
+	}
+
+	public void bossFollowAttack() {
+		int cpt2 = 1;
+
+		Spell tmpAttack = new Spell(attackMonster, this); // Create copy of Spell => new instance
+
+		while (DataBase.getInstances().get(tmpAttack.getId() + "#" + cpt2) != null) {
+			cpt2++;
+		}
+		calculateOffSet();
+		tmpAttack.setId(tmpAttack.getId() + "#" + cpt2);
+		tmpAttack.setVelX(5 * offSetX);
+		tmpAttack.setVelY(5 * offSetY);
+		DataBase.getToBeAdded().add(tmpAttack);
 	}
 
 	public void calculateOffSet() {
@@ -150,8 +334,10 @@ public class Monster extends Character {
 		if (alive) {
 			if (monsterVision.isCollide(player)) {
 				calculateOffSet();
+				attacking();
 				monster = new Colision((int) getX() + offSetX * 2, (int) getY() + offSetY * 2, (int) (getWidth()),
 						(int) (getHeight()));
+
 				for (Map.Entry<String, Character> item : DataBase.getCharInstances().entrySet()) {
 					String key = item.getKey();
 					Character character = item.getValue();
@@ -174,6 +360,7 @@ public class Monster extends Character {
 					setVelY(0);
 				}
 			} else {
+				attackable = false;
 				isBlocked = false;
 				setOffSetX(0);
 				setOffSetY(0);
@@ -184,66 +371,86 @@ public class Monster extends Character {
 		checkTileMapCollision();
 
 	}
-	
+
+	public void attacking() {
+		if (System.currentTimeMillis() - lastTimer >= 1000) {
+			int cpt = 1;
+
+			Spell tmpAttack = new Spell(attackMonster, this); // Create copy of Spell => new instance
+
+			while (DataBase.getInstances().get(tmpAttack.getId() + "#" + cpt) != null) {
+				cpt++;
+			}
+
+			tmpAttack.setId(tmpAttack.getId() + "#" + cpt);
+			tmpAttack.setVelX(2 * offSetX);
+			tmpAttack.setVelY(2 * offSetY);
+			DataBase.getToBeAdded().add(tmpAttack);
+
+			lastTimer = System.currentTimeMillis();
+		}
+
+	}
+
 	public void calculateCorners(double x, double y) {
 		int leftTile = (int) (x) / tileSize;
-		int rightTile = (int) (x + cwidth) / tileSize;
+		int rightTile = (int) (x + getWidth()) / tileSize;
 		int topTile = (int) (y) / tileSize;
-		int bottomTile = (int) (y + cheight) / tileSize;
-		
+		int bottomTile = (int) (y + getHeight()) / tileSize;
+
 		int tl = tileMap.getType(topTile, leftTile);
 		int tr = tileMap.getType(topTile, rightTile);
 		int bl = tileMap.getType(bottomTile, leftTile);
 		int br = tileMap.getType(bottomTile, rightTile);
-		
+
 		topLeft = tl == Tile.BLOCKED;
 		topRight = tr == Tile.BLOCKED;
 		bottomLeft = bl == Tile.BLOCKED;
 		bottomRight = br == Tile.BLOCKED;
 	}
-	
+
 	public void checkTileMapCollision() {
 		monster = new Colision((int) getX() + offSetX * 2, (int) getY() + offSetY * 2, (int) (getWidth()),
 				(int) (getHeight()));
 		currCol = (int) monster.getX() / tileSize;
 		currRow = (int) monster.getY() / tileSize;
-		
+
 		xdest = monster.getX() + getVelX();
 		ydest = monster.getY() + getVelY();
-		
+
 		xtemp = monster.getX();
 		ytemp = monster.getY();
-		
+
 		calculateCorners(monster.getX(), ydest);
-		
-		if(getVelY() < 0) {
-			if(topLeft || topRight) {
+
+		if (getVelY() < 0) {
+			if (topLeft || topRight) {
 				setVelY(0);
-				ytemp = currRow * tileSize + cheight / 2;
+				ytemp = currRow * tileSize + getHeight() / 2;
 			}
-			
+
 		}
-		
-		if(getVelY() > 0) {
-			if(bottomLeft || bottomRight) {
+
+		if (getVelY() > 0) {
+			if (bottomLeft || bottomRight) {
 				setVelY(0);
-				ytemp = (currRow + 1) * tileSize - cheight / 2;
+				ytemp = (currRow + 1) * tileSize - getHeight() / 2;
 			}
 		}
-		
+
 		calculateCorners(xdest, monster.getY());
-		
-		if(getVelX() < 0) {
-			if(topLeft || bottomLeft) {
+
+		if (getVelX() < 0) {
+			if (topLeft || bottomLeft) {
 				setVelX(0);
-				xtemp = currCol * tileSize + cwidth / 2;
+				xtemp = currCol * tileSize + getWidth() / 2;
 			}
 		}
-		
-		if(getVelX() > 0) {
-			if(topRight || bottomRight) {
+
+		if (getVelX() > 0) {
+			if (topRight || bottomRight) {
 				setVelX(0);
-				xtemp = (currCol + 1) * tileSize - cwidth / 2;
+				xtemp = (currCol + 1) * tileSize - getWidth() / 2;
 			}
 		}
 	}
@@ -251,8 +458,6 @@ public class Monster extends Character {
 	public void gotHit(int damage) {
 		if (getLifePoint() - damage > 0) {
 			setLifePoint(getLifePoint() - damage);
-			//knockback();
-			//checkTileMapCollision();
 		} else {
 			alive = false;
 			ply = PlayerChoice.selected();
@@ -269,69 +474,41 @@ public class Monster extends Character {
 		switch (direction) {
 
 		case 0: // NORD
-			setY(getY()-20);
+			setY(getY() - 20);
 			break;
 
 		case 1: // OUEST
-			setX(getX()-20);
+			setX(getX() - 20);
 			break;
 
 		case 2: // EST
-			setX(getX()+20);
+			setX(getX() + 20);
 			break;
 
 		case 3: // SUD
-			setY(getY()+20);
+			setY(getY() + 20);
 			break;
 
 		case 10: // NORD/OUEST
-			setX(getY()-20);
-			setY(getY()-20);
+			setX(getY() - 20);
+			setY(getY() - 20);
 			break;
 
 		case 20: // NORD/EST
-			setX(getY()+20);
-			setY(getY()-20);
+			setX(getY() + 20);
+			setY(getY() - 20);
 			break;
 
 		case 31: // SUD/OUEST
-			setX(getY()-20);
-			setY(getY()+20);
+			setX(getY() - 20);
+			setY(getY() + 20);
 			break;
 
 		case 32: // SUD/EST
-			setX(getX()+20);
-			setY(getY()+20);
+			setX(getX() + 20);
+			setY(getY() + 20);
 			break;
 		}
-	}
-
-	public void setPly(Player ply) {
-		this.ply = ply;
-	}
-
-	public void setMonsterVision(Colision monsterVision) {
-		this.monsterVision = monsterVision;
-	}
-
-	public void setMonster(Colision monster) {
-		this.monster = monster;
-	}
-
-	public void setPlayer(Colision player) {
-		this.player = player;
-	}
-
-	public void setOffSetX(float offSetX) {
-		this.offSetX = offSetX;
-	}
-
-	public void setOffSetY(float offSetY) {
-		this.offSetY = offSetY;
-	}
-
-	public void setBlocked(boolean isBlocked) {
-		this.isBlocked = isBlocked;
 	}
 
 	public void render(Graphics g) {
@@ -365,6 +542,22 @@ public class Monster extends Character {
 					e.printStackTrace();
 				}
 				g.drawImage(ply, (int) getX(), (int) getY(), null);
+				break;
+			case "Boss":
+				String key;
+					try {
+						key = "Ressources//HUD//SpriteCharacter//soleil" + iRender + ".png";
+						img[iRender] = ImageIO.read(new File(key));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					g.drawImage(img[iRender], (int) getX(), (int) getY(), null);
+					if(iRender == 20 ) {
+						iRender = 0;
+					}
+					else {
+						iRender++;
+					}
 				break;
 			}
 
@@ -428,6 +621,34 @@ public class Monster extends Character {
 
 	public void setLootPrice(int lootPrice) {
 		this.lootPrice = lootPrice;
+	}
+
+	public void setPly(Player ply) {
+		this.ply = ply;
+	}
+
+	public void setMonsterVision(Colision monsterVision) {
+		this.monsterVision = monsterVision;
+	}
+
+	public void setMonster(Colision monster) {
+		this.monster = monster;
+	}
+
+	public void setPlayer(Colision player) {
+		this.player = player;
+	}
+
+	public void setOffSetX(float offSetX) {
+		this.offSetX = offSetX;
+	}
+
+	public void setOffSetY(float offSetY) {
+		this.offSetY = offSetY;
+	}
+
+	public void setBlocked(boolean isBlocked) {
+		this.isBlocked = isBlocked;
 	}
 
 }
