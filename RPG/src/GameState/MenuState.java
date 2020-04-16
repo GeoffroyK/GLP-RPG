@@ -15,7 +15,7 @@ public class MenuState implements GameState {
 	private int currentChoice = 0;
 	private String[] options = {
 			"Start",
-			"Help",
+			"Load",
 			"Quit"
 	};
 	
@@ -30,12 +30,12 @@ public class MenuState implements GameState {
 	
 	public MenuState() {	
 		try {
-			bg = new Background("/Backgrounds/menu_bg.gif",1);
+			bg = new Background("/Backgrounds/menu_bg.png",1);
 			bg.setVector(-0.1, 0);
 			
 			titleColor = new Color(128, 0, 0);
-			titleFont = new Font("Century Goth", Font.PLAIN, 28);
-			font = new Font("Arial", Font.PLAIN, 12);
+			titleFont = new Font("Century Goth", Font.PLAIN, 100);
+			font = new Font("Arial", Font.PLAIN, 80);
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -73,7 +73,7 @@ public class MenuState implements GameState {
 		//DRAW TITLE
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		g.drawString("GAY RPG !", 80, 70);
+		g.drawString("GLP RPG !", Game.WIDTH/2 - 250, Game.HEIGHT/2 - 120);
 		
 		//DRAW MENU OPTIONS
 		g.setFont(font);
@@ -84,7 +84,7 @@ public class MenuState implements GameState {
 			else {
 				g.setColor(Color.ORANGE);
 			}
-			g.drawString(options[i], 145, 140 + i *15);
+			g.drawString(options[i], Game.WIDTH/2 - 100, Game.HEIGHT/2 + i *80);
 		}
 	}
 

@@ -32,28 +32,35 @@ public class InputGame {
 		}	
 	}*/
 	
+	private static boolean pressed = true;
+
 	public static void menu() {
-		int slow = 0 ;
-		
-		System.out.println(GameStateManager.getCurrentState());
-		menuState = (MenuState) GameStateManager.getGameStates().get(GameStateManager.getCurrentState());
-		
-		if(getUp().isPressed()) {
-				menuState.setCurrentChoice(menuState.getCurrentChoice()-1);
-				if(menuState.getCurrentChoice() == -1) {
-					menuState.setCurrentChoice(menuState.getOptions().length -1);
-				}
-		}
-		if(getDown().isPressed()) {
-			menuState.setCurrentChoice(menuState.getCurrentChoice()+1);
-			if(menuState.getCurrentChoice() == menuState.getOptions().length) {
-				menuState.setCurrentChoice(0);
-			}
-		}
-		if(getEnter().isPressed()) {
-			menuState.setSelected(true);
-		}
-	}
+	        int slow = 0 ;
+
+	        System.out.println(GameStateManager.getCurrentState());
+	        menuState = (MenuState) GameStateManager.getGameStates().get(GameStateManager.getCurrentState());
+
+	        if(getUp().isPressed() && pressed) {
+	            menuState.setCurrentChoice(menuState.getCurrentChoice()-1);
+	            if(menuState.getCurrentChoice() == -1) {
+	                menuState.setCurrentChoice(menuState.getOptions().length -1);
+	            }
+	            pressed = false ;
+	        }
+	        if(getDown().isPressed() && pressed) {
+	            menuState.setCurrentChoice(menuState.getCurrentChoice()+1);
+	            if(menuState.getCurrentChoice() == menuState.getOptions().length) {
+	                menuState.setCurrentChoice(0);
+	            }
+	            pressed = false;
+	        }
+	        if(!getDown().isPressed() && !getUp().isPressed()) {
+	            pressed = true;
+	        }
+	        if(getEnter().isPressed()) {
+	            menuState.setSelected(true);
+	        }
+	    }
 	
 	public static void move() {
 		lvl1State = (InGameState) GameStateManager.getGameStates().get(GameStateManager.getCurrentState());

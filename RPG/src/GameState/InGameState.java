@@ -1,13 +1,14 @@
 package GameState;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.Collection;
 import java.util.Iterator;
 
 import HUD.* ;
-import HUD.inventory.inventoryButton;
+import HUD.inventory.InventoryButton;
 import HUD.top.HudTop;
 import InputControl.InputGame;
 import TileMap.*;
@@ -20,21 +21,23 @@ public class InGameState implements GameState {
 	
 	private static TileMap tileMap;
 	private HudTop bars ;
-	private inventoryButton b ;
+	private InventoryButton b ;
 	private ActionBar a ;
+	private Font f;
 	
 	public InGameState(Game game) {
-		b = new inventoryButton(game);
+		b = new InventoryButton(game);
 		bars = new HudTop() ;
 		a = new ActionBar() ;
 	}
 	
 	public void init() {
 		tileMap = new TileMap() ;
-		tileMap.loadTiles("/Tilesets/testtileset5.png");
-		tileMap.loadMap("/Maps/point_avancement.map");
+		tileMap.loadTiles("/Tilesets/tileset.png");
+		tileMap.loadMap("/Maps/etage2.map");
 		//tileMap.loadMap("/Maps/debug.map");
 		tileMap.setPosition(-400, -400);
+		f = new Font("Arial", Font.PLAIN, 10);
 		b.clickableAreaCreation();
 		System.out.println(tileMap.getX());
 	}
@@ -60,6 +63,7 @@ public class InGameState implements GameState {
 		//CLEAR SCREEN
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+		g.setFont(f);
 		//DRAW TILE MAP
 		tileMap.draw(g);
 		bars.render(PlayerChoice.selected(), g);

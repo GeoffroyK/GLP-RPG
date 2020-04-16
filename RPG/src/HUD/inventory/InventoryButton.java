@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 import GameState.GameStateManager;
 import game.Game;
 
-public class inventoryButton implements MouseListener {
+public class InventoryButton implements MouseListener {
 
 	private Image background = null ;
 	private Rectangle selection = null;
@@ -22,7 +22,7 @@ public class inventoryButton implements MouseListener {
 	private Point click ;
 	private int searchState = 0 ;
 	
-	public inventoryButton(Game game) {
+	public InventoryButton(Game game) {
 		try {
 			background = ImageIO.read(new File("Ressources//HUD//InventoryHUD//iNVENTORY.png")) ;
 		} catch (IOException e) {e.printStackTrace();}
