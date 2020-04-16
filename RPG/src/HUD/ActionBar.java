@@ -46,7 +46,8 @@ public class ActionBar {
 			e.printStackTrace();
 		}
 		g.drawImage(SpellSprite, x, Game.HEIGHT - 50, null);
-		
+		System.out.println("l");		
 	}
 
+	
 }
