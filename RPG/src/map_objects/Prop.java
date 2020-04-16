@@ -1,21 +1,25 @@
 package map_objects;
 
 import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import dataclasses.GameObject;
 
 public class Prop extends GameObject {
 	
 	private String name;
-	private int type;
 	private int x;
 	private int y;
-	private int direction;
 	
-	public Prop(String id, String name, int type, String spritePath) {
-		super(id);
+	public Prop(String id, String name, String spritePath, int x, int y) {
+		super(id, spritePath);
 		this.name = name;
-		this.type = type;
+		this.x = x ;
+		this.y = y ;
 	}
 
 		
@@ -25,10 +29,6 @@ public class Prop extends GameObject {
 		return name;
 	}
 		
-	public int getType() {
-		return type;
-	}
-	
 	public int getX() {
 		return x;
 	}
@@ -57,7 +57,14 @@ public class Prop extends GameObject {
 
 	@Override
 	public void render(Graphics g) {
-		// TODO Auto-generated method stub
+		Image i = null ;
+		try {
+			i = ImageIO.read(new File(getSpritePath())) ;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		g.drawImage(i, getX(), getY(), null) ;
 		
 	}
 

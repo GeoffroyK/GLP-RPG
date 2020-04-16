@@ -36,23 +36,6 @@ public class PropInput {
 		return false;
 	}
 
-	public void treatment() {
-		if (isReachable()) {
-			switch (prop.getType()) {
-			case 0:
-				System.out.println("Bonjour je suis un marchand !");
-				break;
-			case 1:
-				System.out.println("Bonjour je suis un coffre !");
-				InventoryKey.addLoot(DataBase.getLoots().get("C#001"), ply);
-				break;
-			case 2:
-				System.out.println("Bonjour je suis une porte !");
-				break;
-			}
-		}
-	}
-
 	public Map getMap() {
 		return map;
 	}

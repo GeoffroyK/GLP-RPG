@@ -9,6 +9,7 @@ import HUD.inventory.HudInventory;
 import dataclasses.DataBase;
 import inventory.InventoryKey;
 import inventory.InventoryThread;
+import map_objects.PropsTreatment;
 import playable.Player;
 import playable.PlayerChoice;
 import spell.SpellTreatment;
@@ -69,7 +70,6 @@ public class InputGame {
 			ply.setDirection(3);
 			ply.setVelY(2);
 			lvl1State.getTileMap().setPosition((-1) * ply.getX(),(-1) * ply.getY() );
-			InventoryKey.addLoot(DataBase.getLoots().get("C#001"), PlayerChoice.selected());
 		} else {
 			ply.setVelY(0);
 		}
@@ -81,7 +81,6 @@ public class InputGame {
 			ply.setDirection(1);
 			ply.setVelX(-2);
 			lvl1State.getTileMap().setPosition( (-1) *ply.getX(),(-1) * ply.getY() );
-			InventoryKey.addLoot(DataBase.getLoots().get("E#001"), PlayerChoice.selected());
 		}
 		else if (getRight().isPressed()) { // RIGHT
 			ply.setDirection(2);
@@ -110,6 +109,10 @@ public class InputGame {
 		if(getInventaire().isPressed()) {
 			GameStateManager.setState(GameStateManager.INVENTORYSTATE);
 		}	
+		
+		if(getEnter().isPressed()) {
+			PropsTreatment.check();
+		}
 	}
 	
 	public static void spells() {

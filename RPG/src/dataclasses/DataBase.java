@@ -23,6 +23,7 @@ import loot.Consumable;
 import loot.Equipment;
 import loot.EquipmentTreatment;
 import loot.Loot;
+import map_objects.Chest;
 import map_objects.Prop;
 
 import static inventory.InventoryThread.*;
@@ -39,7 +40,9 @@ public class DataBase extends Canvas {
 	private static HashMap<String, Loot> loots;
 	private static HashMap<String,GameObject> instances;
 	private static HashMap<String, Character> charInstances;
+	private static ArrayList<Prop> propInstance;
 	
+
 	private static ArrayList<String> toBeRemoved;
 
 	private Scanner sc;
@@ -56,6 +59,7 @@ public class DataBase extends Canvas {
 		characters = new HashMap<String, Character>();
 		instances = new HashMap<String, GameObject>();
 		charInstances = new HashMap<String, Character>();
+		propInstance = new ArrayList<Prop>() ;
 		toBeRemoved = new ArrayList<String>();
 
 		try {
@@ -179,10 +183,15 @@ public class DataBase extends Canvas {
 		guerrier.setDirection(0);
 		guerrier.defineArea();
 
-		Prop coffre = new Prop("id", "coffre", 1, "null");
+	/*	//Prop coffre = new Prop("id", "coffre", 1, "null");
 		coffre.setX(5);
 		coffre.setY(0);
-		instances.put(coffre.getId(), coffre);
+		instances.put(coffre.getId(), coffre);*/
+		
+		Chest c = new Chest("c", "isi","Ressources//Sprite//Props//Chest.png", 150, 150, "E#001", 250) ;
+		instances.put(c.getId(), c);
+		propInstance.add(c) ;
+		
 
 	
 		instances.put(ronflex.getId(),ronflex);
@@ -310,4 +319,13 @@ public class DataBase extends Canvas {
 	public static void setToBeRemoved(ArrayList<String> toBeRemoved) {
 		DataBase.toBeRemoved = toBeRemoved;
 	}
+
+	public static ArrayList<Prop> getPropInstance() {
+		return propInstance;
+	}
+
+	public static void setPropInstance(ArrayList<Prop> propInstance) {
+		DataBase.propInstance = propInstance;
+	}
+	
 }
