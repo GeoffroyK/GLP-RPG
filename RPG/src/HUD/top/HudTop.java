@@ -8,6 +8,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import playable.Player;
+import playable.PlayerChoice;
 
 public class HudTop {
 	
@@ -16,10 +17,27 @@ public class HudTop {
 	private LifeBar lifeBar ;
 	private MpBar mpBar ;
 	private ExpBar expBar ;
+	private Player ply;
+	private String key;
 	
 	public HudTop () {
+		ply = PlayerChoice.selected();
+		switch(ply.getType()) {
+		
+		case "Mage" :
+			key = "Ressources//HUD//HUDtop//BarresMage.png";
+			break;
+		
+		case "Archer" :
+			key = "Ressources//HUD//HUDtop//BarresArcher.png";
+			break;
+			
+		case "Guerrier" :
+			key = "Ressources//HUD//HUDtop//BarresGuerrier.png";
+			break;
+		}
 		try {
-		    background = ImageIO.read(new File("Ressources//HUD//HUDtop//TestBardevie.png"));
+		    background = ImageIO.read(new File(key));
 		} catch (IOException e) {}
 		
 		lifeBar = new LifeBar() ;

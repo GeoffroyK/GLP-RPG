@@ -17,6 +17,7 @@ public class InputGame {
 	
 	private static MenuState menuState;
 	private static InGameState lvl1State;
+	private static boolean pressed = true;
 	
 /*	public void inputLog(GameStateManager gsm) {
 		switch(GameStateManager.getCurrentState()) {
@@ -37,17 +38,22 @@ public class InputGame {
 		System.out.println(GameStateManager.getCurrentState());
 		menuState = (MenuState) GameStateManager.getGameStates().get(GameStateManager.getCurrentState());
 		
-		if(getUp().isPressed()) {
-				menuState.setCurrentChoice(menuState.getCurrentChoice()-1);
-				if(menuState.getCurrentChoice() == -1) {
-					menuState.setCurrentChoice(menuState.getOptions().length -1);
-				}
+		if(getUp().isPressed() && pressed) {
+			menuState.setCurrentChoice(menuState.getCurrentChoice()-1);
+			if(menuState.getCurrentChoice() == -1) {
+				menuState.setCurrentChoice(menuState.getOptions().length -1);
+			}
+			pressed = false ;
 		}
-		if(getDown().isPressed()) {
+		if(getDown().isPressed() && pressed) {
 			menuState.setCurrentChoice(menuState.getCurrentChoice()+1);
 			if(menuState.getCurrentChoice() == menuState.getOptions().length) {
 				menuState.setCurrentChoice(0);
 			}
+			pressed = false;
+		}
+		if(!getDown().isPressed() && !getUp().isPressed()) {
+			pressed = true;
 		}
 		if(getEnter().isPressed()) {
 			menuState.setSelected(true);

@@ -143,9 +143,9 @@ public class Monster extends Character {
 
 	public void tick() {
 		checkTileMapCollision();
-		if(getType().equals("Boss")) {
-			randomMvt();
-			bossAttack();
+		if(getType().equals("Boss")) {					
+			bossActions();
+
 		}
 		else {
 			detection();
@@ -158,87 +158,140 @@ public class Monster extends Character {
 	private void randomMvt() {
 		
 		int n = rand.nextInt(8);
+
+			switch (n) {
+
+			case 0: // NORD
+				setVelY(-5);
+				setVelX(0);
+				break;
+
+			case 1: // OUEST
+				setVelX(-5);
+				setVelY(0);
+				break;
+
+			case 2: // EST
+				setVelX(5);
+				setVelY(0);
+				break;
+
+			case 3: // SUD
+				setVelY(5);
+				setVelX(0);
+				break;
+				
+			case 4: // NORD/OUEST
+				setVelY(-5);
+				setVelX(-5);
+				break;
+
+			case 5: // NORD/EST
+				setVelY(-5);
+				setVelX(5);
+				break;
+
+			case 6: // SUD/OUEST
+				setVelY(5);
+				setVelX(-5);
+				break;
+
+			case 7: // SUD/EST
+				setVelY(5);
+				setVelX(5);
+				break;
+			}
+			checkTileMapCollision();	
+		
 	}
 	
-	private void bossAttack() {
+	private void bossActions() {
 		if (System.currentTimeMillis() - lastTimer >= 500) {
-			int cptId = 1;
-			for(int i = 0; i<8; i++) {
-
-				Spell tmpAttack = new Spell(attackMonster, this); // Create copy of Spell => new instance
-				
-				while(DataBase.getInstances().get(tmpAttack.getId() + "#" + cptId) != null) {
-					cptId++;
-				}
-				tmpAttack.setId(tmpAttack.getId() + "#" + cptId);	
-				System.out.println(cptId);
-				switch (i) {
-
-				case 0: // NORD
-					tmpAttack.setVelY(-5);
-					tmpAttack.setVelX(0);
-					break;
-
-				case 1: // OUEST
-					tmpAttack.setVelX(-5);
-					tmpAttack.setVelY(0);
-					break;
-
-				case 2: // EST
-					tmpAttack.setVelX(5);
-					tmpAttack.setVelY(0);
-					break;
-
-				case 3: // SUD
-					tmpAttack.setVelY(5);
-					tmpAttack.setVelX(0);
-					break;
-					
-				case 4: // NORD/OUEST
-					tmpAttack.setVelY(-5);
-					tmpAttack.setVelX(-5);
-					break;
-
-				case 5: // NORD/EST
-					tmpAttack.setVelY(-5);
-					tmpAttack.setVelX(5);
-					break;
-
-				case 6: // SUD/OUEST
-					tmpAttack.setVelY(5);
-					tmpAttack.setVelX(-5);
-					break;
-
-				case 7: // SUD/EST
-					tmpAttack.setVelY(5);
-					tmpAttack.setVelX(5);
-					break;
-				}
-				System.out.println("Adding " + tmpAttack.getId());
-				DataBase.getToBeAdded().add(tmpAttack);
-				cptId++;
-			}
+			bossNormalAttacks();
 			
 			if((cptAttack % 2) != 0) {
 				cptAttack++;
 			} else {
-				int cpt2 = 1;
-				
-				Spell tmpAttack = new Spell(attackMonster, this); // Create copy of Spell => new instance
-				
-				while(DataBase.getInstances().get(tmpAttack.getId() + "#" + cpt2) != null) {
-					cpt2++;
-				}
-				calculateOffSet();
-				tmpAttack.setId(tmpAttack.getId() + "#" + cpt2);	
-				tmpAttack.setVelX(5*offSetX);
-				tmpAttack.setVelY(5*offSetY);
-				DataBase.getToBeAdded().add(tmpAttack);
+				bossFollowAttack();
 				cptAttack = 1;
 			}
-			
 			lastTimer = System.currentTimeMillis();
 		}
+	}
+	
+	public void bossNormalAttacks() {
+		int cptId = 1;
+		for(int i = 0; i<8; i++) {
+
+			Spell tmpAttack = new Spell(attackMonster, this); // Create copy of Spell => new instance
+			
+			while(DataBase.getInstances().get(tmpAttack.getId() + "#" + cptId) != null) {
+				cptId++;
+			}
+			tmpAttack.setId(tmpAttack.getId() + "#" + cptId);	
+			System.out.println(cptId);
+			switch (i) {
+
+			case 0: // NORD
+				tmpAttack.setVelY(-5);
+				tmpAttack.setVelX(0);
+				break;
+
+			case 1: // OUEST
+				tmpAttack.setVelX(-5);
+				tmpAttack.setVelY(0);
+				break;
+
+			case 2: // EST
+				tmpAttack.setVelX(5);
+				tmpAttack.setVelY(0);
+				break;
+
+			case 3: // SUD
+				tmpAttack.setVelY(5);
+				tmpAttack.setVelX(0);
+				break;
+				
+			case 4: // NORD/OUEST
+				tmpAttack.setVelY(-5);
+				tmpAttack.setVelX(-5);
+				break;
+
+			case 5: // NORD/EST
+				tmpAttack.setVelY(-5);
+				tmpAttack.setVelX(5);
+				break;
+
+			case 6: // SUD/OUEST
+				tmpAttack.setVelY(5);
+				tmpAttack.setVelX(-5);
+				break;
+
+			case 7: // SUD/EST
+				tmpAttack.setVelY(5);
+				tmpAttack.setVelX(5);
+				break;
+			}
+			System.out.println("Adding " + tmpAttack.getId());
+			DataBase.getToBeAdded().add(tmpAttack);
+			cptId++;
+		}
+	
+	}
+	
+	public void bossFollowAttack() {
+			int cpt2 = 1;
+			
+			Spell tmpAttack = new Spell(attackMonster, this); // Create copy of Spell => new instance
+			
+			while(DataBase.getInstances().get(tmpAttack.getId() + "#" + cpt2) != null) {
+				cpt2++;
+			}
+			calculateOffSet();
+			tmpAttack.setId(tmpAttack.getId() + "#" + cpt2);	
+			tmpAttack.setVelX(5*offSetX);
+			tmpAttack.setVelY(5*offSetY);
+			DataBase.getToBeAdded().add(tmpAttack);
 	}
 
 	public void calculateOffSet() {
@@ -481,8 +534,8 @@ public class Monster extends Character {
 				break;
 			}
 
-//			g.setColor(Color.DARK_GRAY);
-//			g.drawRect((int) (getX() + offSetX), (int) (getY() + offSetY), getWidth(), getHeight());
+			g.setColor(Color.DARK_GRAY);
+			g.drawRect((int) (getX() + offSetX), (int) (getY() + offSetY), getWidth(), getHeight());
 //
 //			g.setColor(Color.green);
 //			g.drawRect(getDetectionX(), getDetectionY(), getDetectionWidth(), getDetectionHeight()); // size/2 - width/2
