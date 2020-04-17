@@ -1,5 +1,9 @@
 package InputControl;
 
+
+/*
+ * Class of each key Input
+ */
 public class Key {
 	private boolean isPressed ;
 	

@@ -90,7 +90,7 @@ public class DataBase extends Canvas {
 	
 
 	/*
-	 * d
+	 * init first layer of dungeon
 	 */
 	public static void initGame1() {
 
@@ -250,6 +250,10 @@ public class DataBase extends Canvas {
 
 	}
 	
+	
+	/*
+	 * init second layer of dungeon
+	 */
 	public static void initGame2() {
 		Monster ronflex = new Monster((Monster)(Monster) characters.get("ma2"));
 		ronflex.setId(ronflex.getId() + "#001");
@@ -359,9 +363,6 @@ public class DataBase extends Canvas {
 		instances.put(ronflex11.getId(),ronflex11);
 		charInstances.put(ronflex11.getId(),ronflex11);
 		
-		Chest c = new Chest("c", "isi","Ressources//Sprite//Props//Chest.png", 100, 180, "E#001", 250) ;
-		instances.put(c.getId(), c);
-		
 		ArrayList<Loot> list = new ArrayList<Loot>() ;
 		Collection i = DataBase.getLoots().values() ;
 		Iterator<Loot> r = i.iterator() ;
@@ -379,6 +380,9 @@ public class DataBase extends Canvas {
 		
 	}
 	
+	/*
+	 * init third layer of dungeon
+	 */
 	public static void initGame3() {
 		
 		

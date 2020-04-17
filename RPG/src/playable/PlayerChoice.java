@@ -54,4 +54,19 @@ public class PlayerChoice {
 		
 	}
 	
+	public static void EditClass(String input) {
+		Player ply = selected();
+
+		
+		if(input.equals("t")) {
+			ply = (Player) DataBase.getCharacters().get("pg1");
+		}
+		else if(input.equals("y")) {
+			ply = (Player) DataBase.getCharacters().get("pa2");
+		}
+		else if(input.equals("u")) {
+			ply = (Player) DataBase.getCharacters().get("ps3");
+		}
+	}
+	
 }

@@ -2,6 +2,7 @@ package game;
 
 import static InputControl.InputData.* ;
 
+
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -49,6 +50,9 @@ import dataclasses.DataBase;
 import inventory.InventoryKey;
 import playable.Player;
 
+/*
+ * Create the window, call init methods, and launch GameEngine and Render
+ */
 public class Game extends Canvas implements Runnable {
 
 	//dimension	
@@ -117,6 +121,9 @@ public class Game extends Canvas implements Runnable {
 		running = false;
 	}
 
+	/*
+	 * GameEngine that calls all tick() of every instances each loop.
+	 */
 	public void run() {
 		long lastTime = System.nanoTime();
 		double nsPerTick = 1000000000D / 60D;
@@ -179,6 +186,10 @@ public class Game extends Canvas implements Runnable {
 		gsm.tick();
 	}
 
+	
+	/*
+	 * Render all entities in window such as all characters and props
+	 */
 	public void render() {
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {

@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import loot.Equipment;
 import loot.Loot;
 
+/*
+ * Inventory of the Player 
+ */
 public class Inventory {
 	
 	private ArrayList<Loot> drops ;

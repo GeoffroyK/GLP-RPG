@@ -8,6 +8,9 @@ public class Colision {
 	private int width;
 	private int height;
 	
+	/*
+	 *  this class calculate every collision between entities and tiles
+	 */
 	public Colision(float x, float y, int w, int h) {
 		this.x = x;
 		this.y = y;
@@ -21,6 +24,9 @@ public class Colision {
 		this.r = r;
 	}
 	
+	/*
+	 * this method calculate if two rectangle collides
+	 */
 	public boolean isCollide(Colision b) {
 		float ax = (x + (width/2));
 		float ay = (y + (height/2));

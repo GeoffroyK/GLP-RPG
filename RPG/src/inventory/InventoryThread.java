@@ -5,6 +5,9 @@ import java.util.Scanner;
 import loot.*;
 import playable.Player;
 
+/*
+ * Enable the Invotory window to show and manage the actions of the player
+ */
 public class InventoryThread {
 	
 	public static boolean isConsumable(Loot l) {
@@ -65,7 +68,9 @@ public class InventoryThread {
 		}
 	}*/
 	
-	
+	/*
+	 * Equip 
+	 */
 	public static void slotVerif(Equipment e, Player p) {
 		
 		switch(e.getType()) {

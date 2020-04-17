@@ -14,25 +14,18 @@ import playable.Player;
 import playable.PlayerChoice;
 import spell.SpellTreatment;
 
+/*
+ * Contains methods that controls actions depending on the State of the game and the input of the user
+ */
 public class InputGame {
 	
 	private static MenuState menuState;
 	private static InGameState lvl1State;
 	private static boolean pressed = true;
 	
-/*	public void inputLog(GameStateManager gsm) {
-		switch(GameStateManager.getCurrentState()) {
-		
-		case GameStateManager.MENUSTATE :
-			menu(gsm) ;
-		
-		case GameStateManager.INGAMESTATE :
-			move(gsm) ;
-			break;
-			
-		}	
-	}*/
-	
+	/*
+	 * InputControl of the MenuState
+	 */
 	public static void menu() {
 	        int slow = 0 ;
 
@@ -61,6 +54,9 @@ public class InputGame {
 	        }
 	    }
 	
+	/*
+	 * InputControl of movements in the InGameState
+	 */
 	public static void move() {
 		lvl1State = (InGameState) GameStateManager.getGameStates().get(GameStateManager.getCurrentState());
 		Player ply = PlayerChoice.selected();
@@ -121,6 +117,10 @@ public class InputGame {
 		}
 	}
 	
+	
+	/*
+	 * InputControl of spells and attacks in the InGameState
+	 */
 	public static void spells() {
 		Player ply = PlayerChoice.selected();
 		if(getSpell1().isPressed()) {
@@ -143,6 +143,9 @@ public class InputGame {
 		}
 	}
 	
+	/*
+	 * InputControl of InventoryState
+	 */
 	public static void other(HudInventory inv) {
 		if(GameStateManager.getCurrentState() != 1) {
 			if(getEnter().isPressed()) {

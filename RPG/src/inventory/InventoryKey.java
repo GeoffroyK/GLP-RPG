@@ -5,8 +5,14 @@ import java.util.Scanner;
 import loot.Loot;
 import playable.Player;
 
+/*
+ * Management of all loots in a ArrayList 
+ */
 public class InventoryKey {
 	
+	/*
+	 * Give the loot chosen by player
+	 */
 	public static void choice(Player p) {
 		
 		System.out.println(InventoryThread.showInv(p.getInventory()));
@@ -42,6 +48,9 @@ public class InventoryKey {
 		find = 0 ;
 	}
 	
+	/*
+	 * add the loot when dropped of chest in a Arraylist
+	 */
 	public static void addLoot(Loot lootDrop, Player p) {
 		if(p.getInventory().getSize() + lootDrop.getSize() <= p.getInventory().getSizeMax()) {
 			int size = p.getInventory().getSize() + lootDrop.getSize();
@@ -56,6 +65,9 @@ public class InventoryKey {
 		}
 	}
 	
+	/*
+	 * supp the loot when equip of thrown of the Arraylist
+	 */
 	public static void suppLoot(Loot lootThrow, Player p) {
 		int size = p.getInventory().getSize() - lootThrow.getSize();
 		p.getInventory().setSize(size);

@@ -10,6 +10,10 @@ import playable.Monster;
 import playable.Player;
 import spell.Spell;
 
+/*
+ * Load of csv of instances
+ */
+
 public class DataBaseInit {
 
 	public static void loadCsvSpell(String csvPath) throws IOException {

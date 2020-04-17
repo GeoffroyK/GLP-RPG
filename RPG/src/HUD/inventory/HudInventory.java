@@ -26,6 +26,9 @@ import loot.Loot;
 import playable.Player;
 import playable.PlayerChoice;
 
+/*
+ * Create the window of InventoryState
+ */
 public class HudInventory implements MouseListener{
 	
 	private Image background = null ;
@@ -45,11 +48,19 @@ public class HudInventory implements MouseListener{
 		game.addMouseListener(this);
 	}
 	
+	
+	/*
+	 * Determinate all clickable area of the Inventory
+	 */
 	public void clickableAreaCreation(Player hero) {
 		clickableActionAreaCreation();
 		clickableLootAreaCreation(hero);
 	}
 	
+	
+	/*
+	 * Actions that the player can do : Equip/Throww/Detail
+	 */
 	public void clickableActionAreaCreation() {
 		ActionArea = new ArrayList<Rectangle>() ;
 		Rectangle equip = new Rectangle(Game.WIDTH/2 - 238, Game.HEIGHT/2 + 112, 102, 32);
@@ -63,6 +74,10 @@ public class HudInventory implements MouseListener{
 		//System.out.println(ActionArea.indexOf(equip));
 	}
 	
+	
+	/*
+	 * Enables the loot to be clickable
+	 */
 	public void clickableLootAreaCreation(Player hero) {
 		int x = Game.WIDTH/2 - 229 ;
 		int y = Game.HEIGHT/2 - 181 ;
@@ -82,12 +97,18 @@ public class HudInventory implements MouseListener{
 		}
 	}
 	
+	/*
+	 * Delete the clickable zone when there is no loot
+	 */
 	public void clickableZoneErase() {
 		clickableArea.clear();
 		ActionArea.clear();
 		echap = null; 
 	}
 	
+	/*
+	 * Render the clickable area and images
+	 */
 	public void render(Player hero, Graphics g) {
 			int x = Game.WIDTH/2 - 229 ;
 			int y = Game.HEIGHT/2 - 181 ;

@@ -1,5 +1,8 @@
 package InputControl;
 
+/*
+ * Contains all keyboards inputs of the game
+ */
 public class InputData {
 	
 	private static Key up  = new Key() ;
