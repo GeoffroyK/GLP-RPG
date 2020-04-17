@@ -18,7 +18,7 @@ public class MenuState implements GameState {
 	private int currentChoice = 0;
 	private String[] options = {
 			"Start",
-			"Load",
+			"Help",
 			"Quit"
 	};
 	

@@ -59,7 +59,7 @@ public class Game extends Canvas implements Runnable {
 	public static final int HEIGHT = 900;
 	public static int SCALE = 1;
 
-	private static final String NAME = "GAY RPG";
+	private static final String NAME = "GLP RPG";
 
 	public boolean running = false;
 
