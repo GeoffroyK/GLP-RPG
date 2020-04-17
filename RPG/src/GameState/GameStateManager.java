@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 import game.Game;
 
+/*
+ * dataClass for GameStateManager 
+ */
 public class GameStateManager {
 	
 	private static ArrayList<GameState> gameStates;

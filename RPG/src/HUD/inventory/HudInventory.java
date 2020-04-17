@@ -27,7 +27,7 @@ import playable.Player;
 import playable.PlayerChoice;
 
 /*
- * Create the window of InventoryState
+ * Create the window of InventoryState and the clickable selection area
  */
 public class HudInventory implements MouseListener{
 	
@@ -98,7 +98,7 @@ public class HudInventory implements MouseListener{
 	}
 	
 	/*
-	 * Delete the clickable zone when there is no loot
+	 * Delete the clickable zone when this close
 	 */
 	public void clickableZoneErase() {
 		clickableArea.clear();
@@ -144,6 +144,10 @@ public class HudInventory implements MouseListener{
 			
 	}
 	
+	/*
+	 * Permite select the item
+	 */
+	
 	public void selection(Player hero, Point e, Rectangle w, int index) {
 		if(w.contains(e)) {
 			selected = w ;
@@ -151,6 +155,10 @@ public class HudInventory implements MouseListener{
 		}
 		
 	}
+	
+	/*
+	 * Do the good action and stop searchState
+	 */
 	
 	public void action(Player hero, Point e, Rectangle a, int choice) {
 		if(a.contains(e)) {
@@ -162,12 +170,19 @@ public class HudInventory implements MouseListener{
 		}
 	}
 	
+	/*
+	 * Close the inventory and destroy the clicakble area
+	 */
 	public void echap() {
 		clickableZoneErase();
 		GameStateManager.setCurrentState(GameStateManager.INGAMESTATE);
 		searchState = 0 ;
 		
 	}
+	
+	/*
+	 * searching a click by user
+	 */
 	
 	public void checking(Player hero) {
 		if(searchState == 1) {

@@ -9,6 +9,9 @@ import InputControl.InputGame;
 import TileMap.Background;
 import game.Game;
 
+/*
+ * State in Principal menu can choose Start quit or Load
+ */
 public class MenuState implements GameState {
 	private Background bg;
 	

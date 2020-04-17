@@ -14,6 +14,10 @@ import javax.imageio.ImageIO;
 import GameState.GameStateManager;
 import game.Game;
 
+/*
+ * This class is for the button inventory in game
+ */
+
 public class InventoryButton implements MouseListener {
 
 	private Image background = null ;
@@ -29,13 +33,25 @@ public class InventoryButton implements MouseListener {
 		game.addMouseListener(this);
 	}
 	
+	/*
+	 * CREATION clickable zone
+	 */
+	
 	public void clickableAreaCreation() {
 		selection = new Rectangle(Game.WIDTH - 40, Game.HEIGHT/2 - 40, 40, 40);
 	}
 	
+	/*
+	 * Destruction clicakble zone
+	 */
+	
 	public void clickableZoneErase() {
 		selection = null ;
 	}
+	
+	/*
+	 * Check the click by user
+	 */
 	
 	public void checking() {
 		if(click != null && selection != null) {
@@ -50,6 +66,8 @@ public class InventoryButton implements MouseListener {
 		}
 		searchState = 0 ;
 	}
+	
+	
 	
 	public void render(Graphics2D g) {
 		g.drawImage(background, Game.WIDTH - 40, Game.HEIGHT/2 - 40, null);

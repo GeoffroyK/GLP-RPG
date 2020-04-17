@@ -5,6 +5,10 @@ import java.awt.Graphics2D;
 import HUD.ClassSelectionner;
 import game.Game;
 
+/*
+ *State when you choice your class
+ */
+
 public class ClassChoiceState implements GameState {
 
 	public ClassSelectionner c ;

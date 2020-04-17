@@ -18,6 +18,10 @@ import game.Game;
 import playable.Player;
 import playable.PlayerChoice;
 
+/*
+ * this class render the menu of character class selection
+ */
+
 public class ClassSelectionner implements MouseListener{
 	
 	private Image background = null ;
@@ -37,6 +41,10 @@ public class ClassSelectionner implements MouseListener{
 		game.addMouseListener(this);
 	}
 	
+	/*
+	 * Enables the class to be clickable
+	 */
+	
 	public void clickableActionAreaCreation() {
 		wizard = new Rectangle(170, 132, 332, 466);
 		warrior = new Rectangle(642, 132, 332, 466);
@@ -44,11 +52,19 @@ public class ClassSelectionner implements MouseListener{
 		//System.out.println(ActionArea.indexOf(equip));
 	}
 	
+	/*
+	 * Delete the clickable zone when you take a class
+	 */
+	
 	public void erase() {
 		wizard = null ;
 		warrior = null ;
 		archer = null ;
 	}
+	
+	/*
+	 * Permite select the class
+	 */
 	
 	public void checking() {
 		if(searchState == 1) {

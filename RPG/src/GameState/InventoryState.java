@@ -7,7 +7,10 @@ import InputControl.InputGame;
 import game.Game;
 import map_objects.Seller;
 import playable.PlayerChoice;
-
+/*
+ * 
+ * State when you open the inventory window
+ */
 public class InventoryState implements GameState{
 	
 	public HudInventory inv ;

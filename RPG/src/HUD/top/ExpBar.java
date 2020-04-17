@@ -5,6 +5,10 @@ import java.awt.Graphics;
 
 import playable.Player;
 
+/*
+ * Do gestion about expBar
+ */
+
 public class ExpBar {
 	public void BarRender(Player hero, Graphics g) {
 		/*g.setColor(Color.GRAY);

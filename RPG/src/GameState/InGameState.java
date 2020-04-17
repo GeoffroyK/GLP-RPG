@@ -18,6 +18,10 @@ import game.Game;
 import playable.Player;
 import playable.PlayerChoice;
 
+/*
+ * State of the game when the player can controle the character
+ */
+
 public class InGameState implements GameState {
 	
 	private static TileMap tileMap;

@@ -11,6 +11,11 @@ import game.Game;
 import playable.PlayerChoice;
 import spell.Spell;
 
+/*
+ * Allow display of power bar who show the spell in function of rigth character
+ */
+
+
 public class ActionBar {
 	private Image background = null ;
 	

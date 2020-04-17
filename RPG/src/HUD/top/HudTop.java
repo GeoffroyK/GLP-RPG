@@ -10,6 +10,10 @@ import javax.imageio.ImageIO;
 import playable.Player;
 import playable.PlayerChoice;
 
+/*
+ * Do the Top corner Hud to show LifePOint ManaPoint and expBar
+ */
+
 public class HudTop {
 	
 	private Image background = null ;

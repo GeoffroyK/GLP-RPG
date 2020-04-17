@@ -1,6 +1,7 @@
 package HUD.seller;
 
 import java.awt.Color;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -22,6 +23,10 @@ import map_objects.SellerTreatment;
 import playable.Player;
 import playable.PlayerChoice;
 
+/*
+ * Class to Open selaMan window
+ */
+
 public class HudSeller implements MouseListener{
 	private Image background = null ;
 	
@@ -40,10 +45,18 @@ public class HudSeller implements MouseListener{
 		game.addMouseListener(this);
 	}
 	
+	/*
+	 * Enables the loot to be clickable
+	 */
+	
 	public void clickableAreaCreation(Player hero, Seller saleMan) {
 		clickableActionAreaCreation();
 		clickableLootAreaCreation(hero, saleMan);
 	}
+	
+	/*
+	 * Enables the button buy sell detail to be clickable
+	 */
 	
 	public void clickableActionAreaCreation() {
 		ActionArea = new ArrayList<Rectangle>() ;
@@ -57,6 +70,12 @@ public class HudSeller implements MouseListener{
 		ActionArea.add(echap);
 		//System.out.println(ActionArea.indexOf(equip));
 	}
+	
+	
+	/*
+	 * Enables the loot to be clickable
+	 */
+	 
 	
 	public void clickableLootAreaCreation(Player hero, Seller saleMan) {
 		int x = Game.WIDTH/2 - 229 ;
@@ -91,6 +110,10 @@ public class HudSeller implements MouseListener{
 		}
 		
 	}
+	
+	/*
+	 * Delete the clickable zone when there is no loot
+	 */
 	
 	public void clickableZoneErase() {
 		clickableArea.clear();
@@ -151,6 +174,10 @@ public class HudSeller implements MouseListener{
 		}
 	}
 	
+	/*
+	 * Permite select the item
+	 */
+	
 	public void selection(Point e, Rectangle w, int index) {
 		if(w.contains(e)) {
 			selected = w ;
@@ -158,6 +185,10 @@ public class HudSeller implements MouseListener{
 		}
 		
 	}
+	
+	/*
+	 * Do the good action and stop searchState
+	 */
 	
 	public void action(Player hero, Seller saleMan, Point e, Rectangle a, int choice) {
 		if(a.contains(e)) {
@@ -177,12 +208,19 @@ public class HudSeller implements MouseListener{
 		}
 	}
 	
+	/*
+	 * Close the saleMan Window and destroy the clicakble area
+	 */
+	
 	public void echap() {
 		clickableZoneErase();
 		GameStateManager.setCurrentState(GameStateManager.INGAMESTATE);
 		searchState = 0 ;
 	}
 	
+	/*
+	 * searching a click by user
+	 */
 	
 	public void checking(Player hero, Seller saleMan) {
 		if(searchState == 1) {

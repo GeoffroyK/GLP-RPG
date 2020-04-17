@@ -10,6 +10,9 @@ import map_objects.PropsTreatment;
 import map_objects.Seller;
 import playable.PlayerChoice;
 
+/*
+ * State when you open saleMan window 
+ */
 public class SellerState implements GameState{
 	
 	public HudSeller sale ;

@@ -5,6 +5,9 @@ import java.awt.Graphics;
 
 import playable.Player;
 
+/*
+ * Do gestion about ManaBar
+ */
 public class MpBar {
 	
 	public void BarRender(Player hero, Graphics g) {
