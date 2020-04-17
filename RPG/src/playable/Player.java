@@ -23,7 +23,8 @@ public class Player extends Character {
 			private int experience;
 			private int expMax;
 
-			private Spell[] spells;
+			private Spell[] spells;		
+			private String keyIconPath = null;
 
 			private Colision player;
 			private TileMap tileMap = InGameState.getTileMap();
@@ -64,54 +65,29 @@ public class Player extends Character {
 		super.setWidth(20);
 		super.setHeight(28);
 
-//		PlayerTreatment.initSpells(this);
 		expMax = 100;
 	}
-
-	public String toString() {
-		return super.toString() + "\nexp = " + experience + "\nSpell1 = " + this.spells[0].getName() + "\nSpell2 = "
-				+ this.spells[1].getName() + "\nSpell3 = " + this.spells[2].getName() + "\nSpell4 = "
-				+ this.spells[3].getName() + "\nSpell5 = " + this.spells[4].getName() + "\nSpell6 = "
-				+ this.spells[5].getName() + "\n-----------------------------------------------\n";
-
-	}
-
-	public int getExperience() {
-		return experience;
-	}
-
-	public int getExpMax() {
-		return expMax;
-	}
-
-	public void setExpMax(int expMax) {
-		this.expMax = expMax;
-	}
-	
-	public void setExperience(int experience) {
-		this.experience = experience;
-	}
-
-	public Spell[] getSpells() {
-		return spells;
-	}
-
-	public void setSpells(Spell[] spells) {
-		this.spells = spells;
+	private void levelUp() {
+		if(experience >= 100) {
+			experience = 0;
+			setLevel(getLevel()+1);
+			keyIconPath="Ressources\\HUD\\iconSpell\\" + getType() + "" + (getLevel()-1) + ".png";
+			
+			spells[getLevel()-1].setIconPath(keyIconPath);
+			
+		}
+		
 	}
 
 	public void tick() {
-		if(experience >= 100) {
-			experience = 0;
-			spells[2].setIconPath("Ressources\\HUD\\iconSpell\\tp.png");
-		}
+		levelUp();
+
 		detection();
 		this.setX(getX() + getVelX());
 		this.setY(getY() + getVelY());
 
 	}
 
-	
 	public void render(Graphics g) {
 		Image sprite = null;
 		String spritePath = null;
@@ -255,5 +231,37 @@ public class Player extends Character {
 	
 	public void death() {
 		
+	}
+	
+	public String toString() {
+		return super.toString() + "\nexp = " + experience + "\nSpell1 = " + this.spells[0].getName() + "\nSpell2 = "
+				+ this.spells[1].getName() + "\nSpell3 = " + this.spells[2].getName() + "\nSpell4 = "
+				+ this.spells[3].getName() + "\nSpell5 = " + this.spells[4].getName() + "\nSpell6 = "
+				+ this.spells[5].getName() + "\n-----------------------------------------------\n";
+
+	}
+
+	public int getExperience() {
+		return experience;
+	}
+
+	public int getExpMax() {
+		return expMax;
+	}
+
+	public void setExpMax(int expMax) {
+		this.expMax = expMax;
+	}
+	
+	public void setExperience(int experience) {
+		this.experience = experience;
+	}
+
+	public Spell[] getSpells() {
+		return spells;
+	}
+
+	public void setSpells(Spell[] spells) {
+		this.spells = spells;
 	}
 }

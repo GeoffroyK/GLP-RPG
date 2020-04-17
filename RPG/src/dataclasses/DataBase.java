@@ -85,7 +85,7 @@ public class DataBase extends Canvas {
 
 	private void initGame() {
 
-		PlayerChoice.chooseClassPlayer("u");
+		PlayerChoice.chooseClassPlayer("t");
 		ply = PlayerChoice.selected();
 		ply.setX(30);
 		ply.setY(450);

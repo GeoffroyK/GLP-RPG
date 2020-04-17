@@ -461,7 +461,7 @@ public class Monster extends Character {
 		} else {
 			alive = false;
 			ply = PlayerChoice.selected();
-			ply.setExperience(ply.getExperience() + 10);
+			ply.setExperience(ply.getExperience() + 30);
 			DataBase.getToBeRemoved().add(getId());
 			DataBase.getCharInstances().remove(getId());
 		}
