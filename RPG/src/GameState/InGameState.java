@@ -15,6 +15,7 @@ import TileMap.*;
 import dataclasses.DataBase;
 import dataclasses.GameObject;
 import game.Game;
+import playable.Player;
 import playable.PlayerChoice;
 
 public class InGameState implements GameState {
@@ -24,12 +25,13 @@ public class InGameState implements GameState {
     private InventoryButton b ;
     private ActionBar a ;
 	private Font f;
+	private Player ply;
 
     private static int level ;
 
     public static final String LEVEL1 = "/Maps/etage1.map";
-    public static final String LEVEL2 = "/Maps/point_avancement.map";
-	public static final String LEVEL3 = "/Tilesets/testtileset5.png";
+    public static final String LEVEL2 = "/Maps/etage2.map";
+	public static final String LEVEL3 = "/Maps/etage3.map";
 
 
     public InGameState(Game game) {
@@ -47,23 +49,38 @@ public class InGameState implements GameState {
 
         if(level == 1) {
             tileMap.loadMap(LEVEL1);
-            PlayerChoice.selected().setX(222);
-            PlayerChoice.selected().setY(222);
-            //Ici
+            ply = PlayerChoice.selected();
+            ply.setX(40);
+            ply.setY(400);
+            DataBase.getInstances().clear();
+            DataBase.getCharInstances().clear();
+            DataBase.getInstances().put(ply.getId(),ply);
+            DataBase.getCharInstances().put(ply.getId(),ply);
+            DataBase.initGame1();
         }
 
         if(level == 2) {
             tileMap.loadMap(LEVEL2);
-            PlayerChoice.selected().setX(30);
-            PlayerChoice.selected().setY(450);
-            //Ici
+            ply = PlayerChoice.selected();
+            ply.setX(70);
+            ply.setY(150);
+            DataBase.getInstances().clear();
+            DataBase.getCharInstances().clear();
+            DataBase.getInstances().put(ply.getId(),ply);
+            DataBase.getCharInstances().put(ply.getId(),ply);
+            DataBase.initGame2();
         }
 
         if(level == 3) {
             tileMap.loadMap(LEVEL3);
-            PlayerChoice.selected().setX(1550);
-            PlayerChoice.selected().setY(600);
-            //Ici
+            ply = PlayerChoice.selected();
+            ply.setX(1550);
+            ply.setY(600);
+            DataBase.getInstances().clear();
+            DataBase.getCharInstances().clear();
+            DataBase.getInstances().put(ply.getId(),ply);
+            DataBase.getCharInstances().put(ply.getId(),ply);
+            DataBase.initGame3();
         }
 
         //tileMap.loadMap("/Maps/debug.map");

@@ -76,8 +76,7 @@ public class DataBase extends Canvas {
 			e.printStackTrace();
 		}
 		System.out.println(this);
-
-		
+		PlayerChoice.chooseClassPlayer("t");
 		
 	}
 
@@ -87,10 +86,7 @@ public class DataBase extends Canvas {
 
 	public static void initGame1() {
 
-		PlayerChoice.chooseClassPlayer("t");
-		ply = PlayerChoice.selected();
-		ply.setX(30);
-		ply.setY(450);
+
 		
 		Monster ronflex = new Monster((Monster)(Monster) characters.get("ma2"));
 		ronflex.setId(ronflex.getId() + "#001");
@@ -260,11 +256,154 @@ public class DataBase extends Canvas {
 	}
 	
 	public static void initGame2() {
+		Monster ronflex = new Monster((Monster)(Monster) characters.get("ma2"));
+		ronflex.setId(ronflex.getId() + "#001");
+		ronflex.setX(500);
+		ronflex.setY(500);
+		ronflex.setDirection(0);
+		ronflex.defineArea();
+		instances.put(ronflex.getId(),ronflex);
+		charInstances.put(ronflex.getId(),ronflex);
 		
+		Monster ronflex1 = new Monster((Monster)(Monster) characters.get("ma2"));
+		ronflex1.setId(ronflex1.getId() + "#002");
+		ronflex1.setX(200);
+		ronflex1.setY(300);
+		ronflex1.setDirection(0);
+		ronflex1.defineArea();
+		instances.put(ronflex1.getId(),ronflex1);
+		charInstances.put(ronflex1.getId(),ronflex1);
+		
+		Monster ronflex2 = new Monster((Monster)(Monster) characters.get("ma2"));
+		ronflex2.setId(ronflex2.getId() + "#003");
+		ronflex2.setX(900);
+		ronflex2.setY(350);
+		ronflex2.setDirection(0);
+		ronflex2.defineArea();
+		instances.put(ronflex2.getId(),ronflex2);
+		charInstances.put(ronflex2.getId(),ronflex2);
+		
+		Monster ronflex3 = new Monster((Monster)(Monster) characters.get("ma2"));
+		ronflex3.setId(ronflex3.getId() + "#004");
+		ronflex3.setX(700);
+		ronflex3.setY(80);
+		ronflex3.setDirection(0);
+		ronflex3.defineArea();
+		instances.put(ronflex3.getId(),ronflex3);
+		charInstances.put(ronflex3.getId(),ronflex3);
+		
+		Monster ronflex4 = new Monster((Monster)(Monster) characters.get("ma2"));
+		ronflex4.setId(ronflex4.getId() + "#005");
+		ronflex4.setX(650);
+		ronflex4.setY(280);
+		ronflex4.setDirection(0);
+		ronflex4.defineArea();
+		instances.put(ronflex4.getId(),ronflex4);
+		charInstances.put(ronflex4.getId(),ronflex4);
+		
+		Monster ronflex5 = new Monster((Monster)(Monster) characters.get("ma2"));
+		ronflex5.setId(ronflex5.getId() + "#006");
+		ronflex5.setX(1400);
+		ronflex5.setY(380);
+		ronflex5.setDirection(0);
+		ronflex5.defineArea();
+		instances.put(ronflex5.getId(),ronflex5);
+		charInstances.put(ronflex5.getId(),ronflex5);
+		
+		Monster ronflex6 = new Monster((Monster)(Monster) characters.get("ma2"));
+		ronflex6.setId(ronflex6.getId() + "#007");
+		ronflex6.setX(950);
+		ronflex6.setY(600);
+		ronflex6.setDirection(0);
+		ronflex6.defineArea();
+		instances.put(ronflex6.getId(),ronflex6);
+		charInstances.put(ronflex6.getId(),ronflex6);
+		
+		Monster ronflex7 = new Monster((Monster)(Monster) characters.get("ma2"));
+		ronflex7.setId(ronflex7.getId() + "#008");
+		ronflex7.setX(1000);
+		ronflex7.setY(600);
+		ronflex7.setDirection(0);
+		ronflex7.defineArea();
+		instances.put(ronflex7.getId(),ronflex7);
+		charInstances.put(ronflex7.getId(),ronflex7);
+		
+		Monster ronflex8 = new Monster((Monster)(Monster) characters.get("ma2"));
+		ronflex8.setId(ronflex8.getId() + "#009");
+		ronflex8.setX(1050);
+		ronflex8.setY(600);
+		ronflex8.setDirection(0);
+		ronflex8.defineArea();
+		instances.put(ronflex8.getId(),ronflex8);
+		charInstances.put(ronflex8.getId(),ronflex8);
+		
+		Monster ronflex9 = new Monster((Monster)(Monster) characters.get("ma2"));
+		ronflex9.setId(ronflex8.getId() + "#010");
+		ronflex9.setX(1100);
+		ronflex9.setY(600);
+		ronflex9.setDirection(0);
+		ronflex9.defineArea();
+		instances.put(ronflex9.getId(),ronflex9);
+		charInstances.put(ronflex9.getId(),ronflex9);
+		
+		Monster ronflex10 = new Monster((Monster)(Monster) characters.get("ma2"));
+		ronflex10.setId(ronflex8.getId() + "#011");
+		ronflex10.setX(1150);
+		ronflex10.setY(600);
+		ronflex10.setDirection(0);
+		ronflex10.defineArea();
+		instances.put(ronflex10.getId(),ronflex10);
+		charInstances.put(ronflex10.getId(),ronflex10);
+		
+		Monster ronflex11 = new Monster((Monster)(Monster) characters.get("ma2"));
+		ronflex11.setId(ronflex11.getId() + "#012");
+		ronflex11.setX(1200);
+		ronflex11.setY(600);
+		ronflex11.setDirection(0);
+		ronflex11.defineArea();
+		instances.put(ronflex11.getId(),ronflex11);
+		charInstances.put(ronflex11.getId(),ronflex11);
+		
+
+		
+		Chest c2 = new Chest("c", "isi","Ressources//Sprite//Props//Chest.png", 100, 150, "E#001", 250) ;
+		instances.put(c2.getId(), c2);
+		propInstance.add(c2) ;
+		
+		Chest c1 = new Chest("c", "isi","Ressources//Sprite//Props//Chest.png", 900, 350, "E#001", 250) ;
+		instances.put(c1.getId(), c1);
+		propInstance.add(c1) ;
+		
+		ArrayList<Loot> list = new ArrayList<Loot>() ;
+		Collection i = DataBase.getLoots().values() ;
+		Iterator<Loot> r = i.iterator() ;
+		while(r.hasNext()){
+			Loot l = r.next() ;
+			list.add(l) ;
+		}
+		
+		Seller s = new Seller("s", "isi", "Ressources//Sprite//Props//Seller.png", 130, 200, list);
+		instances.put(s.getId(), s) ;
+		propInstance.add(s) ;
+		
+		Stair Stair = new Stair("st", "isi", "Ressources//Sprite//Props//Escalier.png", 1100, 380, 1) ;
+        instances.put(Stair.getId(), Stair) ;
+        propInstance.add(Stair) ;
 	}
 	
 	public static void initGame3() {
 		
+		
+		Monster boss = new Monster((Monster) characters.get("mb1"));
+		boss.setId(boss.getId() + "#014");
+		boss.setX(900);
+		boss.setY(400);
+		boss.setDirection(0);
+		boss.defineArea();
+		
+		instances.put(boss.getId(),boss);
+		
+		charInstances.put(boss.getId(),boss);
 	}
 
 	public String toString() {
