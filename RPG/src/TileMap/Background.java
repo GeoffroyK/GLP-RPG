@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 import game.Game;
 
 /*
- * Background of the window when there is no map
+ * Background of the window when there is no map / Used in MenuState
  */
 public class Background {
 
@@ -30,21 +30,33 @@ public class Background {
 		}
 	}
 	
+	/*
+	 * Determine the position of the background on the screen
+	 */
 	public void setPosition(double x, double y) {
 		this.x = (x * moveScale) % Game.WIDTH;
 		this.dy = (y * moveScale) % Game.HEIGHT;
 	}
 	
+	/*
+	 * Determine the movement of the background 
+	 */
 	public void setVector(double dx, double dy) {
 		this.dx = dx;
 		this.dy = dy;
 	}
 	
+	/*
+	 * update the position of the background
+	 */
 	public void update() {
 		x += dx;
 		y += dy;
 	}
 	
+	/*
+	 * render the background
+	 */
 	public void draw(Graphics2D g) {
 		g.drawImage(image, (int)x, (int)y, null);
 		if(x < 0) {
