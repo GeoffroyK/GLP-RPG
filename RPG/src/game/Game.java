@@ -41,7 +41,6 @@ import inventory.InventoryKey;
 import loot.Loot;
 import playable.CharactersInstances;
 import playable.Monster;
-import playable.Move;
 import playable.Player;
 import playable.PlayerChoice;
 import spell.SpellTreatment;

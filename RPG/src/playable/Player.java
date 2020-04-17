@@ -19,6 +19,9 @@ import game.Colision;
 import game.Game;
 import spell.Spell;
 
+/*
+ * Class of the player with its spell, its collision with other entities and movement
+ */
 public class Player extends Character {
 			private int experience;
 			private int expMax;
@@ -67,6 +70,10 @@ public class Player extends Character {
 
 		expMax = 100;
 	}
+	
+	/*
+	 * Unlock spell when levelUp
+	 */
 	private void levelUp() {
 		if(experience >= 100) {
 			experience = 0;
@@ -79,6 +86,9 @@ public class Player extends Character {
 		
 	}
 
+	/*
+	 * Call all treatment methods each lopp
+	 */
 	public void tick() {
 		levelUp();
 
@@ -88,6 +98,9 @@ public class Player extends Character {
 
 	}
 
+	/*
+	 * Render the character and its new position
+	 */
 	public void render(Graphics g) {
 		Image sprite = null;
 		String spritePath = null;
@@ -137,6 +150,9 @@ public class Player extends Character {
 		//g.drawRect((int) (getX()), (int) (getY()), (int) (getWidth()), (int) (getHeight()));
 	}
 
+	/*
+	 * Colision detection with otehr entities
+	 */
 	public void detection() {
 		
 		player = new Colision(getX(), getY(), getWidth(), getHeight());
@@ -159,6 +175,9 @@ public class Player extends Character {
 		checkTileMapCollision();
 	}
 	
+	/*
+	 * Calculate corners of a tile next to the player
+	 */
 	public void calculateCorners(double x, double y) {
 		int leftTile = (int) x / tileSize;
 		int rightTile = (int) (x + cwidth )/ tileSize;
@@ -176,6 +195,9 @@ public class Player extends Character {
 		bottomRight = br == Tile.BLOCKED;
 	}
 	
+	/*
+	 * Check if the player is colliding a tile
+	 */
 	public void checkTileMapCollision() {
 		currCol = (int) getX() / tileSize;
 		currRow = (int) getY() / tileSize;
@@ -219,7 +241,9 @@ public class Player extends Character {
 		}
 	}
 	
-	
+	/*
+	 * Calculate the lifepoint of the player when hit
+	 */
 	public void gotHit(int damage) {
 		setLifePoint(getLifePoint() - damage);
 //		if (getLifePoint() - damage > 0) {
@@ -229,6 +253,9 @@ public class Player extends Character {
 //		}
 	}
 	
+	/*
+	 * Management of the death of the player / WIP
+	 */
 	public void death() {
 		
 	}

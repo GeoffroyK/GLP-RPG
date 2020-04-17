@@ -22,6 +22,9 @@ import dataclasses.GameObject;
 import game.Colision;
 import spell.Spell;
 
+/*
+ * Monster of the game, contains AI, movement and attacks
+ */
 public class Monster extends Character {
 
 	private int lootChance;
@@ -85,6 +88,9 @@ public class Monster extends Character {
 		init();
 	}
 
+	/*
+	 * Create clone of a Instance
+	 */
 	public Monster(Monster monster) {
 		super(monster.getId(), monster.getType(), monster.getLifePoint(), monster.getManaPoint(), monster.getStrength(),
 				monster.getDexterity(), monster.getIntelligence(), monster.getDefense(), monster.getAttack(),
@@ -96,12 +102,16 @@ public class Monster extends Character {
 		init();
 	}
 
+
 	private void init() {
 		attackMonster = DataBase.getSpells().get("sm1");
 		rand = new Random();
 		img = new Image[21];
 	}
 
+	/*
+	 * Define the hitbox and the size of the monster
+	 */
 	public void defineArea() {
 		switch (getType()) {
 
@@ -141,6 +151,9 @@ public class Monster extends Character {
 		setDetectionY((int) (getY() - ((getDetectionHeight() / 2) - (getHeight() / 2)))); // size/2 - width/2
 	}
 
+	/*
+	 * Call all treatment methods depending of the type : Normal Monster or Boss
+	 */
 	public void tick() {
 		if (getType().equals("Boss")) {
 			bossActions();
@@ -153,6 +166,9 @@ public class Monster extends Character {
 		this.setY(getY() + getVelY());
 	}
 
+	/*
+	 * All Boss Actions each loop
+	 */
 	private void bossActions() {
 		defineArea();
 
@@ -178,6 +194,9 @@ public class Monster extends Character {
 
 	}
 
+	/*
+	 * Random movement of the Boss
+	 */
 	private void randomMvt() {
 		int n = rand.nextInt(8);
 		switch (n) {
@@ -225,6 +244,9 @@ public class Monster extends Character {
 
 	}
 
+	/*
+	 * All the attacks of the boss
+	 */
 	public void bossNormalAttacks() {
 		int cptId = 1;
 		for (int i = 0; i < 8; i++) {
@@ -291,6 +313,9 @@ public class Monster extends Character {
 
 	}
 
+	/*
+	 * Management of the follow attack of the boss 
+	 */
 	public void bossFollowAttack() {
 		int cpt2 = 1;
 
@@ -306,6 +331,9 @@ public class Monster extends Character {
 		DataBase.getToBeAdded().add(tmpAttack);
 	}
 
+	/*
+	 * Calculate the offset between the position of the player and the monster 
+	 */
 	public void calculateOffSet() {
 
 		float diffX = getX() - PlayerChoice.selected().getX();
@@ -316,6 +344,9 @@ public class Monster extends Character {
 		offSetY = (float) ((-1.0 / distance) * diffY);
 	}
 
+	/*
+	 * Move the monster 
+	 */
 	public void move() {
 
 		setVelX(offSetX);
@@ -323,6 +354,9 @@ public class Monster extends Character {
 
 	}
 
+	/*
+	 * Detect if the player is in range or in contact
+	 */
 	public void detection() {
 		defineArea();
 
@@ -372,6 +406,9 @@ public class Monster extends Character {
 
 	}
 
+	/*
+	 * Attack the player each second when in vision range
+	 */
 	public void attacking() {
 		if (System.currentTimeMillis() - lastTimer >= 1000) {
 			int cpt = 1;
@@ -392,6 +429,9 @@ public class Monster extends Character {
 
 	}
 
+	/*
+	 * Calculate the corners of the tile next to the Monster
+	 */
 	public void calculateCorners(double x, double y) {
 		int leftTile = (int) (x) / tileSize;
 		int rightTile = (int) (x + getWidth()) / tileSize;
@@ -409,6 +449,9 @@ public class Monster extends Character {
 		bottomRight = br == Tile.BLOCKED;
 	}
 
+	/*
+	 * Check if the monster collide with a solid tile 
+	 */
 	public void checkTileMapCollision() {
 		monster = new Colision((int) getX() + offSetX * 2, (int) getY() + offSetY * 2, (int) (getWidth()),
 				(int) (getHeight()));
@@ -455,6 +498,9 @@ public class Monster extends Character {
 		}
 	}
 
+	/*
+	 * Calculate the damage taken when hit
+	 */
 	public void gotHit(int damage) {
 		if (getLifePoint() - damage > 0) {
 			setLifePoint(getLifePoint() - damage);
@@ -468,6 +514,9 @@ public class Monster extends Character {
 
 	}
 
+	/*
+	 * Calculate the knockback when hit / WIP
+	 */
 	public void knockback() {
 		ply = PlayerChoice.selected();
 		int direction = ply.getDirection();
@@ -511,6 +560,9 @@ public class Monster extends Character {
 		}
 	}
 
+	/*
+	 * Render the sprite of the monster
+	 */
 	public void render(Graphics g) {
 		if (alive) {
 			Image ply = null;

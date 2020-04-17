@@ -2,6 +2,9 @@ package loot;
 
 import playable.Player;
 
+/*
+ * Treatment when equiping of unquiping an equipment, change the stat of the player depending of the loot
+ */
 public class EquipmentTreatment {
 	
 	public static void equip(Equipment e, Player p) {

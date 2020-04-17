@@ -5,6 +5,9 @@ import inventory.InventoryKey;
 import playable.Player;
 import playable.PlayerChoice;
 
+/*
+ * Treatment of chest, give the loot when opened and make animation 
+ */
 public class ChestTreatment {
 
 	public static void ChestOpen(Chest c) {

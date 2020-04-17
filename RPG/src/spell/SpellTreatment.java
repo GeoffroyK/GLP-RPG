@@ -1,9 +1,7 @@
 package spell;
 
 import dataclasses.DataBase;
-import map.Map;
 import playable.Monster;
-import playable.MoveTreatment;
 import playable.Player;
 import playable.PlayerChoice;
 

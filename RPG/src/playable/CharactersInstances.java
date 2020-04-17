@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import dataclasses.GameObject;
 
+/*
+ * Management of all Character Instances of the game, add or delete in a Hashmap
+ */
 public class CharactersInstances {
 
 	private static ArrayList<GameObject> charactersInstances = new ArrayList<GameObject>();

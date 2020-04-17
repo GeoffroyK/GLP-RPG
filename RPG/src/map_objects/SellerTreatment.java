@@ -8,6 +8,9 @@ import loot.Loot;
 import playable.Player;
 import playable.PlayerChoice;
 
+/*
+ * Merchant gestion in the game, buy loot or sell loot in exchange of money
+ */
 public class SellerTreatment {
 	
 	public static void buy(Loot l){
@@ -17,11 +20,16 @@ public class SellerTreatment {
 		}
 	}
 	
+	
 	public static void sell(Loot l) {
 		PlayerChoice.selected().getInventory().setGold(PlayerChoice.selected().getInventory().getGold() + (int) l.getPrice());
 		InventoryKey.suppLoot(l, PlayerChoice.selected());
 	}
 	
+	
+	/*
+	 * Select actions depending of the choice of the player
+	 */
 	public static void Action (Loot lCourant, int choice, Player p){
 		switch(choice) {
 		case  0 : 

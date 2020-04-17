@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import loot.Loot;
 
+/*
+ * Merchant that contains an ArrayList of all loot existing in the game to sale it
+ */
 public class Seller extends Prop {
 	
 	private ArrayList<Loot> article ;

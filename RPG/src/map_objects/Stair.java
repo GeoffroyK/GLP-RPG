@@ -2,6 +2,9 @@ package map_objects;
 
 import java.util.HashMap;
 
+/*
+ * Data Class of the Stair, contains its position
+ */
 public class Stair extends Prop {
 
     private int levels ;

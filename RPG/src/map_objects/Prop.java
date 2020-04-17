@@ -9,6 +9,9 @@ import javax.imageio.ImageIO;
 
 import dataclasses.GameObject;
 
+/*
+ * Data class of a prop with only its position and type
+ */
 public class Prop extends GameObject {
 	
 	private String name;

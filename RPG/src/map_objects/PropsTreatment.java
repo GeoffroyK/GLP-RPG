@@ -7,8 +7,14 @@ import GameState.GameStateManager;
 import dataclasses.DataBase;
 import playable.PlayerChoice;
 
+/*
+ * Treatment of all props, call a certain methods depending of the props near the player. (Chest / Stair of Merchant)
+ */
 public class PropsTreatment {
 
+	/*
+	 * Check if there is a props near the player and do the action depending of the result
+	 */
 	public static void check() {
         Rectangle r =  new Rectangle((int) PlayerChoice.selected().getX() - 30, (int) PlayerChoice.selected().getY() - 30, 60, 60) ;
         if(DataBase.getPropInstance() != null) {
@@ -30,6 +36,9 @@ public class PropsTreatment {
         }
     }
 	
+	/*
+	 * Return the prop selected by the player
+	 */
 	public static int id() {
 		Rectangle r =  new Rectangle((int) PlayerChoice.selected().getX() - 30, (int) PlayerChoice.selected().getY() - 30, 60, 60) ;
 		for(Prop p : DataBase.getPropInstance()) {

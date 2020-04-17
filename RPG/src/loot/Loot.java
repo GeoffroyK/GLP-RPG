@@ -2,6 +2,9 @@ package loot;
 
 import dataclasses.GameObject;
 
+/*
+ * Data Class of a Loot, Mother Class of Equipment and consumable 
+ */
 public abstract class Loot extends GameObject {
 	
 	private double price;

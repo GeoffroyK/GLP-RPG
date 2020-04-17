@@ -2,6 +2,9 @@ package map_objects;
 
 import loot.Loot;
 
+/*
+ * Data class of a chest
+ */
 public class Chest extends Prop {
 	
 	private String dropID ;

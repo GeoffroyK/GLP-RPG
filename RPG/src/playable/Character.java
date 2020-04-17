@@ -4,6 +4,9 @@ import dataclasses.*;
 import game.Colision;
 import inventory.Inventory;
 
+/*
+ * Mother Class of Player and Monster, contains a lot of statistic such as lifepoint of damage.
+ */
 public abstract class Character extends GameObject {
 
 	//Map Position

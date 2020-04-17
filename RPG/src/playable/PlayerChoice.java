@@ -2,6 +2,10 @@ package playable;
 
 import dataclasses.DataBase;
 
+/*
+ * Singleton
+ * Enable to chose the class of the Player and to retrieve the player when needed
+ */
 public class PlayerChoice {
 	
 	public static Player selected() {
