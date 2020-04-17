@@ -76,7 +76,8 @@ public class DataBase extends Canvas {
 			e.printStackTrace();
 		}
 		System.out.println(this);
-
+		initGame1();
+		
 	}
 
 	public static HashMap<String, Loot> getLoots() {
