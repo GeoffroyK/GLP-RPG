@@ -44,7 +44,7 @@ public class MenuState implements GameState {
 	
 	private void select() {
 		if(currentChoice == 0) {
-			GameStateManager.setState(GameStateManager.INGAMESTATE);
+			GameStateManager.setState(GameStateManager.SELECTIONSTATE);
 		}
 		if(currentChoice == 1) {
 			//help

@@ -104,7 +104,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void init() {
-		db = new DataBase();
+		db = new DataBase() ;
 		input = new InputHandler(this);
 		gsm = new GameStateManager(this);
 		
@@ -157,26 +157,27 @@ public class Game extends Canvas implements Runnable {
 				frames++;
 				render();
 			}
-
-			if (System.currentTimeMillis() - lastTimer >= 1000) {
-				SpellTreatment.spellTimer();
-				p = PlayerChoice.selected();
-				if(p.getLifePoint()+1 >= p.getLifePointMax()) {
-					p.setLifePoint(p.getLifePointMax());
+			if(GameStateManager.getCurrentState() == GameStateManager.INGAMESTATE) {
+				if (System.currentTimeMillis() - lastTimer >= 1000) {
+					SpellTreatment.spellTimer();
+					p = PlayerChoice.selected();
+					if(p.getLifePoint()+1 >= p.getLifePointMax()) {
+						p.setLifePoint(p.getLifePointMax());
+					}
+					else {
+						p.setLifePoint(p.getLifePoint()+1);
+					}
+					if(p.getManaPoint()+5 >= p.getManaPointMax()) {
+						p.setManaPoint(p.getManaPointMax());
+					}
+					else {
+						p.setManaPoint(p.getManaPoint()+5);
+					}
+					lastTimer += 1000;
+					System.out.println(ticks + " ticks / " + frames + " frames");
+					frames = 0;
+					ticks = 0;
 				}
-				else {
-					p.setLifePoint(p.getLifePoint()+1);
-				}
-				if(p.getManaPoint()+5 >= p.getManaPointMax()) {
-					p.setManaPoint(p.getManaPointMax());
-				}
-				else {
-					p.setManaPoint(p.getManaPoint()+5);
-				}
-				lastTimer += 1000;
-				System.out.println(ticks + " ticks / " + frames + " frames");
-				frames = 0;
-				ticks = 0;
 			}
 
 		}

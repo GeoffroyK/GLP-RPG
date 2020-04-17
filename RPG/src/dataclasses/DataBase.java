@@ -80,7 +80,6 @@ public class DataBase extends Canvas {
 			e.printStackTrace();
 		}
 		System.out.println(this);
-		PlayerChoice.chooseClassPlayer("t");
 		
 	}
 

@@ -25,6 +25,7 @@ public class GameStateManager {
 		gameStates.add(new InGameState(game));
 		gameStates.add(new InventoryState(game));
 		gameStates.add(new SellerState(game));
+		gameStates.add(new ClassChoiceState(game)) ;
 	}
 	
 	public static void setState(int state) {

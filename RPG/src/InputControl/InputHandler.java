@@ -73,6 +73,7 @@ public class InputHandler implements KeyListener{
 		
 		if(KeyIndentity == KeyEvent.VK_ENTER) {
 			getEnter().setPressed(pressed);
+			;
 		}
 		
 	}

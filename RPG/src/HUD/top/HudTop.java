@@ -21,6 +21,14 @@ public class HudTop {
 	private String key;
 	
 	public HudTop () {
+		
+		
+		lifeBar = new LifeBar() ;
+		mpBar =  new MpBar() ;
+		expBar = new ExpBar();
+	}
+	
+	public void render(Player hero, Graphics g) {
 		ply = PlayerChoice.selected();
 		switch(ply.getType()) {
 		
@@ -40,13 +48,6 @@ public class HudTop {
 			System.out.println(ply.getType());
 		    background = ImageIO.read(new File(key));
 		} catch (IOException e) {}
-		
-		lifeBar = new LifeBar() ;
-		mpBar =  new MpBar() ;
-		expBar = new ExpBar();
-	}
-	
-	public void render(Player hero, Graphics g) {
 		g.drawImage(background, 0, 0, null);
 		
 		lifeBar.BarRender(hero, g);
