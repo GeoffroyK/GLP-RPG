@@ -76,7 +76,7 @@ public class DataBase extends Canvas {
 			e.printStackTrace();
 		}
 		System.out.println(this);
-		initGame1();
+
 		
 	}
 
@@ -84,7 +84,7 @@ public class DataBase extends Canvas {
 		return loots;
 	}
 
-	private static void initGame1() {
+	public static void initGame1() {
 
 		PlayerChoice.chooseClassPlayer("t");
 		ply = PlayerChoice.selected();
@@ -255,17 +255,15 @@ public class DataBase extends Canvas {
 		charInstances.put(guerrier.getId(),guerrier);
 		charInstances.put(boss.getId(),boss);
 		
-//		sc = new Scanner(System.in);
-//		System.out.println("CHOOSE CLASS OF CHARACTER : 't' = WARRIOR / 'y' = ARCHER / 'u' = MAGE\n OR EXIT = 'e'");
-//			String input = sc.nextLine() ;
-//			PlayerChoice.chooseClassPlayer(input);
 
-//		InventoryKey.addLoot(loots.get("E#001"), PlayerChoice.selected());
-//		InventoryKey.addLoot(loots.get("E#002"), PlayerChoice.selected());
-		//SALE ENCULE RENOMME TA METHODE RUN OU TICK PAS PTN DE GAMEINPUT
-//		new GameInput();
-//		sc.close();
-
+	}
+	
+	public static void initGame2() {
+		
+	}
+	
+	public static void initGame3() {
+		
 	}
 
 	public String toString() {
