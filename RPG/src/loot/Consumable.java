@@ -2,6 +2,10 @@ package loot;
 
 import java.awt.Graphics;
 
+/*
+ * DataClass for a Consumable 
+ */
+
 public class Consumable extends Loot {	
 	
 	private int hp;

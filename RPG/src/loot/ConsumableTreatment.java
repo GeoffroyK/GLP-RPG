@@ -2,6 +2,10 @@ package loot;
 
 import playable.Player;
 
+/*
+ * Manage the use of consumable
+ */
+
 public class ConsumableTreatment {
 	
 	public static void use(Consumable c, Player p) {

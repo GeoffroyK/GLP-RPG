@@ -6,7 +6,7 @@ import loot.*;
 import playable.Player;
 
 /*
- * Enable the Invotory window to show and manage the actions of the player
+ * Enable the Inventory manage the actions of the player
  */
 public class InventoryThread {
 	

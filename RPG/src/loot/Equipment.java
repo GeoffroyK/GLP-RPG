@@ -2,6 +2,10 @@ package loot;
 
 import java.awt.Graphics;
 
+/*
+ * DataClass for equipment
+ */
+
 public class Equipment extends Loot {
 	
 	private int hpMax;

@@ -6,7 +6,7 @@ import loot.Equipment;
 import loot.Loot;
 
 /*
- * Inventory of the Player 
+ * DataClass of Inventory of the Player 
  */
 public class Inventory {
 	
