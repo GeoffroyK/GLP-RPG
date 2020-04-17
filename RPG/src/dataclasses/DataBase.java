@@ -78,6 +78,7 @@ public class DataBase extends Canvas {
 		System.out.println(this);
 
 		
+		
 	}
 
 	public static HashMap<String, Loot> getLoots() {
