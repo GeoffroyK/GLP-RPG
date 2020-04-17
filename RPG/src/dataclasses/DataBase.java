@@ -24,6 +24,7 @@ import loot.Equipment;
 import loot.EquipmentTreatment;
 import map_objects.Chest;
 import map_objects.Seller;
+import map_objects.Stair;
 import loot.Loot;
 import map_objects.Prop;
 
@@ -32,7 +33,7 @@ import static inventory.InventoryKey.*;
 
 public class DataBase extends Canvas {
 
-	private Player ply;
+	private static Player ply;
 
 	private static final long serialVersionUID = 1L;
 
@@ -75,7 +76,6 @@ public class DataBase extends Canvas {
 			e.printStackTrace();
 		}
 		System.out.println(this);
-		initGame();
 
 	}
 
@@ -83,7 +83,7 @@ public class DataBase extends Canvas {
 		return loots;
 	}
 
-	private void initGame() {
+	private static void initGame1() {
 
 		PlayerChoice.chooseClassPlayer("t");
 		ply = PlayerChoice.selected();
@@ -215,6 +215,10 @@ public class DataBase extends Canvas {
 		Seller s = new Seller("s", "isi", "Ressources//Sprite//Props//Seller.png", 300, 500, list);
 		instances.put(s.getId(), s) ;
 		propInstance.add(s) ;
+		
+		Stair Stair = new Stair("st", "isi", "Ressources//Sprite//Props//Escalier.png", 300, 100, 1) ;
+        instances.put(Stair.getId(), Stair) ;
+        propInstance.add(Stair) ;
 		
 
 	

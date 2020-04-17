@@ -143,7 +143,7 @@ public class HudInventory implements MouseListener{
 	
 	public void echap() {
 		clickableZoneErase();
-		GameStateManager.setState(GameStateManager.INGAMESTATE);
+		GameStateManager.setCurrentState(GameStateManager.INGAMESTATE);
 		searchState = 0 ;
 		
 	}
