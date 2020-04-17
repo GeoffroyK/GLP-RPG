@@ -7,6 +7,9 @@ import playable.MoveTreatment;
 import playable.Player;
 import playable.PlayerChoice;
 
+/*
+ * Management of each Spell depending of the type and the input of the player
+ */
 public class SpellTreatment {
 
 	private static int buffTime[] = { 0, 0, 0, 0 }; // 0 = RageBuff, 1 = SpeedBuff, 2 = DodgeBuff, 3 = CritBuff

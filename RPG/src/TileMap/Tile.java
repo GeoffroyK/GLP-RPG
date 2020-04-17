@@ -2,6 +2,9 @@ package TileMap;
 
 import java.awt.image.BufferedImage;
 
+/*
+ * Tile of a map, a map contains several tiles of different type
+ */
 public class Tile {
 	private BufferedImage image;
 	private int type;

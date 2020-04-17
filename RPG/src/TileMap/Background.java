@@ -7,6 +7,9 @@ import javax.imageio.ImageIO;
 
 import game.Game;
 
+/*
+ * Background of the window when there is no map
+ */
 public class Background {
 
 	private BufferedImage image;

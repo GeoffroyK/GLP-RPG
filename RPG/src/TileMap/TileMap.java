@@ -11,6 +11,9 @@ import game.*;
 import TileMap.Tile;
 import javax.imageio.ImageIO;
 
+/*
+ * Load the map with a tileSet and a reading file 
+ */
 public class TileMap {	
 	//position
 	private static double x = 0;
@@ -43,6 +46,9 @@ public class TileMap {
 	private int numRowsToDraw = Game.HEIGHT / tileSize + 2;
 	private int numColsToDraw = Game.WIDTH / tileSize + 2;
 	
+	/*
+	 * load all tiles for a certain map 
+	 */
 	public void loadTiles(String s) {
 		try {
 			tileset = ImageIO.read(getClass().getResourceAsStream(s));
@@ -62,6 +68,9 @@ public class TileMap {
 		
 	}
 	
+	/*
+	 * After reading all the tiles, we need to put them in the right order to create the map 
+	 */
 	public void loadMap(String s) {
 		try {
 			InputStream in = getClass().getResourceAsStream(s);
@@ -95,6 +104,9 @@ public class TileMap {
 		return tiles[r][c].getType();
 	}
 	
+	/*
+	 * Determine the position of the map on the screen
+	 */
 	public void setPosition(double x, double y) {
 		this.x += ((x - this.x) * tween);
 		this.y += ((y - this.y) * tween);
@@ -105,7 +117,9 @@ public class TileMap {
 		rowOffset = (int) - this.y / tileSize;
 	}
 	
-
+	/*
+	 * set the limit of the map
+	 */
 	private void fixBounds() {
 		if(x < xmin) x = xmin;
 		if(y < ymin) y = ymin;
@@ -113,6 +127,9 @@ public class TileMap {
 		if(y > ymax) y = ymax;
 	}
 	
+	/*
+	 * render the map in the window
+	 */
 	public void draw(Graphics2D g) {
 		for(int row = rowOffset; row < rowOffset + numRowsToDraw; row++) {
 			if(row >= numRows) {

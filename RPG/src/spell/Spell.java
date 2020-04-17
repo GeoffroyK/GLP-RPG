@@ -17,6 +17,9 @@ import playable.Monster;
 import playable.Player;
 import playable.PlayerChoice;
 
+/*
+ * Spell of each character, each character contains 6 spells, contains of numerous amount of statistics loaded in a CSV
+ */
 public class Spell extends GameObject {
 
 	private String name;
@@ -70,6 +73,9 @@ public class Spell extends GameObject {
 
 	}
 	
+	/*
+	 * 2nd constructor to clone of an Instance
+	 */
 	public Spell(Spell spell) {
 		super(spell.getId(),spell.getSpritePath());
 		ply = PlayerChoice.selected();
@@ -129,6 +135,9 @@ public class Spell extends GameObject {
 		direction = 3;
 	}
 
+	/*
+	 * GameEngine of the Spell, enable its movement
+	 */
 	public void tick() {
 		if(name.equals("SpellMonster")) {
 			playerDetection();
@@ -141,6 +150,9 @@ public class Spell extends GameObject {
 		this.setY(getY() + getVelY());
 	}
 
+	/*
+	 * Render the sprite of the Spell
+	 */
 	public void render(Graphics g) {
 		
 		if(launched) {
@@ -196,6 +208,9 @@ public class Spell extends GameObject {
 		}
 	}
 	
+	/*
+	 * Determine if the spell has exceeded the range of launch
+	 */
 	private void isOutRange() {
 		if(x > xMaxPos || x < xMaxNeg || y > yMaxPos || y < yMaxNeg) {
 			launched = false;
@@ -205,6 +220,9 @@ public class Spell extends GameObject {
 		}
 	}
 	
+	/*
+	 * Collision of spell with the mob to deal damage
+	 */
 	private void mobDetection() {
 		
 		Colision spell = new Colision(getX(), getY(), getWidth(), getHeight());
