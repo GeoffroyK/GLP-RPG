@@ -31,6 +31,10 @@ import map_objects.Prop;
 import static inventory.InventoryThread.*;
 import static inventory.InventoryKey.*;
 
+/*
+ * This class initiate all dataBase and Hashmap for futur instances
+ */
+
 public class DataBase extends Canvas {
 
 	private static Player ply;
@@ -83,7 +87,11 @@ public class DataBase extends Canvas {
 	public static HashMap<String, Loot> getLoots() {
 		return loots;
 	}
+	
 
+	/*
+	 * d
+	 */
 	public static void initGame1() {
 
 
@@ -118,7 +126,7 @@ public class DataBase extends Canvas {
 		
 		Monster ronflex5 = new Monster((Monster)(Monster) characters.get("ma2"));
 		ronflex5.setId(ronflex.getId() + "#012");
-		ronflex5.setX(420);
+		ronflex5.setX(500);
 		ronflex5.setY(280);
 		ronflex5.setDirection(0);
 		ronflex5.defineArea();
@@ -133,7 +141,7 @@ public class DataBase extends Canvas {
 		Monster monstre = new Monster((Monster) characters.get("mt3"));
 		monstre.setId(monstre.getId() + "#002");
 		monstre.setX(680);
-		monstre.setY(230);
+		monstre.setY(300);
 		monstre.setDirection(0);
 		monstre.defineArea();
 		
@@ -186,21 +194,10 @@ public class DataBase extends Canvas {
 		guerrier.setDirection(0);
 		guerrier.defineArea();
 		
-		Monster boss = new Monster((Monster) characters.get("mb1"));
-		boss.setId(boss.getId() + "#014");
-		boss.setX(900);
-		boss.setY(400);
-		boss.setDirection(0);
-		boss.defineArea();
-
-	/*	//Prop coffre = new Prop("id", "coffre", 1, "null");
-		coffre.setX(5);
-		coffre.setY(0);
-		instances.put(coffre.getId(), coffre);*/
-		
-		Chest c = new Chest("c", "isi","Ressources//Sprite//Props//Chest.png", 300, 400, "E#001", 250) ;
+		Chest c = new Chest("c", "isi","Ressources//Sprite//Props//Chest.png", 80, 180, "E#001", 250) ;
 		instances.put(c.getId(), c);
 		propInstance.add(c) ;
+		
 		
 		ArrayList<Loot> list = new ArrayList<Loot>() ;
 		Collection i = DataBase.getLoots().values() ;
@@ -214,7 +211,7 @@ public class DataBase extends Canvas {
 		instances.put(s.getId(), s) ;
 		propInstance.add(s) ;
 		
-		Stair Stair = new Stair("st", "isi", "Ressources//Sprite//Props//Escalier.png", 300, 100, 1) ;
+		Stair Stair = new Stair("st", "isi", "Ressources//Sprite//Props//Escalier.png", 1300, 400, 1) ;
         instances.put(Stair.getId(), Stair) ;
         propInstance.add(Stair) ;
 		
@@ -234,7 +231,6 @@ public class DataBase extends Canvas {
 		instances.put(monstre6.getId(),monstre6);
 		instances.put(monstre7.getId(),monstre7);
 		instances.put(guerrier.getId(),guerrier);
-		instances.put(boss.getId(),boss);
 		
 		charInstances.put(ronflex.getId(),ronflex);
 		charInstances.put(ronflex2.getId(),ronflex2);
@@ -250,7 +246,6 @@ public class DataBase extends Canvas {
 		charInstances.put(monstre6.getId(),monstre6);
 		charInstances.put(monstre7.getId(),monstre7);
 		charInstances.put(guerrier.getId(),guerrier);
-		charInstances.put(boss.getId(),boss);
 		
 
 	}
@@ -364,15 +359,8 @@ public class DataBase extends Canvas {
 		instances.put(ronflex11.getId(),ronflex11);
 		charInstances.put(ronflex11.getId(),ronflex11);
 		
-
-		
-		Chest c2 = new Chest("c", "isi","Ressources//Sprite//Props//Chest.png", 100, 150, "E#001", 250) ;
-		instances.put(c2.getId(), c2);
-		propInstance.add(c2) ;
-		
-		Chest c1 = new Chest("c", "isi","Ressources//Sprite//Props//Chest.png", 900, 350, "E#001", 250) ;
-		instances.put(c1.getId(), c1);
-		propInstance.add(c1) ;
+		Chest c = new Chest("c", "isi","Ressources//Sprite//Props//Chest.png", 100, 180, "E#001", 250) ;
+		instances.put(c.getId(), c);
 		
 		ArrayList<Loot> list = new ArrayList<Loot>() ;
 		Collection i = DataBase.getLoots().values() ;
@@ -382,13 +370,13 @@ public class DataBase extends Canvas {
 			list.add(l) ;
 		}
 		
-		Seller s = new Seller("s", "isi", "Ressources//Sprite//Props//Seller.png", 130, 200, list);
+		Seller s = new Seller("s", "isi", "Ressources//Sprite//Props//Seller.png", 300, 500, list);
 		instances.put(s.getId(), s) ;
-		propInstance.add(s) ;
 		
-		Stair Stair = new Stair("st", "isi", "Ressources//Sprite//Props//Escalier.png", 1100, 380, 1) ;
+		Stair Stair = new Stair("st", "isi", "Ressources//Sprite//Props//Escalier.png", 1300, 400, 1) ;
         instances.put(Stair.getId(), Stair) ;
-        propInstance.add(Stair) ;
+		
+		
 	}
 	
 	public static void initGame3() {
@@ -400,9 +388,7 @@ public class DataBase extends Canvas {
 		boss.setY(400);
 		boss.setDirection(0);
 		boss.defineArea();
-		
 		instances.put(boss.getId(),boss);
-		
 		charInstances.put(boss.getId(),boss);
 	}
 

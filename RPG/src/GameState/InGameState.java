@@ -74,7 +74,7 @@ public class InGameState implements GameState {
         if(level == 3) {
             tileMap.loadMap(LEVEL3);
             ply = PlayerChoice.selected();
-            ply.setX(1550);
+            ply.setX(1500);
             ply.setY(600);
             DataBase.getInstances().clear();
             DataBase.getCharInstances().clear();
