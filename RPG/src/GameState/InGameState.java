@@ -29,7 +29,6 @@ public class InGameState implements GameState {
 
     public static final String LEVEL1 = "/Maps/etage1.map";
     public static final String LEVEL2 = "/Maps/point_avancement.map";
-
 	public static final String LEVEL3 = "/Tilesets/testtileset5.png";
 
 
@@ -69,13 +68,13 @@ public class InGameState implements GameState {
 
         //tileMap.loadMap("/Maps/debug.map");
         tileMap.setPosition(-400, -400);
-        b.clickableAreaCreation();
         //System.out.println(tileMap.getX());
     }
 	
 	public void tick() {
 		InputGame.move();
 		InputGame.spells();
+		b.clickableAreaCreation();
 		
 		Iterator<GameObject> itToBeAdded = DataBase.getToBeAdded().iterator();
 		while (itToBeAdded.hasNext()) {

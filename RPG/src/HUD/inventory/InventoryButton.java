@@ -38,11 +38,13 @@ public class InventoryButton implements MouseListener {
 	}
 	
 	public void checking() {
+		if(click != null && selection != null) {
 		if(searchState == 1) {
-			if(selection.contains(click)) {
-				if(GameStateManager.getCurrentState() != GameStateManager.INVENTORYSTATE) {
-					GameStateManager.setState(GameStateManager.INVENTORYSTATE);
-					clickableZoneErase();
+				if(selection.contains(click)) {
+					if(GameStateManager.getCurrentState() != GameStateManager.INVENTORYSTATE) {
+						GameStateManager.setState(GameStateManager.INVENTORYSTATE);
+						clickableZoneErase();
+					}
 				}
 			}
 		}
